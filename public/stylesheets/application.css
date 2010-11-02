@@ -1,0 +1,31 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Verdana; }
+
+a {
+  color: #adbf6b;
+  font-size: 80%; }
+  a:visited {
+    color: #74a629; }
+  a:hover {
+    color: #d97904; }
+
+#container {
+  margin: 0 auto;
+  padding: 0;
+  width: 960px; }
+
+#container h1 {
+  margin: 0px;
+  padding: 10px;
+  background-color: #d8e6f2;
+  color: #d94b2b; }
+
+input, textarea {
+  border: 2px solid gray;
+  padding: 5px; }
+  input background, textarea background {
+    color: #adbf6b; }
+  input:focus, textarea:focus {
+    border: 2px solid #d94b2b; }

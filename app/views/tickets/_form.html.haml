@@ -1,0 +1,19 @@
+= form_for(@ticket) do |f|
+  - if @ticket.errors.any?
+    #errorExplanation
+      %h2= "#{pluralize(@ticket.errors.count, 'error')} prohibited this user from being saved:"
+      %ul
+      - @ticket.errors.full_messages.each do |msg|
+        %li= msg
+  
+  .field
+    = f.label t('.student_id')
+    %br
+    = f.text_field :student_id
+  .field
+    = f.label t('.description')
+    %br
+    = f.text_area :description
+
+  .actions
+    = f.submit

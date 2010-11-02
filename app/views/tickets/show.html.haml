@@ -1,0 +1,10 @@
+%h1= t '.title'
+%p
+  = link_to t('back'), tickets_path
+  = link_to t('edit'), edit_ticket_path(@ticket)
+
+%dl
+  %dt= Ticket.human_attribute_name :id
+  %dd= @ticket.id
+  %dt= Ticket.human_attribute_name :description
+  %dd= @ticket.description

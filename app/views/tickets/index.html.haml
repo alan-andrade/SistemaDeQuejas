@@ -1,0 +1,18 @@
+%h1= t('.title')
+%p= link_to t('.new_ticket'), new_ticket_path
+
+%table
+  %thead
+    %tr
+      %th= Ticket.human_attribute_name :id
+      %th= Ticket.human_attribute_name :description
+      %th{:colspan => 3}= t 'actions'
+  
+  %tbody
+    - for ticket in @tickets
+      %tr{ :class => cycle(:odd, :even) }
+        %td= ticket.id
+        %td= ticket.description
+        %td.action= link_to t('show'), ticket
+        %td.action= link_to t('edit'), edit_ticket_path(ticket)
+        %td.action= link_to t('destroy'), ticket, :confirm => t('are_you_sure'), :method => :delete

@@ -1,0 +1,22 @@
+es:
+  ticket: "ticket"
+  back: "Regresar"
+  new:  "nuevo"
+  index:  "index"
+  edit:   "editar"
+  destroy:  "borrar"
+  show:     "Ver"
+  are_you_sure: "Estas seguro de borrar esta informacion?"
+  actions:   "acciones"
+  
+  tickets:
+    index:
+      title: "Quejas"    
+      new_ticket: "Nueva Queja"
+    
+    new:
+      title: "Levanta Queja"
+      
+    form:
+      description: "Descripcion"
+      student_id:   "Estudiante Id"
