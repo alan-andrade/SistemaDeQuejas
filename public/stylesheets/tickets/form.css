@@ -1,0 +1,14 @@
+form .field{
+  position:relative;margin:1em 0;
+}
+
+form .counter{
+	position:absolute;
+	left: 260px;
+	top:0;
+	font-size:20px;
+	font-weight:bold;
+	color:#bbb;
+	}	
+form .warning{color:#600;}	
+form .exceeded{color:#e00;}

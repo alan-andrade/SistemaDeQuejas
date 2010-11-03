@@ -1,6 +1,6 @@
 es:
   ticket: "ticket"
-  back: "Regresar"
+  back: "« Regresar"
   new:  "nuevo"
   index:  "index"
   edit:   "editar"
@@ -18,5 +18,6 @@ es:
       title: "Levanta Queja"
       
     form:
-      description: "Descripcion"
-      student_id:   "Estudiante Id"
+      description: "Descripción"
+      student_id:   "ID de Estudiante"
+      send:       "Enviar Queja"

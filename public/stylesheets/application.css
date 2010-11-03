@@ -22,10 +22,30 @@ a {
   background-color: #d8e6f2;
   color: #d94b2b; }
 
+fieldset {
+  background: #d8e6f2;
+  border: 1px solid #adbf6b; }
+
 input, textarea {
+  background-color: #f1f1f1;
   border: 2px solid gray;
-  padding: 5px; }
-  input background, textarea background {
-    color: #adbf6b; }
+  padding: 5px;
+  font-family: Arial;
+  font-size: 13px; }
   input:focus, textarea:focus {
     border: 2px solid #d94b2b; }
+
+textarea {
+  width: 350px;
+  height: 150px; }
+
+input[type=text] {
+  width: 350px; }
+
+label {
+  display: block;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  font-family: Arial, Helvetica, sans;
+  color: #d94b2b;
+  font-size: 20px; }

@@ -7,9 +7,10 @@ gem 'rails', '3.0.1'
 
 gem 'sqlite3-ruby', :require => 'sqlite3'
 gem 'haml'
+gem 'jquery-rails'
 
 # Use unicorn as the web server
-gem 'unicorn'
+# gem 'unicorn'
 
 # Deploy with Capistrano
 # gem 'capistrano'
