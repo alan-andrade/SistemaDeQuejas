@@ -1,10 +1,10 @@
 es:
-  ticket: "ticket"
+  ticket: "Ticket"
   back: "« Regresar"
   new:  "nuevo"
-  index:  "index"
-  edit:   "editar"
-  destroy:  "borrar"
+  index:  "Indice"
+  edit:   "Editar"
+  destroy:  "Borrar"
   show:     "Ver"
   are_you_sure: "Estas seguro de borrar esta informacion?"
   actions:   "acciones"
@@ -20,4 +20,10 @@ es:
     form:
       description: "Descripción"
       student_id:   "ID de Estudiante"
+      course_id:    "ID del Curso"
+      teacher_id:   "ID del Profesor"
+      ticket_type:  "Tipo de Queja"
       send:       "Enviar Queja"
+    
+    show:
+      title:  "Estado de Queja"

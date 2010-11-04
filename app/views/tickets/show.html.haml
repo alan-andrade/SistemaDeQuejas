@@ -1,10 +1,42 @@
 %h1= t '.title'
 %p
   = link_to t('back'), tickets_path
+  |
   = link_to t('edit'), edit_ticket_path(@ticket)
 
-%dl
-  %dt= Ticket.human_attribute_name :id
-  %dd= @ticket.id
-  %dt= Ticket.human_attribute_name :description
-  %dd= @ticket.description
+%blockquote  
+  = @ticket.description
+  
+%p
+  Alumno:
+  %i= @ticket.student_id
+%p
+  Curso:
+  %i= @ticket.course_id
+%p
+  Profesor:
+  %i= @ticket.teacher_id
+%p
+  Tipo:
+  %i= @ticket.ticket_type
+  
+%table
+  %thead
+    %tr
+      %th
+        Fecha
+      %th
+        Accion
+      %th
+        Comentarios
+  %tbody
+    %tr
+      %td
+        =@ticket.created_at.to_formatted_s(:short)
+      %td
+        Levantamiento
+      %td
+        Sin comentarios
+  
+      
+      

@@ -1,0 +1,13 @@
+= div_for ticket do
+  .right
+    \#
+    =ticket.id
+    %br 
+    =link_to t('show'), ticket_path(ticket)
+    =link_to t('destroy'), ticket_path(ticket), :method=>:delete, :confirm =>  t('are_you_sure')
+  .time
+    =ticket.created_at.to_formatted_s(:long)
+    %br
+  .description
+    =ticket.description  
+  

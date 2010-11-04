@@ -3,9 +3,12 @@ body {
   padding: 0;
   font-family: Arial, Verdana; }
 
+p {
+  font-size: 13px; }
+
 a {
   color: #adbf6b;
-  font-size: 80%; }
+  font-size: 95%; }
   a:visited {
     color: #74a629; }
   a:hover {
@@ -20,7 +23,19 @@ a {
   margin: 0px;
   padding: 10px;
   background-color: #d8e6f2;
-  color: #d94b2b; }
+  color: #d94b2b;
+  -webkit-border-top-left-radius: 0px;
+  -webkit-border-top-right-radius: 0px;
+  -webkit-border-bottom-right-radius: 10px;
+  -webkit-border-bottom-left-radius: 10px;
+  -moz-border-radius-topleft: 0px;
+  -moz-border-radius-topright: 0px;
+  -moz-border-radius-bottomright: 10px;
+  -moz-border-radius-bottomleft: 10px;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px; }
 
 fieldset {
   background: #d8e6f2;
@@ -49,3 +64,12 @@ label {
   font-family: Arial, Helvetica, sans;
   color: #d94b2b;
   font-size: 20px; }
+
+blockquote {
+  margin: 1em 3em;
+  padding: 1em;
+  font-size: 110%;
+  border-left: 5px solid #fce27c;
+  background-color: #f4f4aa;
+  font-style: italic;
+  font-family: times, arial, sans; }

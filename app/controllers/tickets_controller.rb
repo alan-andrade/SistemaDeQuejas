@@ -25,7 +25,7 @@ class TicketsController < ApplicationController
   # GET /tickets/new.xml
   def new
     @ticket = Ticket.new
-
+    params.each_pair{|key, attr| @ticket.send("#{key}=", attr) if @ticket.respond_to?(key) }
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @ticket }

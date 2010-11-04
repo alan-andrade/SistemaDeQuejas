@@ -14,6 +14,10 @@ ActiveRecord::Schema.define(:version => 20101102162155) do
 
   create_table "tickets", :force => true do |t|
     t.integer  "student_id"
+    t.integer  "teacher_id"
+    t.string   "course_id"
+    t.integer  "responsible_id"
+    t.string   "ticket_type"
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
