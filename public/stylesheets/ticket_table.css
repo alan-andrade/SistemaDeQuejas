@@ -1,0 +1,10 @@
+table {
+  border-collapse: collapse;
+  width: 100%; }
+  table thead {
+    background: #d8e6f2; }
+  table td {
+    padding: 10px;
+    text-align: center; }
+  table tr {
+    border-bottom: 1px solid #adbf6b; }

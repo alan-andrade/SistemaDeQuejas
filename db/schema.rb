@@ -10,7 +10,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101102162155) do
+ActiveRecord::Schema.define(:version => 20101105010033) do
+
+  create_table "changes", :force => true do |t|
+    t.text     "intern_comments"
+    t.text     "extern_comments"
+    t.string   "change_type"
+    t.integer  "responsible_id"
+    t.integer  "ticket_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "tickets", :force => true do |t|
     t.integer  "student_id"
@@ -19,6 +29,7 @@ ActiveRecord::Schema.define(:version => 20101102162155) do
     t.integer  "responsible_id"
     t.string   "ticket_type"
     t.text     "description"
+    t.string   "status"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -1,12 +1,13 @@
 class CreateTickets < ActiveRecord::Migration
   def self.up
     create_table :tickets do |t|
-      t.integer :student_id
-      t.integer :teacher_id
+      t.references :student
+      t.references :teacher
       t.string  :course_id
-      t.integer :responsible_id
+      t.references :responsible
       t.string  :ticket_type
       t.text    :description
+      t.string  :status
 
       t.timestamps
     end

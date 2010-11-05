@@ -1,13 +1,24 @@
 = div_for ticket do
   .right
     \#
-    =ticket.id
-    %br 
-    =link_to t('show'), ticket_path(ticket)
-    =link_to t('destroy'), ticket_path(ticket), :method=>:delete, :confirm =>  t('are_you_sure')
+    =ticket.id    
   .time
-    =ticket.created_at.to_formatted_s(:long)
-    %br
+    = distance_of_time_in_words(Time.now, ticket.created_at)
+    &raquo;
+    = ticket.created_at.to_formatted_s(:long)
   .description
-    =ticket.description  
-  
+    =ticket.description
+  %p
+    = t('responsible')
+    \:
+    -if ticket.responsible_id.nil?
+      %span.alert= t('no_responsible')
+    -else
+      = ticket.responsible_id
+    , 
+    = t('tipo_de_queja')
+    \:
+    = ticket.ticket_type
+  %p  
+    =link_to t('show'), ticket_path(ticket)
+    =link_to  t('assign_responsible')  

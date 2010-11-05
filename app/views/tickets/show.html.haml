@@ -19,7 +19,9 @@
 %p
   Tipo:
   %i= @ticket.ticket_type
-  
+%p
+  Status: 
+  = t(@ticket.status)  
 %table
   %thead
     %tr
