@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class TicketTest < ActiveSupport::TestCase
-  # Replace this with your real tests.
+
   test "ticket_saved_with_student_id" do
     ticket  = Ticket.new()
     assert !ticket.save

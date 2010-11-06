@@ -24,7 +24,7 @@
       %p
         =link_to t('show'), ticket_path(ticket)
         %br
-        =link_to  t('assign_responsible'), edit_ticket_responsible_path(ticket,1)
+        =link_to  t('assign_responsible'), responsible_ticket_path(ticket)
         %br
         =link_to t('new_change'), new_ticket_change_path(ticket)
   .pg

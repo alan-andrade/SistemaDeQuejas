@@ -1,6 +1,6 @@
 SistemaDeQuejas::Application.routes.draw do
   resources :tickets do
-    resources :responsible, :controller  =>  :tickets_responsibles
+    get 'assign_responsible', :on  =>  :member # Temporarly routes. while we clarify technical doubts.
     resources :changes
   end
 

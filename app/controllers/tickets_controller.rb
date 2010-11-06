@@ -80,4 +80,10 @@ class TicketsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+  
+  ## GET /tickets/1/assign_responsible
+  def assign_responsible
+    @ticket = Ticket.find(params[:id])
+  end
+    
 end

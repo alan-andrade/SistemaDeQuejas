@@ -43,11 +43,9 @@ es:
       title:  "Estado de Queja"
     edit:
       title:  "Editar Contenido de Queja"
-      
-  tickets_responsibles:
-    edit:
+    assign_responsible:
       responsible_id: "Responsable"
-  
+        
   changes:
     new:
       title: 'Cambio a la queja'
