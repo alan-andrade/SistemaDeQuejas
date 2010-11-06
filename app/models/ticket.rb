@@ -1,7 +1,7 @@
 class Ticket < ActiveRecord::Base
   # Arreglo de posibles estados de la queja
-  STATUS =  [:pending,  :active,  :finished].freeze
-  CORRESPONDING_TO    = [:profesor, :course,  :content, :other].freeze
+  STATUS              =   [:pending,  :active,  :finished].freeze
+  CORRESPONDING_TO    =   [:profesor, :course,  :content, :other].freeze
   # Relaciones con otras clases
   #
   #   belongs_to  :student
@@ -25,7 +25,7 @@ class Ticket < ActiveRecord::Base
         :extern_comments=>"La queja la ha tomado #{responsible_id}. Estamos trabajando en tu peticion",
         :change_type  =>  "advance"
         )
-      self.status = STATUS[1] if status == STATUS[0].to_s
+      self.status = STATUS[1]
     end
   end
 end

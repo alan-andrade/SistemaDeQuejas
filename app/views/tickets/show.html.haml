@@ -19,8 +19,8 @@
   Profesor:
   %i= @ticket.teacher_id
 %p
-  Tipo:
-  %i= @ticket.ticket_type
+  Correspondiente a:
+  %i= t @ticket.corresponding_to
 %p
   Status: 
   = t(@ticket.status)  

@@ -13,12 +13,14 @@ one:
   student_id: 135987
   teacher_id: 1010
   course_id:  "IS-402"
-  corresponding_to: <%= Ticket::TYPE[0] %>
+  corresponding_to: <%= Ticket::CORRESPONDING_TO[0] %>
+  status: "pending"
   description: "El profesor no me trata con respeto."
 
 two:
   student_id: 135977
   teacher_id: 4444
   course_id:  "MA-402"
-  corresponding_to: <%= Ticket::TYPE[1] %>
+  corresponding_to: <%= Ticket::CORRESPONDING_TO[1] %>
+  status: "pending"
   description: "El curso es muy avanzado para mi, me habian dicho que estaba facil"
