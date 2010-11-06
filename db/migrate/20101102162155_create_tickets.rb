@@ -5,7 +5,7 @@ class CreateTickets < ActiveRecord::Migration
       t.references :teacher
       t.string  :course_id
       t.references :responsible
-      t.string  :ticket_type
+      t.string  :corresponding_to
       t.text    :description
       t.string  :status
 

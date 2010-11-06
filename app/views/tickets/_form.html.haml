@@ -21,9 +21,9 @@
       %small  Con que tienes problema?
       %br
       %p
-        -for type in Ticket::TYPE
-          = f.radio_button  :ticket_type, type
-          = t type
+        -for subject in Ticket::CORRESPONDING_TO
+          = f.radio_button  :corresponding_to, subject
+          = t subject
           %br
     .field
       = f.label t('.description')

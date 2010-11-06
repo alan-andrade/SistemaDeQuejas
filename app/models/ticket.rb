@@ -1,7 +1,7 @@
 class Ticket < ActiveRecord::Base
   # Arreglo de posibles estados de la queja
   STATUS =  [:pending,  :active,  :finished].freeze
-  TYPE    = [:profesor, :course,  :content, :other].freeze
+  CORRESPONDING_TO    = [:profesor, :course,  :content, :other].freeze
   # Relaciones con otras clases
   #
   #   belongs_to  :student

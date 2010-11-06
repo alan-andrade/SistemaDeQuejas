@@ -6,4 +6,6 @@ class TicketTest < ActiveSupport::TestCase
     ticket  = Ticket.new(:student_id=>34123)
     assert ticket.save
   end
+  
+  
 end
