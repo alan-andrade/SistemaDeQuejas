@@ -21,14 +21,10 @@
       %small  Con que tienes problema?
       %br
       %p
-        = f.radio_button  :ticket_type, 'profesor'
-        Profesor
-        %br
-        = f.radio_button  :ticket_type, 'curso'
-        Curso
-        %br
-        = f.radio_button  :ticket_type, 'contenido'
-        Contenido
+        -for type in Ticket::TYPE
+          = f.radio_button  :ticket_type, type
+          = t type
+          %br
     .field
       = f.label t('.description')
       = f.text_area :description

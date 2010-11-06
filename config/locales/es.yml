@@ -13,6 +13,15 @@ es:
   no_responsible: "Sin Responsable"
   tipo_de_queja:  "Tipo de Queja"
   pending:  "Pendiente"
+  active: "Activo"
+  waiting:  "En Espera"
+  advance:  "Avance"
+  finished: "Terminado"
+  new_change: "Aplicar Cambio"
+  profesor: "Profesor"
+  course: "Curso"
+  content:  "Contenido"
+  other:  "Otro"
   
   tickets:
     index:
@@ -34,6 +43,17 @@ es:
       title:  "Estado de Queja"
     edit:
       title:  "Editar Contenido de Queja"
+      
+  tickets_responsibles:
+    edit:
+      responsible_id: "Responsable"
+  
+  changes:
+    new:
+      title: 'Cambio a la queja'
+      intern_comments:  'Comentarios para administrativos'
+      extern_comments:  'Comentarios para estudiante'
+      change_types:     'Tipo de Cambio'
       
   date:
     order: [:day, :month, :year]

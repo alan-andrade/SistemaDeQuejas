@@ -3,8 +3,7 @@
   :javascript
     $(document).ready(function(){$("#ticket_description").charCount({allowed: 300, counterText: "Límite:"});});  
 
-- content_for :css  do  
-  =stylesheet_link_tag 'tickets/form.css'
+- include_css 'tickets/form.css'
   
 %h1= t '.title'
 %p= link_to t('back'), tickets_path

@@ -1,0 +1,14 @@
+- include_css 'tickets/form.css'
+  
+%h1 Asignar Responsable
+%p
+  = link_to t('back'), tickets_path
+  
+= form_for @ticket do |t|
+  =field_set_tag do
+    .field
+      =t.label t('.responsible_id')
+      =t.text_field  :responsible_id
+      
+    .actions
+      =t.submit 

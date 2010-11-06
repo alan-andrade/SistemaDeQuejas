@@ -1,5 +1,8 @@
 SistemaDeQuejas::Application.routes.draw do
-  resources :tickets
+  resources :tickets do
+    resources :responsible, :controller  =>  :tickets_responsibles
+    resources :changes
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

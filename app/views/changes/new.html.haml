@@ -1,0 +1,27 @@
+- include_css 'tickets/form.css'
+
+%h1= t('.title')
+%p
+  =link_to t('back'), tickets_path
+  
+=form_for [@ticket,@change] do |c|
+  =field_set_tag do    
+    .field
+      =c.label   t('responsible')
+      =c.text_field :responsible_id
+      %br
+      \### Este campo se va a eliminar cuando se tenga una session del administrativo
+      %br
+      \### Que hace el cambio
+    .field
+      =c.label  t('.change_types')    
+      =c.select :change_type, Change::CHANGE_TYPES.map{|ct| [t(ct),ct]}
+    .field
+      =c.label t('.intern_comments')
+      =c.text_area :intern_comments
+    .field
+      =c.label  t('.extern_comments')
+      =c.text_area  :extern_comments
+    .actions
+      =c.submit
+

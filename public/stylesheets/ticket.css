@@ -7,18 +7,24 @@
   -moz-border-radius: 10px;
   border-radius: 10px; }
   .ticket .right {
-    float: right;
+    float: left;
     font-weight: bold;
+    width: 300px;
     text-align: right; }
+  .ticket .left {
+    width: 640px;
+    float: left; }
+  .ticket .pg {
+    clear: both; }
   .ticket .description {
     font-size: 95%;
     font-family: Times, Arial, sans;
-    width: 640px;
     padding: 5px;
     text-align: justify;
     border-bottom: 1px solid #d8e6f2; }
   .ticket .time {
-    margin: 5px;
+    padding: 5px;
     color: #d94b2b; }
   .ticket .actions {
-    float: right; }
+    text-align: left;
+    padding: 5px; }

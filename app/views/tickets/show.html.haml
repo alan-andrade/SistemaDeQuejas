@@ -3,6 +3,8 @@
   = link_to t('back'), tickets_path
   |
   = link_to t('edit'), edit_ticket_path(@ticket)
+  |
+  = link_to t('destroy'), ticket_path(@ticket), :method=>'delete', :confirm => t('are_you_sure')
 
 %blockquote  
   = @ticket.description
@@ -22,6 +24,7 @@
 %p
   Status: 
   = t(@ticket.status)  
+      
 %table
   %thead
     %tr
@@ -39,6 +42,14 @@
         Levantamiento
       %td
         Sin comentarios
+    - for change in @ticket.changes
+      %tr
+        %td
+          =change.created_at.to_formatted_s(:short)
+        %td
+          =t change.change_type
+        %td
+          =change.extern_comments
   
       
       

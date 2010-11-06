@@ -1,13 +1,2 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one:
-  intern_comments: MyText
-  extern_comments: MyText
-  change_type: MyString
-  responsible_id: 1
-
-two:
-  intern_comments: MyText
-  extern_comments: MyText
-  change_type: MyString
-  responsible_id: 1

@@ -1,0 +1,2 @@
+module TicketsResponsiblesHelper
+end

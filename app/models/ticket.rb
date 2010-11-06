@@ -1,7 +1,7 @@
 class Ticket < ActiveRecord::Base
   # Arreglo de posibles estados de la queja
-  STATUS =  [:pending, :active, :finished].freeze
-  
+  STATUS =  [:pending,  :active,  :finished].freeze
+  TYPE    = [:profesor, :course,  :content, :other].freeze
   # Relaciones con otras clases
   #
   #   belongs_to  :student
@@ -10,10 +10,22 @@ class Ticket < ActiveRecord::Base
   #   belongs_to  :responsible
   # 
   #   Se descomentara mas adelante cuando se tenga mas idea sobre la implementacion.
+  has_many  :changes, :dependent  =>  :destroy
   
+  validates :student_id,  :presence  =>  true  
   
-  validates :student_id,  :presence  =>  true
-  validates :status,      :presence =>  true
+  before_save {|t| t.status = STATUS[0] if t.status.nil?} # Could be fixed with the :deafult option in the migration.
+  before_save :responsible_changed?
   
-  before_save {|t| t.status = STATUS[0] }
+  private
+    
+  def responsible_changed?
+    if responsible_id_changed?             
+      changes.create(
+        :extern_comments=>"La queja la ha tomado #{responsible_id}. Estamos trabajando en tu peticion",
+        :change_type  =>  "advance"
+        )
+      self.status = STATUS[1] if status == STATUS[0].to_s
+    end
+  end
 end
