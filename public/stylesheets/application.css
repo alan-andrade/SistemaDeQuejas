@@ -36,6 +36,10 @@ a {
   border-top-right-radius: 0px;
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px; }
+#container h2 {
+  color: #333333;
+  border-bottom: 1px solid #d94b2b;
+  font-size: 1.2em; }
 
 fieldset {
   background: #d8e6f2;

@@ -2,7 +2,9 @@ class TicketsController < ApplicationController
   # GET /tickets
   # GET /tickets.xml
   def index
-    @tickets = Ticket.order('created_at DESC')
+    @pending_tickets  = Ticket.order('created_at DESC').pending
+    @active_tickets   = Ticket.order('created_at DESC').active
+    @finished_tickets = Ticket.order('created_at DESC').finished
 
     respond_to do |format|
       format.html # index.html.erb

@@ -27,6 +27,9 @@ es:
     index:
       title: "Quejas"    
       new_ticket: "Nueva Queja"
+      pending_tickets: "Quejas Pendientes"
+      active_tickets: "Quejas Activas"
+      finished_tickets: "Quejas Terminadas"
     
     new:
       title: "Levanta Queja"
