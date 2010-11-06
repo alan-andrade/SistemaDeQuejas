@@ -1,7 +1,7 @@
 class Ticket < ActiveRecord::Base
   # Arreglo de posibles estados de la queja
-  STATUS              =   [:pending,  :active,  :finished].freeze
-  CORRESPONDING_TO    =   [:profesor, :course,  :content, :other].freeze
+  STATUS              =   [:pending,  :active,  :finished].map(&:to_s).freeze
+  CORRESPONDING_TO    =   [:profesor, :course,  :content, :other].map(&:to_s).freeze
   # Relaciones con otras clases
   #
   #   belongs_to  :student
@@ -12,7 +12,8 @@ class Ticket < ActiveRecord::Base
   #   Se descomentara mas adelante cuando se tenga mas idea sobre la implementacion.
   has_many  :changes, :dependent  =>  :destroy
   
-  validates :student_id,  :presence  =>  true  
+  validates :student_id,        :presence   =>  true
+  validates :corresponding_to,  :inclusion  =>  {:in => CORRESPONDING_TO}
   
   before_save {|t| t.status = STATUS[0] if t.status.nil?} # Could be fixed with the :deafult option in the migration.
   before_save :responsible_changed?
