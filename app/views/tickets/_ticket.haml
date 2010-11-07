@@ -18,8 +18,9 @@
       \:
       = t ticket.corresponding_to
   .right
-    \#
-    =ticket.id
+    .id
+      \#
+      =ticket.id
     .actions
       %p
         =link_to t('show'), ticket_path(ticket)

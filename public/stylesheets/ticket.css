@@ -8,9 +8,15 @@
   border-radius: 10px; }
   .ticket .right {
     float: left;
-    font-weight: bold;
     width: 300px;
     text-align: right; }
+    .ticket .right .id {
+      font-family: Times;
+      font-size: 110%;
+      font-style: oblique;
+      float: right; }
+  .ticket .actions {
+    padding-top: 10px; }
   .ticket .left {
     width: 640px;
     float: left; }
@@ -25,6 +31,3 @@
   .ticket .time {
     padding: 5px;
     color: #d94b2b; }
-  .ticket .actions {
-    text-align: left;
-    padding: 5px; }
