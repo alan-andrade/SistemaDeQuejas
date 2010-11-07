@@ -4,6 +4,8 @@
   |
   = link_to t('edit'), edit_ticket_path(@ticket)
   |
+  = link_to 'PDF',  ticket_path(@ticket, :format => :pdf)
+  |
   = link_to t('destroy'), ticket_path(@ticket), :method=>'delete', :confirm => t('are_you_sure')
 
 %blockquote  

@@ -1,3 +1,5 @@
+require 'prawn'
+
 class Ticket < ActiveRecord::Base
   # Arreglo de posibles estados de la queja
   STATUS              =   [:pending,  :active,  :finished].map(&:to_s).freeze
@@ -26,6 +28,18 @@ class Ticket < ActiveRecord::Base
   
   before_save {|t| t.status = STATUS[0] if t.status.nil?} # Could be fixed with the :deafult option in the migration.
   before_save :responsible_changed?
+  
+  #TODO: get a good look for pdf rendering sheets.
+  def to_pdf
+    Prawn::Document.new do |pdf|
+      pdf.text created_at.to_formatted_s(:long)
+      pdf.text description,  :align  =>  :center, :size => 20
+      pdf.text "Evolucion", :size => 17
+      for change in changes
+        pdf.text change.created_at.to_formatted_s(:short)
+      end
+    end.render
+  end
   
   private
     

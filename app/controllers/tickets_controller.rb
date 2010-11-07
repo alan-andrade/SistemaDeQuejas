@@ -20,6 +20,7 @@ class TicketsController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @ticket }
+      format.pdf  { send_data  @ticket.to_pdf }
     end
   end
 
