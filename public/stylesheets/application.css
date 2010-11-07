@@ -98,5 +98,5 @@ blockquote {
   border-top-right-radius: 0px;
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px; }
-  .flash #notice {
+  .flash p > #notice {
     color: #222f40; }
