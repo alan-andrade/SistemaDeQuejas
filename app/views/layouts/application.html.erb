@@ -9,9 +9,15 @@
   <%= csrf_meta_tag %>
 </head>
 <body>
+<% unless flash.empty? %>
+<%= content_tag :div, :class=>:flash, :style=>"display:none" do -%>
+  <% flash.each_pair do |key, msg| %>
+    <p id="#{key}"><%= msg %></p>
+  <% end %>
+<% end %>
+<% end %>
 <div id="container">
   <%= yield %>
-  <p><%= flash[:notice] %></p>
 </div>
 </body>
 </html>
