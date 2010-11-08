@@ -30,15 +30,30 @@ class Ticket < ActiveRecord::Base
   before_save :responsible_changed?
   
   #TODO: get a good look for pdf rendering sheets.
-  def to_pdf
+  def self.to_pdf(*tickets)
+    tickets.flatten!
     Prawn::Document.new do |pdf|
-      pdf.text created_at.to_formatted_s(:long)
-      pdf.text description,  :align  =>  :center, :size => 20
-      pdf.text "Evolucion", :size => 17
-      for change in changes
-        pdf.text change.created_at.to_formatted_s(:short)
-      end
+      if tickets.size == 1
+        ticket  = tickets.first
+        pdf.text ticket.created_at.to_formatted_s(:long)
+        pdf.text ticket.description,  :align  =>  :center, :size => 20
+        pdf.text "Evolucion", :size => 17
+        for change in ticket.changes
+          pdf.text change.created_at.to_formatted_s(:short)
+        end
+      else
+        for ticket in tickets
+          pdf.text ticket.created_at.to_formatted_s(:long)
+          pdf.text ticket.description,  :align  =>  :center, :size => 20
+          pdf.text "Evolucion", :size => 17
+          for change in ticket.changes
+            pdf.text change.created_at.to_formatted_s(:short)
+          end
+          pdf.text '-------------------------------'
+        end        
+      end     
     end.render
+   
   end
   
   private

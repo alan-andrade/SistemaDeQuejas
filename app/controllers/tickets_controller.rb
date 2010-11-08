@@ -9,6 +9,10 @@ class TicketsController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @tickets }
+      format.pdf  do
+        @tickets_to_report = Ticket.find(cookies['tickets_to_report'].split(' '))
+        send_data Ticket.to_pdf(@tickets_to_report)
+      end
     end
   end
 
@@ -20,7 +24,7 @@ class TicketsController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @ticket }
-      format.pdf  { send_data  @ticket.to_pdf }
+      format.pdf  { send_data  Ticket.to_pdf(@ticket) }
     end
   end
 

@@ -6,6 +6,8 @@
   =link_to t('.new_ticket'), new_ticket_path
   |
   =link_to 'Nueva Queja con parametros', new_ticket_path(:student_id=>135987, :teacher_id=>1230, :course_id=>'IS-234')
+  |
+  = link_to 'Reporte',  tickets_path(:format=>:pdf)
 
 %h2= t('.pending_tickets')
 =render @pending_tickets
