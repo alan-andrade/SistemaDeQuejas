@@ -4,4 +4,10 @@ module ApplicationHelper
       stylesheet_link_tag file
     end
   end
+  
+  def include_script(file="")
+    content_for :script do
+      javascript_include_tag file
+    end    
+  end
 end

@@ -28,5 +28,8 @@
         =link_to  t('assign_responsible'), responsible_ticket_path(ticket)
         %br
         =link_to t('new_change'), new_ticket_change_path(ticket)
+        %br
+        = check_box_tag('ticket_to_report', ticket.id, false)
+        Para reporte?
   .pg
 
