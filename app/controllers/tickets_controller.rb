@@ -18,10 +18,10 @@ class TicketsController < ApplicationController
         format.html # index.html.erb
       end
       
-      #format.pdf  do
-      #  @tickets_to_report = Ticket.find(cookies['tickets_to_report'].split(' '))
-      #  send_data Ticket.to_pdf(@tickets_to_report)
-      #end
+      format.pdf  do
+        @tickets_to_report = Ticket.find(cookies['tickets_to_report'].split(' '))
+        send_data Ticket.to_pdf(@tickets_to_report)
+      end
     end
   end
 
