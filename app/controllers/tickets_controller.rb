@@ -1,18 +1,27 @@
 class TicketsController < ApplicationController
-  # GET /tickets
-  # GET /tickets.xml
+
   def index
-    @pending_tickets  = Ticket.order('created_at DESC').pending
-    @active_tickets   = Ticket.order('created_at DESC').active
-    @finished_tickets = Ticket.order('created_at DESC').finished
+    status  = params[:status]    
+    @tickets = case status
+                when 'pending' then
+                  Ticket.order('created_at DESC').pending
+                when 'active'
+                  Ticket.order('created_at DESC').active
+                when 'finished'
+                  Ticket.order('created_at DESC').finished
+              end
 
     respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @tickets }
-      format.pdf  do
-        @tickets_to_report = Ticket.find(cookies['tickets_to_report'].split(' '))
-        send_data Ticket.to_pdf(@tickets_to_report)
+      if request.xhr?
+        format.js { render @tickets }
+      else
+        format.html # index.html.erb
       end
+      
+      #format.pdf  do
+      #  @tickets_to_report = Ticket.find(cookies['tickets_to_report'].split(' '))
+      #  send_data Ticket.to_pdf(@tickets_to_report)
+      #end
     end
   end
 

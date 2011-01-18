@@ -35,7 +35,9 @@
       %th
         Accion
       %th
-        Comentarios
+        Comentarios(Alumno)
+      %th
+        Comentarios(Administrativo)
   %tbody
     %tr
       %td
@@ -52,6 +54,8 @@
           =t change.change_type
         %td
           =change.extern_comments
+        %td
+          =change.intern_comments
   
 %p= link_to t('new_change'), new_ticket_change_path(@ticket)
       

@@ -1,4 +1,5 @@
 SistemaDeQuejas::Application.routes.draw do
+  match 'tickets/:status' => "tickets#index", :constraints=>{:status=>/pending|active|finished/}, :via=>:get, :as=>'tickets_by_status'
   resources :tickets do
     get 'assign_responsible', :on  =>  :member, :as => 'responsible' # Temporarly routes. while we clarify technical doubts.
     resources :changes

@@ -5,7 +5,7 @@ es:
   index:  "Indice"
   edit:   "Editar"
   destroy:  "Borrar"
-  show:     "Ver Detalles"
+  show:     "Detalles"
   are_you_sure: "Estas seguro de borrar esta informacion?"
   actions:   "acciones"
   assign_responsible:     "Asignar Responsable"

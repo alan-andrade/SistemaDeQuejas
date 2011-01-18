@@ -1,4 +1,4 @@
-require 'prawn'
+require 'prawn'   #PDF Files Generation
 
 class Ticket < ActiveRecord::Base
   # Arreglo de posibles estados de la queja
@@ -29,7 +29,7 @@ class Ticket < ActiveRecord::Base
   before_save {|t| t.status = STATUS[0] if t.status.nil?} # Could be fixed with the :deafult option in the migration.
   before_save :responsible_changed?
   
-  #TODO: get a good look for pdf rendering sheets.
+  #// TODO: get a good look for pdf rendering sheets.
   def self.to_pdf(*tickets)
     tickets.flatten!
     Prawn::Document.new do |pdf|
