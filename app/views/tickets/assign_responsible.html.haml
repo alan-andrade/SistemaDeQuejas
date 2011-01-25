@@ -7,8 +7,8 @@
 = form_for @ticket do |t|
   =field_set_tag do
     .field
-      =t.label t('.responsible_id')
-      =t.text_field  :responsible_id
+      =t.label t('.responsible')
+      =t.text_field  :responsible
       
     .actions
       =t.submit 

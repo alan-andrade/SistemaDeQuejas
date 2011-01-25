@@ -1,4 +1,4 @@
 =div_for ticket do 
   = check_box_tag('ticket_to_report', ticket.id, false)
-  = ticket.responsible_id || 'Sin Responsable'
-        
+  = ticket.responsible || 'Sin Responsable'  
+  = link_to 'Ver Detalles', ticket_path(ticket)

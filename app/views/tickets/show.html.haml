@@ -8,18 +8,21 @@
   |
   = link_to t('destroy'), ticket_path(@ticket), :method=>'delete', :confirm => t('are_you_sure')
 
+%p
+  A cargo de:
+  = @ticket.responsible || link_to("Asignar Responsable", responsible_ticket_path)
 %blockquote  
   = @ticket.description
   
 %p
   Alumno:
-  %i= @ticket.student_id
+  %i= @ticket.student
 %p
   Curso:
-  %i= @ticket.course_id
+  %i= @ticket.course
 %p
   Profesor:
-  %i= @ticket.teacher_id
+  %i= @ticket.teacher
 %p
   Correspondiente a:
   %i= t @ticket.corresponding_to

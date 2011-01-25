@@ -15,7 +15,7 @@ class Ticket < ActiveRecord::Base
   has_many  :changes, :dependent  =>  :destroy
   
   ## Validators
-  validates :student_id,        :presence   =>  true
+  validates :student,           :presence   =>  true
   validates :corresponding_to,  :inclusion  =>  {:in => CORRESPONDING_TO}
   
   ## Scopes
@@ -27,7 +27,7 @@ class Ticket < ActiveRecord::Base
   ## Callbacks before saving record
   
   before_save {|t| t.status = STATUS[0] if t.status.nil?} # Could be fixed with the :deafult option in the migration.
-  before_save :responsible_changed?
+  before_save :responsible_management
   
   #// TODO: get a good look for pdf rendering sheets.
   def self.to_pdf(*tickets)
@@ -58,10 +58,10 @@ class Ticket < ActiveRecord::Base
   
   private
     
-  def responsible_changed?
-    if responsible_id_changed?             
+  def responsible_management
+    if responsible_changed?             
       changes.create(
-        :extern_comments=>"La queja la ha tomado #{responsible_id}. Estamos trabajando en tu peticion",
+        :extern_comments=>"La queja la ha tomado #{responsible}. Estamos trabajando en tu peticion",
         :change_type  =>  "advance"
         )
       self.status = STATUS[1]

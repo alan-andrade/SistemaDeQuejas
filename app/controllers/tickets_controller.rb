@@ -3,17 +3,14 @@ class TicketsController < ApplicationController
   def index
     status  = params[:status]    
     @tickets = case status
-                when 'pending' then
-                  Ticket.order('created_at DESC').pending
-                when 'active'
-                  Ticket.order('created_at DESC').active
-                when 'finished'
-                  Ticket.order('created_at DESC').finished
+                when 'pending'  then  Ticket.order('created_at DESC').pending
+                when 'active'   then  Ticket.order('created_at DESC').active
+                when 'finished' then  Ticket.order('created_at DESC').finished
               end
 
     respond_to do |format|
       if request.xhr?
-        format.js { render @tickets }
+        format.js { @tickets.empty? ? render(:text=>'No hay Quejas') : render(@tickets) }
       else
         format.html # index.html.erb
       end

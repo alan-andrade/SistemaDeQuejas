@@ -8,16 +8,16 @@
           %li= msg
     
     .field
-      = f.label t('.student_id')
-      = f.text_field :student_id
+      = f.label "Nombre del estudiante"
+      = f.text_field :student
     .field
-      = f.label t('.course_id')
-      = f.text_field  :course_id
+      = f.label "Curso"
+      = f.text_field  :course
     .field
-      = f.label t('.teacher_id')
-      = f.text_field  :teacher_id
+      = f.label "Nombre de Profesor"
+      = f.text_field  :teacher
     .field  
-      = f.label t('.ticket_type')
+      = f.label "Tipo de Queja"
       %small  Con que tienes problema?
       %br
       %p
@@ -26,7 +26,7 @@
           = t subject
           %br
     .field
-      = f.label t('.description')
+      = f.label "Descripción"
       = f.text_area :description
 
     .actions

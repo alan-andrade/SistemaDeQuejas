@@ -16,6 +16,6 @@ class Change < ActiveRecord::Base
   end
   
   def has_responsible?
-    ticket.responsible_id ? true : false
+    ticket.responsible ? true : false
   end
 end

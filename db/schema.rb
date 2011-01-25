@@ -23,10 +23,10 @@ ActiveRecord::Schema.define(:version => 20101105010033) do
   end
 
   create_table "tickets", :force => true do |t|
-    t.integer  "student_id",       :null => false
-    t.integer  "teacher_id"
-    t.string   "course_id"
-    t.integer  "responsible_id"
+    t.string   "student",          :null => false
+    t.string   "teacher"
+    t.string   "course"
+    t.string   "responsible"
     t.string   "corresponding_to"
     t.text     "description"
     t.string   "status"
