@@ -21,7 +21,9 @@ es:
   profesor: "Profesor"
   course: "Curso"
   content:  "Contenido"
+  admin:  "Administrativo"
   other:  "Otro"
+  employee: "Empleado"
   
   tickets:
     index:

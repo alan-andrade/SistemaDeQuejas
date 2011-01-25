@@ -3,7 +3,12 @@ require 'prawn'   #PDF Files Generation
 class Ticket < ActiveRecord::Base
   # Arreglo de posibles estados de la queja
   STATUS              =   [:pending,  :active,  :finished].map(&:to_s).freeze
-  CORRESPONDING_TO    =   [:profesor, :course,  :content, :other].map(&:to_s).freeze
+  CORRESPONDING_MAP   =   [
+                            {:course=>[:profesor, :content]},
+                            {:admin=>[:employee]},
+                            {:other=>[:other]}
+                           ].freeze
+  CORRESPONDING_TO    =   CORRESPONDING_MAP.collect{|topic| topic.values }.flatten
   # Relaciones con otras clases
   #
   #   belongs_to  :student

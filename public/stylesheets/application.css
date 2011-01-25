@@ -109,3 +109,6 @@ blockquote {
   border-bottom-left-radius: 10px; }
   .flash p > #notice {
     color: #222f40; }
+
+p.tree {
+  margin-left: 20px; }
