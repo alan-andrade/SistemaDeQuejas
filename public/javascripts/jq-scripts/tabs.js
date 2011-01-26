@@ -8,8 +8,7 @@ $(document).ready(function(){
 			ajaxOptions: {
 				  error: function( xhr, status, index, anchor ) {
 					  $( anchor.hash ).html(
-						  "Couldn't load this tab. We'll try to fix this as soon as possible. " +
-						  "If this wouldn't be a demo." );
+						  "Tenemos un error en el servidor. En verdad sentimos los problemas que esto le causa. Estamos trabajando para arreglarlos los antes posible");
 				  },
 				  success: function(){
 				        $.each( $('input:checkbox[id]=ticket_to_report'), function(index, cb){
@@ -24,3 +23,9 @@ $(document).ready(function(){
 		 cookie: {expires:30}
 		});
 })
+
+function cookie_defined(cookie_name){
+    if ($.cookie(cookie_name) != null){
+      return true
+    }else{return false}
+  };

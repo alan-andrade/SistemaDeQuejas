@@ -1,0 +1,28 @@
+%table.tickets-table
+  %tr
+    %th
+      Responsable
+    %th
+      Asunto
+    %th
+      Estudiante
+    %th
+      Accion
+    %th
+      Exportar
+      .export-links
+        =link_to "Todos", nil, :id=>'checkall-button', :class=>tickets.first.status
+  -for ticket in tickets
+    %tr 
+      %td
+        =ticket.responsible || "Pendiente"
+      %td
+        =t ticket.corresponding_to
+      %td
+        =ticket.student
+      %td
+        =link_to "Tomar"
+        =link_to "Detallado", ticket_path(ticket)
+      %td
+        = check_box_tag('ticket_to_report', ticket.id, false, :class=>ticket.status)
+

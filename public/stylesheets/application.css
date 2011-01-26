@@ -1,10 +1,8 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: Arial, Verdana; }
-
-p {
-  font-size: 13px; }
+  font-family: Arial, Verdana;
+  font-size: 14px; }
 
 a {
   color: #adbf6b;
@@ -45,7 +43,7 @@ a {
 #container h2 {
   color: #333333;
   border-bottom: 1px solid #d94b2b;
-  font-size: 1.2em; }
+  font-size: 110%; }
 
 fieldset {
   background: #d8e6f2;

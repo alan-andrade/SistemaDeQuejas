@@ -10,7 +10,7 @@ class TicketsController < ApplicationController
 
     respond_to do |format|
       if request.xhr?
-        format.js { @tickets.empty? ? render(:text=>'No hay Quejas') : render(@tickets) }
+        format.js { @tickets.empty? ? render(:text=>'No hay Quejas') : render(:partial=>"tickets_table", :locals=>{:tickets=>@tickets}) }
       else
         format.html # index.html.erb
       end
