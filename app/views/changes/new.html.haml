@@ -4,15 +4,14 @@
 %p
   =link_to t('back'), tickets_path
   
-=form_for [@ticket,@change] do |c|
+=form_for [@ticket,@change] do |c|  
   =field_set_tag do    
-    .field
-      =c.label   t('responsible')
-      =c.text_field :responsible_id
-      %br
-      \### Este campo se va a eliminar cuando se tenga una session del administrativo
-      %br
-      \### Que hace el cambio
+    - if @change.errors.any?
+      #errorExplanation
+        %h2= "#{pluralize(@change.errors.count, 'error')} prohibited this user from being saved:"
+        %ul
+        - @change.errors.full_messages.each do |msg|
+          %li= msg
     .field
       =c.label  t('.change_types')    
       =c.select :change_type, Change::CHANGE_TYPES.map{|ct| [t(ct),ct]}

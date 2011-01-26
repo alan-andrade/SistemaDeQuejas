@@ -5,10 +5,18 @@ table {
     background: #d8e6f2; }
   table td {
     padding: 5px;
-    font-size: 85%;
+    font-size: 95%;
     text-align: center; }
   table tr {
     border-bottom: 1px solid #adbf6b; }
 
 .export-links {
   font-size: 70%; }
+
+table.details {
+  width: 40%; }
+  table.details tr {
+    border: none; }
+  table.details td {
+    text-align: left;
+    font-size: 95%; }

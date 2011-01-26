@@ -7,7 +7,7 @@
     %th
       Estudiante
     %th
-      Accion
+      Acciones
     %th
       Exportar
       .export-links
@@ -21,8 +21,9 @@
       %td
         =ticket.student
       %td
-        =link_to "Tomar"
-        =link_to "Detallado", ticket_path(ticket)
+        =link_to "Resolver", responsible_ticket_path(ticket)
+        |        
+        =link_to "Detalles", ticket_path(ticket)
       %td
         = check_box_tag('ticket_to_report', ticket.id, false, :class=>ticket.status)
 

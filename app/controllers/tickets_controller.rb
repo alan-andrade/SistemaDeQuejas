@@ -28,37 +28,29 @@ class TicketsController < ApplicationController
     @ticket = Ticket.find(params[:id])
 
     respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @ticket }
+      format.html     
       format.pdf  { send_data  Ticket.to_pdf(@ticket) }
     end
   end
 
-  # GET /tickets/new
-  # GET /tickets/new.xml
   def new
     @ticket = Ticket.new
     params.each_pair{|key, attr| @ticket.send("#{key}=", attr) if @ticket.respond_to?(key) }
     respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @ticket }
+      format.html      
     end
   end
-
-  # GET /tickets/1/edit
+  
   def edit
     @ticket = Ticket.find(params[:id])
   end
 
-  # POST /tickets
-  # POST /tickets.xml
   def create
-    @ticket = Ticket.new(params[:ticket])
+    @ticket = Ticket.new(params[:ticket])    
 
     respond_to do |format|
       if @ticket.save
-        format.html { redirect_to(@ticket, :notice => 'Ticket was successfully created.') }
-        format.xml  { render :xml => @ticket, :status => :created, :location => @ticket }
+        format.html { redirect_to(@ticket, :notice => 'Tu queja ha sido enviada') }
       else
         format.html { render :action => "new" }
         format.xml  { render :xml => @ticket.errors, :status => :unprocessable_entity }
@@ -74,16 +66,12 @@ class TicketsController < ApplicationController
     respond_to do |format|
       if @ticket.update_attributes(params[:ticket])
         format.html { redirect_to(@ticket, :notice => 'Ticket was successfully updated.') }
-        format.xml  { head :ok }
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @ticket.errors, :status => :unprocessable_entity }
+        format.html { render :action => "edit" }       
       end
     end
   end
 
-  # DELETE /tickets/1
-  # DELETE /tickets/1.xml
   def destroy
     @ticket = Ticket.find(params[:id])
     @ticket.destroy
@@ -93,8 +81,7 @@ class TicketsController < ApplicationController
       format.xml  { head :ok }
     end
   end
-  
-  ## GET /tickets/1/assign_responsible
+
   def assign_responsible
     @ticket = Ticket.find(params[:id])
   end

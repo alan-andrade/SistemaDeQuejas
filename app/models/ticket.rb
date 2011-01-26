@@ -3,12 +3,11 @@ require 'prawn'   #PDF Files Generation
 class Ticket < ActiveRecord::Base
   # Arreglo de posibles estados de la queja
   STATUS              =   [:pending,  :active,  :finished].map(&:to_s).freeze
-  CORRESPONDING_MAP   =   [
-                            {:course=>[:profesor, :content]},
-                            {:admin=>[:employee]},
-                            {:other=>[:other]}
-                           ].freeze
-  CORRESPONDING_TO    =   CORRESPONDING_MAP.collect{|topic| topic.values }.flatten
+  CORRESPONDING_MAP   =   {:course  =>  [:professor, :content],
+                           :admin   =>  [:employee],
+                           :other   =>  [:other]}
+                          .freeze
+  CORRESPONDING_TO    =   CORRESPONDING_MAP.values.flatten.map(&:to_s).freeze
   # Relaciones con otras clases
   #
   #   belongs_to  :student
@@ -17,7 +16,7 @@ class Ticket < ActiveRecord::Base
   #   belongs_to  :responsible
   # 
   #   Se descomentara mas adelante cuando se tenga mas idea sobre la implementacion.
-  has_many  :changes, :dependent  =>  :destroy
+  has_many  :changes, :dependent  =>  :destroy, :inverse_of=>:ticket
   
   ## Validators
   validates :student,           :presence   =>  true
@@ -31,7 +30,8 @@ class Ticket < ActiveRecord::Base
   
   ## Callbacks before saving record
   
-  before_save {|t| t.status = STATUS[0] if t.status.nil?} # Could be fixed with the :deafult option in the migration.
+  before_save {|t| t.status = STATUS[0] unless t.status? } # Could be fixed with the :deafult option in the migration.
+  before_save :ticket_creation_change
   before_save :responsible_management
   
   #// TODO: get a good look for pdf rendering sheets.
@@ -62,13 +62,19 @@ class Ticket < ActiveRecord::Base
   end
   
   private
-    
+  def ticket_creation_change  
+    if new_record?
+      changes.build   :extern_comments  =>  "Levantamiento",
+                      :intern_comments  =>  "Levantamiento",
+                      :change_type      =>  "advance",
+                      :responsible_id      =>  self          
+    end
+  end
+  
   def responsible_management
-    if responsible_changed?             
-      changes.create(
-        :extern_comments=>"La queja la ha tomado #{responsible}. Estamos trabajando en tu peticion",
-        :change_type  =>  "advance"
-        )
+    if responsible_changed?
+      changes.build  :extern_comments  =>"La queja la ha tomado #{responsible}. Estamos trabajando en tu peticion",
+                     :change_type      =>  "advance"                
       self.status = STATUS[1]
     end
   end

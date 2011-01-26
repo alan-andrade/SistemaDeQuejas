@@ -7,28 +7,33 @@
   = link_to 'PDF',  ticket_path(@ticket, :format => :pdf)
   |
   = link_to t('destroy'), ticket_path(@ticket), :method=>'delete', :confirm => t('are_you_sure')
+%hr
 
 %p
-  A cargo de:
-  = @ticket.responsible || link_to("Asignar Responsable", responsible_ticket_path)
+  = flag_image(@ticket)
+  = t(@ticket.status)
+  
+%table.details
+  %tr
+    %td Alumno
+    %td= @ticket.student
+  %tr
+    %td Responsable
+    %td= @ticket.responsible || link_to("Asignar Responsable", responsible_ticket_path)
+  -if @ticket.course?
+    %tr
+      %td Curso
+      %td=  @ticket.course
+  -if @ticket.teacher?
+    %tr
+      %td Profesor
+      %td=  @ticket.teacher
+  %tr
+    %td Tema  
+    %td= corresponding_to_path(@ticket)
+
 %blockquote  
   = @ticket.description
-  
-%p
-  Alumno:
-  %i= @ticket.student
-%p
-  Curso:
-  %i= @ticket.course
-%p
-  Profesor:
-  %i= @ticket.teacher
-%p
-  Correspondiente a:
-  %i= t @ticket.corresponding_to
-%p
-  Status: 
-  = t(@ticket.status)  
       
 %table
   %thead
@@ -42,14 +47,7 @@
       %th
         Comentarios(Administrativo)
   %tbody
-    %tr
-      %td
-        =@ticket.created_at.to_formatted_s(:short)
-      %td
-        Levantamiento
-      %td
-        Sin comentarios
-    - for change in @ticket.changes
+    -for change in @ticket.changes
       %tr
         %td
           =change.created_at.to_formatted_s(:short)
@@ -59,7 +57,7 @@
           =change.extern_comments
         %td
           =change.intern_comments
-  
-%p= link_to t('new_change'), new_ticket_change_path(@ticket)
-      
-      
+%p
+  = link_to t('new_change'), new_ticket_change_path(@ticket) if @ticket.responsible?
+  = link_to "Asignar Responsable para hacer cambios", responsible_ticket_path(@ticket) unless @ticket.responsible?
+

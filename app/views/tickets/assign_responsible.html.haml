@@ -7,7 +7,7 @@
 = form_for @ticket do |t|
   =field_set_tag do
     .field
-      =t.label t('.responsible')
+      =t.label :responsible, 'Asignar Responsable'
       =t.text_field  :responsible
       
     .actions

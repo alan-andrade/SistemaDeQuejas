@@ -10,17 +10,16 @@
     .field
       = f.label "Nombre del estudiante"
       = f.text_field :student
-   
+ 
     .field  
       = f.label "Tipo de Queja"     
-      -for keys in Ticket::CORRESPONDING_MAP
-        -keys.each_pair do |general, subtopics|
-          %i
-            = t general
-          - subtopics.each do |subtopic|            
-            %p.tree
-              = f.radio_button :corresponding_to, subtopic
-              = t subtopic
+      -Ticket::CORRESPONDING_MAP.each_pair do |key, values|      
+        %i
+          = t key
+        - values.each do |subtopic|
+          %p.tree
+            = f.radio_button :corresponding_to, subtopic
+            = t subtopic
           
     .field
       = f.label "Descripción"

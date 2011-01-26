@@ -4,6 +4,8 @@ SistemaDeQuejas::Application.routes.draw do
     get 'assign_responsible', :on  =>  :member, :as => 'responsible' # Temporarly routes. while we clarify technical doubts.
     resources :changes
   end
+  
+  root  :to=>"tickets#index"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
