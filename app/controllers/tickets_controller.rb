@@ -6,7 +6,7 @@ class TicketsController < ApplicationController
                 when 'pending'  then  Ticket.order('created_at DESC').pending
                 when 'active'   then  Ticket.order('created_at DESC').active
                 when 'finished' then  Ticket.order('created_at DESC').finished
-              end
+              end    
 
     respond_to do |format|
       if request.xhr?
@@ -26,7 +26,6 @@ class TicketsController < ApplicationController
   # GET /tickets/1.xml
   def show
     @ticket = Ticket.find(params[:id])
-
     respond_to do |format|
       format.html     
       format.pdf  { send_data  Ticket.to_pdf(@ticket) }
