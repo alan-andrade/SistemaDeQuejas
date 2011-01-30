@@ -10,7 +10,7 @@ class TicketsController < ApplicationController
 
     respond_to do |format|
       if request.xhr?
-        format.js { @tickets.empty? ? render(:text=>'No hay Quejas') : render(:partial=>"tickets_table", :locals=>{:tickets=>@tickets}) }
+        format.js { @tickets.empty? ? render(:text=>'No hay Quejas') : render(:partial=>"tickets_table", :locals=>{:tickets=>@tickets.all}) }
       else
         format.html # index.html.erb
       end
@@ -53,7 +53,6 @@ class TicketsController < ApplicationController
         format.html { redirect_to(@ticket, :notice => 'Tu queja ha sido enviada') }
       else
         format.html { render :action => "new" }
-        format.xml  { render :xml => @ticket.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -78,7 +77,6 @@ class TicketsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to(tickets_url) }
-      format.xml  { head :ok }
     end
   end
 

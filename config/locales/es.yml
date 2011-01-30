@@ -65,7 +65,7 @@ es:
     day_names: [Domingo, Lunes, Martes, Miércoles, Jueves, Viernes, Sábado]
     month_names: [~, Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre]
     formats:
-      short: "%d de %b"
+      short: "%d de %B"
       default: "%d/%m/%Y"
       long: "%A, %d de %B de %Y"
   time:

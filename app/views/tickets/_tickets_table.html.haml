@@ -27,7 +27,7 @@
         |        
         =link_to "Detalles", ticket_path(ticket)
       %td
-        = t ticket.created_at.to_date.to_formatted_s(:short)
+        = l ticket.created_at.to_date, :format  =>  :short
       %td
         = check_box_tag('ticket_to_report', ticket.id, false, :class=>ticket.status)
 
