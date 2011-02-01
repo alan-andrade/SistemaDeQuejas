@@ -1,8 +1,8 @@
 class AccessController < ApplicationController
-  before_filter :require_no_user,   :only   =>  [:new, :create]
-  before_filter :require_user,      :ondly  =>  [:destroy]
+  before_filter :require_no_user,   :only  =>  [:new, :create]
+  before_filter :require_user,      :only  =>  [:destroy]
   
-  def new; end  
+  def new; end  #login
   
   def create  #Authenticate User.
     @user = User.authenticate(params)

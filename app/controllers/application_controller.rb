@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   
   def current_user
-    @current_user = User.find(session[:user])
+    session[:user].nil? ? false : @current_user = User.find(session[:user])
   end
   
   def require_user
@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
   
   def require_no_user
     if current_user
-      redirect_to tickets_path, :notice=>'Debes de terminar sesion para ver esta pagina'
+      redirect_to logout_path, :notice  =>  'Debes terminar sesion'
     end
   end
 end

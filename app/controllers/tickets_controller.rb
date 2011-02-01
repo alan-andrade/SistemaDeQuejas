@@ -1,5 +1,6 @@
 class TicketsController < ApplicationController
-
+  before_filter :require_user
+  
   def index
     status  = params[:status]    
     @tickets = case status
@@ -22,8 +23,6 @@ class TicketsController < ApplicationController
     end
   end
 
-  # GET /tickets/1
-  # GET /tickets/1.xml
   def show
     @ticket = Ticket.find(params[:id])
     respond_to do |format|

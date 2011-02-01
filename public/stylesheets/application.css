@@ -12,6 +12,12 @@ a {
   a:hover {
     color: #d97904; }
 
+#user-nav {
+  background-color: #d8e6f2;
+  border-bottom: 1px solid #d94b2b;
+  text-align: right;
+  padding: 5px; }
+
 #container {
   margin: 0 auto;
   padding: 0;

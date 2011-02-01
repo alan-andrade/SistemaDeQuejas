@@ -17,10 +17,15 @@
 <% end %>
 <% end %>
 <div id="container">
-  <%= yield %>
-  <div>
-    SESSION: <%= session[:user] %>
+  <div id="user-nav">
+    <% if defined? @current_user %>
+      <%= @current_user.name %> ::
+      <%= link_to "Salir", logout_path %>
+    <% else %>
+      <%= link_to "Entrar", login_path %>
+    <% end %>
   </div>
+  <%= yield %>  
 </div>
 </body>
 </html>
