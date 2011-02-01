@@ -23,8 +23,12 @@
       %td
         =ticket.student
       %td
-        =link_to "Resolver", responsible_ticket_path(ticket)
-        |        
+        - if ticket.status == 'pending'
+          =link_to "Tomar", responsible_ticket_path(ticket)
+          |        
+        - if ticket.status == 'active'
+          =link_to "Registrar Cambio", new_ticket_change_path(ticket)
+          | 
         =link_to "Detalles", ticket_path(ticket)
       %td
         = l ticket.created_at.to_date, :format  =>  :short

@@ -9,6 +9,7 @@ gem 'sqlite3-ruby', :require => 'sqlite3'
 gem 'haml'
 gem 'jquery-rails'
 gem 'prawn'
+gem 'net-ldap'
 
 # Use unicorn as the web server
 # gem 'unicorn'

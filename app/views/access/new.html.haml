@@ -1,0 +1,10 @@
+%h1 Log In
+%h2 Entrar al sistema
+= field_set_tag 'Acceso' do
+  =form_tag '/authenticate' do
+    =label_tag :user, "ID"
+    =text_field_tag :user
+    =label_tag  :password, "Password"
+    =password_field_tag :password
+    %br
+    =submit_tag 'Entrar'

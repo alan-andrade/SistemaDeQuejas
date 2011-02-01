@@ -48,8 +48,8 @@ ActiveRecord::Schema.define(:version => 20110130180332) do
     t.datetime "updated_at"
   end
 
-  create_table "users", :force => true do |t|
-    t.string   "email",      :null => false
+  create_table "users", :primary_key => "uid", :force => true do |t|
+    t.string   "mail",       :null => false
     t.string   "name",       :null => false
     t.integer  "role_id",    :null => false
     t.datetime "created_at"

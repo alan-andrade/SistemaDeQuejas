@@ -6,6 +6,10 @@ SistemaDeQuejas::Application.routes.draw do
   end
   
   root  :to=>"tickets#index"
+  
+  match "login" =>  'access#new'
+  match "logout"  =>  'access#destroy'
+  match "authenticate"  =>  'access#create'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

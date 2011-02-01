@@ -42,6 +42,7 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.16)
+    net-ldap (0.1.1)
     polyglot (0.3.1)
     prawn (0.8.4)
       prawn-core (>= 0.8.4, < 0.9)
@@ -81,6 +82,7 @@ PLATFORMS
 DEPENDENCIES
   haml
   jquery-rails
+  net-ldap
   prawn
   rails (= 3.0.3)
   sqlite3-ruby

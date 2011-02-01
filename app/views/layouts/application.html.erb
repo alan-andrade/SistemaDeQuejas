@@ -18,6 +18,9 @@
 <% end %>
 <div id="container">
   <%= yield %>
+  <div>
+    SESSION: <%= session[:user] %>
+  </div>
 </div>
 </body>
 </html>

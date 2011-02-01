@@ -47,7 +47,8 @@ a {
 
 fieldset {
   background: #d8e6f2;
-  border: 1px solid #adbf6b; }
+  border: 1px solid #adbf6b;
+  width: 70%; }
 
 input, textarea {
   background: white;

@@ -7,7 +7,6 @@ module ApplicationHelper
   
   def include_script(*files)
     content_for :script do
-      p files
       javascript_include_tag files.map{|file| file.to_s}
     end    
   end
