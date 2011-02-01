@@ -49,9 +49,13 @@ class User < ActiveRecord::Base
   
   def self.first_logon(user,entry)
     newuser       = User.new(user.marshal_dump)
-    newuser.role  = Role.find_or_create_by_name(entry.dn.scan(/OU=(.*),/).flatten.first)## Arreglar para cuando no se tienen 2 OU
+    newuser.role  = Role.find_or_create_by_name(self.get_role(entry))## Arreglar para cuando no se tienen 2 OU
     newuser.save; newuser
   end  
+  
+  def self.get_role(entry)
+    entry.dn.scan(/OU=([^,]*)/).flatten.first    
+  end
   
   def self.normalize_result(result)
     user_attributes = OpenStruct.new

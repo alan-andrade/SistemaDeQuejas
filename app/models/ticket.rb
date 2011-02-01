@@ -33,6 +33,7 @@ class Ticket < ActiveRecord::Base
   before_save {|t| t.status = STATUS[0] unless t.status? } # Could be fixed with the :deafult option in the migration.
   before_save :ticket_creation_change
   before_save :responsible_management
+  before_create :generate_id
   
   #// TODO: get a good look for pdf rendering sheets.
   def self.to_pdf(*tickets)
@@ -78,5 +79,23 @@ class Ticket < ActiveRecord::Base
                      :responsible_id   =>     responsible.id
       self.status = STATUS[1]
     end
+  end
+  
+  # A ticket has an id depending on which time was created.
+  def generate_id
+    day = if Date.today.day.to_s.length == 1
+            "0" + Date.today.day.to_s
+          else
+            Date.today.day.to_s
+          end
+   month  = if Date.today.month.to_s.length ==  1
+              "0" + Date.today.month.to_s
+            else
+              Date.today.month.to_s
+            end
+    year  = Date.today.year.to_s
+    mili  = Time.now.to_f.to_s[11..13]
+    id  = day+month+year+mili
+    p id
   end
 end

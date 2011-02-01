@@ -1,6 +1,7 @@
 class CreateTickets < ActiveRecord::Migration
   def self.up
-    create_table :tickets do |t|
+    create_table :tickets,:id=>false do |t|
+      t.primary_key :id
       t.references :student,  :null =>  false
       #t.string  :student, :null =>  false
       #t.references :teacher

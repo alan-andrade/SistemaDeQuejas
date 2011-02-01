@@ -1,7 +1,6 @@
 %h1= t '.title'
 %p
   = link_to t('back'), tickets_path
-  |
   - if @current_user.admin?
     = link_to t('edit'), edit_ticket_path(@ticket)
     |
