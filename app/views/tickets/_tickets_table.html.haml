@@ -18,7 +18,7 @@
   -for ticket in tickets
     %tr 
       %td
-        =ticket.responsible.name if ticket.responsible || "Pendiente"
+        =ticket.responsible.name rescue nil || "Pendiente"
       %td       
         =t ticket.corresponding_to
           

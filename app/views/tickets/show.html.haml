@@ -22,7 +22,7 @@
     %td Responsable
     %td
       -if @current_user.admin?
-        =@ticket.responsible || link_to("Asignar Responsable", responsible_ticket_path)
+        =@ticket.responsible.name rescue nil || link_to("Tomar Queja", responsible_ticket_path)
       -else
         = @ticket.responsible.name rescue nil ||  "Sin Responsable"
   -if @ticket.course?
@@ -39,7 +39,9 @@
 
 %blockquote  
   = @ticket.description
-      
+
+%h2
+  Rastreo     
 %table
   %thead
     %tr
@@ -47,14 +49,16 @@
         Fecha
       %th
         Accion
+      %th
+        Responsable
       - if @current_user.student?
         %th
           Comentarios
       - elsif @current_user.admin?
         %th
-          Comentarios(Alumno)
+          Comentarios (Alumno)
         %th
-          Comentarios(Administrativo)
+          Comentarios (Administrativo)
   %tbody
     -for change in @ticket.changes
       %tr
@@ -62,6 +66,8 @@
           = l change.created_at, :format=>:short
         %td
           =t change.change_type
+        %td
+          = change.responsible.name rescue nil
         - if @current_user.student?
           %td
             =change.extern_comments
@@ -73,5 +79,5 @@
 %p
   -if @current_user.admin?
     = link_to t('new_change'), new_ticket_change_path(@ticket) if !!@ticket.responsible
-    = link_to "Asignar Responsable para hacer cambios", responsible_ticket_path(@ticket) unless !!@ticket.responsible
+    = link_to "Tomar queja y hacer cambios", responsible_ticket_path(@ticket) unless !!@ticket.responsible
 

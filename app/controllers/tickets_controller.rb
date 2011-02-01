@@ -17,7 +17,7 @@ class TicketsController < ApplicationController
       if request.xhr?
         format.js { @tickets.empty? ? render(:text=>'No hay Quejas') : render(:partial=>"tickets_table", :locals=>{:tickets=>@tickets.all}) }
       else
-        format.html # index.html.erb
+        format.html
       end
       
       format.pdf  do
@@ -83,6 +83,7 @@ class TicketsController < ApplicationController
   def assign_responsible
     @ticket = Ticket.find(params[:id])
     @ticket.responsible = @current_user
+    
     if @ticket.save
       redirect_to ticket_path, :notice =>  "Has tomado la queja"
     else

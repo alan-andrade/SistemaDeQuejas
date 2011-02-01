@@ -67,14 +67,15 @@ class Ticket < ActiveRecord::Base
       changes.build   :extern_comments  =>  "Levantamiento",
                       :intern_comments  =>  "Levantamiento",
                       :change_type      =>  "advance",
-                      :responsible_id      =>  self          
+                      :responsible_id   =>  student.id
     end
   end
   
   def responsible_management
     if responsible_id_changed?
-      changes.build  :extern_comments  =>"La queja la ha tomado #{responsible.name}. Estamos trabajando en tu peticion",
-                     :change_type      =>  "advance"                
+      changes.build  :extern_comments  =>"'#{responsible.name}' ha tomado tu queja. Estamos trabajando en tu peticion",
+                     :change_type      =>  "advance",
+                     :responsible_id   =>     responsible.id
       self.status = STATUS[1]
     end
   end

@@ -3,6 +3,7 @@ class Change < ActiveRecord::Base
   CHANGE_TYPES  = [:advance, :waiting, :finished].map(&:to_s).freeze
 
   belongs_to :ticket, :inverse_of=>:changes
+  belongs_to :responsible,  :class_name =>  'User', :foreign_key  =>  'responsible_id'
   
   validates :change_type, :inclusion=>{:in=>CHANGE_TYPES}  
   after_save :finished_ticket?
