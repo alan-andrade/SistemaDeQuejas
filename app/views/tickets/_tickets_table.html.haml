@@ -10,28 +10,31 @@
       Acciones
     %th
       Fecha
-    %th
-      Exportar
-      .export-links
-        =link_to "Todos", nil, :id=>'checkall-button', :class=>tickets.first.status
+    - if @current_user.admin?      
+      %th
+        Exportar
+        .export-links
+          =link_to "Todos", nil, :id=>'checkall-button', :class=>tickets.first.status
   -for ticket in tickets
     %tr 
       %td
-        =ticket.responsible || "Pendiente"
-      %td
+        =ticket.responsible.name if ticket.responsible || "Pendiente"
+      %td       
         =t ticket.corresponding_to
+          
       %td
-        =ticket.student
+        =ticket.student.name
       %td
-        - if ticket.status == 'pending'
+        - if ticket.status == 'pending' && @current_user.admin?
           =link_to "Tomar", responsible_ticket_path(ticket)
           |        
-        - if ticket.status == 'active'
+        - if ticket.status == 'active' && @current_user.admin?
           =link_to "Registrar Cambio", new_ticket_change_path(ticket)
           | 
         =link_to "Detalles", ticket_path(ticket)
       %td
         = l ticket.created_at.to_date, :format  =>  :short
-      %td
-        = check_box_tag('ticket_to_report', ticket.id, false, :class=>ticket.status)
+      -if @current_user.admin?
+        %td
+          = check_box_tag('ticket_to_report', ticket.id, false, :class=>ticket.status)
 

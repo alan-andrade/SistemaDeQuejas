@@ -1,13 +1,16 @@
 -include_css 'ticket.css', 'flick/jquery-ui.css'
--include_script 'jquery.cookie.js', 'jquery-ui.js', 'jq-scripts/report_generation.js', 'jq-scripts/tabs.js'
-
+- if @current_user.admin?
+  -include_script 'jquery.cookie.js', 'jquery-ui.js', 'jq-scripts/report_generation.js', 'jq-scripts/tabs.js'
+- if @current_user.student?  
+  -include_script 'jquery.cookie.js', 'jquery-ui.js', 'jq-scripts/tabs.js'
+  
 %h1= t('.title')
 %p 
-  =link_to t('.new_ticket'), new_ticket_path
-  |
-  = link_to 'Reporte',  tickets_path(:format=>:pdf)
-  |
-  = link_to 'LogIn', login_url
+  - if @current_user.student? 
+    =link_to t('.new_ticket'), new_ticket_path
+  - if @current_user.admin?
+    = link_to 'Reporte',  tickets_path(:format=>:pdf)
+
 
 #tabs
   %ul 

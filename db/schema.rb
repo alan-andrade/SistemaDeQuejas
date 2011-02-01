@@ -37,10 +37,10 @@ ActiveRecord::Schema.define(:version => 20110130180332) do
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
   create_table "tickets", :force => true do |t|
-    t.string   "student",          :null => false
+    t.integer  "student_id",       :null => false
     t.string   "teacher"
     t.string   "course"
-    t.string   "responsible"
+    t.integer  "responsible_id"
     t.string   "corresponding_to"
     t.text     "description"
     t.string   "status"

@@ -1,5 +1,6 @@
 class ChangesController < ApplicationController
-  
+  before_filter :require_admin
+    
   def new
     @ticket =   Ticket.find(params[:ticket_id])
     @change =   @ticket.changes.build

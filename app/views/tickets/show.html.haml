@@ -2,11 +2,12 @@
 %p
   = link_to t('back'), tickets_path
   |
-  = link_to t('edit'), edit_ticket_path(@ticket)
-  |
-  = link_to 'PDF',  ticket_path(@ticket, :format => :pdf)
-  |
-  = link_to t('destroy'), ticket_path(@ticket), :method=>'delete', :confirm => t('are_you_sure')
+  - if @current_user.admin?
+    = link_to t('edit'), edit_ticket_path(@ticket)
+    |
+    = link_to 'PDF',  ticket_path(@ticket, :format => :pdf)
+    |
+    = link_to t('destroy'), ticket_path(@ticket), :method=>'delete', :confirm => t('are_you_sure')
 %hr
 
 %p
@@ -16,10 +17,14 @@
 %table.details
   %tr
     %td Alumno
-    %td= @ticket.student
+    %td= @ticket.student.name
   %tr
     %td Responsable
-    %td= @ticket.responsible || link_to("Asignar Responsable", responsible_ticket_path)
+    %td
+      -if @current_user.admin?
+        =@ticket.responsible || link_to("Asignar Responsable", responsible_ticket_path)
+      -else
+        = @ticket.responsible.name rescue nil ||  "Sin Responsable"
   -if @ticket.course?
     %tr
       %td Curso
@@ -42,10 +47,14 @@
         Fecha
       %th
         Accion
-      %th
-        Comentarios(Alumno)
-      %th
-        Comentarios(Administrativo)
+      - if @current_user.student?
+        %th
+          Comentarios
+      - elsif @current_user.admin?
+        %th
+          Comentarios(Alumno)
+        %th
+          Comentarios(Administrativo)
   %tbody
     -for change in @ticket.changes
       %tr
@@ -53,11 +62,16 @@
           = l change.created_at, :format=>:short
         %td
           =t change.change_type
-        %td
-          =change.extern_comments
-        %td
-          =change.intern_comments
+        - if @current_user.student?
+          %td
+            =change.extern_comments
+        - elsif @current_user.admin?
+          %td
+            =change.extern_comments
+          %td
+            =change.intern_comments
 %p
-  = link_to t('new_change'), new_ticket_change_path(@ticket) if @ticket.responsible?
-  = link_to "Asignar Responsable para hacer cambios", responsible_ticket_path(@ticket) unless @ticket.responsible?
+  -if @current_user.admin?
+    = link_to t('new_change'), new_ticket_change_path(@ticket) if !!@ticket.responsible
+    = link_to "Asignar Responsable para hacer cambios", responsible_ticket_path(@ticket) unless !!@ticket.responsible
 

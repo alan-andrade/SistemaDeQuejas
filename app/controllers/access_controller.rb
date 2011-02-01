@@ -8,7 +8,7 @@ class AccessController < ApplicationController
     @user = User.authenticate(params)
     
     if @user
-      session[:user]  = @user.id
+      session[:user]  = @user.uid
       redirect_to tickets_path
     else  
       flash[:now] = "Ingresa correctamente tus datos"

@@ -10,16 +10,16 @@ class Ticket < ActiveRecord::Base
   CORRESPONDING_TO    =   CORRESPONDING_MAP.values.flatten.map(&:to_s).freeze
   # Relaciones con otras clases
   #
-  #   belongs_to  :student
+  belongs_to  :student, :class_name =>  'User', :foreign_key  =>  'student_id'
   #   belongs_to  :teacher
   #   belongs_to  :course
-  #   belongs_to  :responsible
+  belongs_to  :responsible  , :class_name =>  'User', :foreign_key  =>  'responsible_id'
   # 
   #   Se descomentara mas adelante cuando se tenga mas idea sobre la implementacion.
   has_many  :changes, :dependent  =>  :destroy, :inverse_of=>:ticket
   
   ## Validators
-  validates :student,           :presence   =>  true
+  #validates :student,           :presence   =>  true :: not longer needed because of sessions.
   validates :corresponding_to,  :inclusion  =>  {:in => CORRESPONDING_TO}
   
   ## Scopes
@@ -72,8 +72,8 @@ class Ticket < ActiveRecord::Base
   end
   
   def responsible_management
-    if responsible_changed?
-      changes.build  :extern_comments  =>"La queja la ha tomado #{responsible}. Estamos trabajando en tu peticion",
+    if responsible_id_changed?
+      changes.build  :extern_comments  =>"La queja la ha tomado #{responsible.name}. Estamos trabajando en tu peticion",
                      :change_type      =>  "advance"                
       self.status = STATUS[1]
     end

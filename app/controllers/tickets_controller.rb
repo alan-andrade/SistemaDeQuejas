@@ -1,5 +1,7 @@
 class TicketsController < ApplicationController
   before_filter :require_user
+  before_filter :require_admin, :only =>  [:edit, :update, :assign_responsible]
+  before_filter :require_student, :only =>  [:new]
   
   def index
     status  = params[:status]    
@@ -32,19 +34,17 @@ class TicketsController < ApplicationController
   end
 
   def new
-    @ticket = Ticket.new
-    params.each_pair{|key, attr| @ticket.send("#{key}=", attr) if @ticket.respond_to?(key) }
-    respond_to do |format|
-      format.html      
-    end
+    @ticket = @current_user.tickets.build
+    #params.each_pair{|key, attr| @ticket.send("#{key}=", attr) if @ticket.respond_to?(key) }
   end
   
+  ## Should be removed!
   def edit
     @ticket = Ticket.find(params[:id])
   end
 
   def create
-    @ticket = Ticket.new(params[:ticket])    
+    @ticket = @current_user.tickets.build(params[:ticket])    
 
     respond_to do |format|
       if @ticket.save
@@ -80,6 +80,12 @@ class TicketsController < ApplicationController
 
   def assign_responsible
     @ticket = Ticket.find(params[:id])
+    @ticket.responsible = @current_user
+    if @ticket.save
+      redirect_to ticket_path, :notice =>  "Has tomado la queja"
+    else
+      redirect_to ticket_path, :notice =>  "Ocurrio un Error. "
+    end
   end
     
 end
