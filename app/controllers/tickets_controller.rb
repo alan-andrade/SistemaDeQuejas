@@ -5,12 +5,14 @@ class TicketsController < ApplicationController
   
   def index
     status  = params[:status]    
+    ticket  = @current_user.student? ? @current_user.tickets : Ticket
+    
     @tickets = case status
-                when 'pending'  then  Ticket.order('created_at DESC').pending
-                when 'active'   then  Ticket.order('created_at DESC').active
-                when 'finished' then  Ticket.order('created_at DESC').finished
+                when 'pending'  then  ticket.order('created_at DESC').pending
+                when 'active'   then  ticket.order('created_at DESC').active
+                when 'finished' then  ticket.order('created_at DESC').finished
               end    
-
+    
     respond_to do |format|
       if request.xhr?
         format.js { @tickets.empty? ? render(:text=>'No hay Quejas') : render(:partial=>"tickets_table", :locals=>{:tickets=>@tickets.all}) }
