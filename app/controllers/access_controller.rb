@@ -5,7 +5,8 @@ class AccessController < ApplicationController
   def new; end  #login
   
   def create  #Authenticate User.
-    @user = User.authenticate(params)
+    @user = User.authenticate(params);
+    @user = @user.first if @user
     
     if @user
       session[:user]  = @user.uid

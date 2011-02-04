@@ -13,58 +13,45 @@ class User < ActiveRecord::Base
   end
   
   def admin?
-    role.name  ==  "Cuentas Especiales" ? true  : false
+    (role.name  ==  "Administrativos" || role.name  == "Cuentas Especiales") ? true  : false
   end
 
+  ## Parameter ID could have an asterisk used as a wildcard
+  
+  def self.find_by_id(id)
+    results = UDLA::Blackboard.find_users_by_id(id)
+    users = []
+    results.each do |user|
+      users << if User.exists?(user.samaccountname[0])
+                  User.find(user.samaccountname[0])
+               else
+                  nUser       = User.new(:uid=>user.samaccountname[0],:mail=>user.mail[0],:name=>user.name[0])
+                  nUser.role  = Role.find_or_create_by_name(user.role); nUser.save
+                  nUser
+               end
+    end
+    users
+  end
 
   def self.authenticate(params)    # We need to return true or false
   ##
   ## CODE that needs revisions and some rethinking. Exceptions well hanlded and a clever way to code.
   ##
+  login,pass = params[:user],params[:password]
+  
       begin
-      result  = UDLA::Blackboard.authenticate(params[:user],params[:password])    
-        rescue #rescue bad arguments exception
+      result  = UDLA::Blackboard.authenticate(login,pass)    
+        rescue #rescue bad arguments exception or connection.
           false
       end
     
     if result.nil? || !result
-      p "Empty Result"
+      p "No user"
       return false
     else
-      entry = result.first
-      user  = self.normalize_result(entry)      
-      p user
-      #User.exists?("user.uid = #{user.uid}") ? User.find(user.uid) : self.first_logon(user,entry)      
-      potential_user  = User.where("uid = '#{user.uid}'")
-      if potential_user.all.empty?
-        self.first_logon(user,entry)
-      else
-        potential_user.first
-      end
-    end      
-    
-  end
-  
-  private
-  
-  def self.first_logon(user,entry)
-    newuser       = User.new(user.marshal_dump)
-    newuser.role  = Role.find_or_create_by_name(self.get_role(entry))## Arreglar para cuando no se tienen 2 OU
-    newuser.save; newuser
-  end  
-  
-  def self.get_role(entry)
-    entry.dn.scan(/OU=([^,]*)/).flatten.first    
-  end
-  
-  def self.normalize_result(result)
-    user_attributes = OpenStruct.new
-    (User.new.attributes.keys - ["created_at", "updated_at"] + ["uid"]).each do |attr|
-      user_attributes.send "#{attr}=", result[attr][0]
-    end
-    user_attributes.uid = result[:lastlogontimestamp][0] if user_attributes.uid.nil?
-    return user_attributes
-  end
+      User.find_by_id login
+    end   
+  end    
 end
 
 

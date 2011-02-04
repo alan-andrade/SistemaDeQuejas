@@ -6,7 +6,10 @@
         %ul
         - @ticket.errors.full_messages.each do |msg|
           %li= msg
- 
+    - if @current_user.admin?
+      .field
+        = f.label :student, "Alumno"
+        = f.text_field :student
     .field  
       = f.label "Tipo de Queja"     
       -Ticket::CORRESPONDING_MAP.each_pair do |key, values|      

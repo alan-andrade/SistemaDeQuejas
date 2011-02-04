@@ -6,8 +6,7 @@
   
 %h1= t('.title')
 %p 
-  - if @current_user.student? 
-    =link_to t('.new_ticket'), new_ticket_path
+  =link_to t('.new_ticket'), new_ticket_path
   - if @current_user.admin?
     = link_to 'Reporte',  tickets_path(:format=>:pdf)
 
@@ -15,9 +14,9 @@
 #tabs
   %ul 
     %li
-      =link_to  "Pendientes", tickets_by_status_path(:status=>:pending)
+      =link_to  "Sin Revisar", tickets_by_status_path(:status=>:pending)
     %li
-      =link_to "Activas", tickets_by_status_path(:status=>:active)
+      =link_to "En Proceso", tickets_by_status_path(:status=>:active)
     %li
       =link_to  "Terminadas", tickets_by_status_path(:status=>:finished)
     %li
