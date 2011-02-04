@@ -10,6 +10,7 @@ SistemaDeQuejas::Application.routes.draw do
   match "login" =>  'access#new'
   match "logout"  =>  'access#destroy'
   match "authenticate"  =>  'access#create'
+  match "users/:id"  =>  "users#show"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

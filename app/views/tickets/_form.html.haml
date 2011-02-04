@@ -9,16 +9,13 @@
     - if @current_user.admin?
       .field
         = f.label :student, "Alumno"
-        = f.text_field :student
+        = f.text_field :student_id
+        %span= image_tag 'loading.gif', :id=>"spinner", :style=>"display:none"
+        %span#field-message
+        #student-info
     .field  
       = f.label "Tipo de Queja"     
-      -Ticket::CORRESPONDING_MAP.each_pair do |key, values|      
-        %i
-          = t key
-        - values.each do |subtopic|
-          %p.tree
-            = f.radio_button :corresponding_to, subtopic
-            = t subtopic
+      = f.select :corresponding_to, grouped_options_for_select(Ticket::CORRESPONDING_MAP)
           
     .field
       = f.label "Descripción"

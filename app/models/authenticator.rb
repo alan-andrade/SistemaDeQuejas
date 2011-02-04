@@ -2,7 +2,7 @@ module UDLA
   class Blackboard
     require 'net/ldap'
     
-    WANTED_ATTRS  = %w(mail sAMAccountName dn name)
+    WANTED_ATTRS  = %w(mail sAMAccountName dn name) #direct relation with the monkeypatching at the bottom
     
     def self.authenticate(user,pass)
       raise "No user Given" if user.empty?
@@ -41,8 +41,14 @@ end
 module Net
   class LDAP
     class Entry
+      require 'base64'
       def role
         dn.scan(/OU=([^,]*)/).flatten.first
+      end
+      
+      def uid
+        @myhash[:samaccountname] if @myhash.has_key? :samaccountname
+        Base64.encode64 name
       end
     end
   end

@@ -30,15 +30,15 @@ class User < ActiveRecord::Base
                   nUser
                end
     end
+    return users[0] if users.size == 1
+    return nil      if users.empty?
     users
   end
 
-  def self.authenticate(params)    # We need to return true or false
+  def self.authenticate(login, pass)    # We need to return true or false
   ##
   ## CODE that needs revisions and some rethinking. Exceptions well hanlded and a clever way to code.
-  ##
-  login,pass = params[:user],params[:password]
-  
+  ##  
       begin
       result  = UDLA::Blackboard.authenticate(login,pass)    
         rescue #rescue bad arguments exception or connection.

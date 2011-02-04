@@ -1,7 +1,6 @@
 class TicketsController < ApplicationController
-  before_filter :require_user
-  before_filter :require_admin, :only =>  [:edit, :update, :assign_responsible]
-  #before_filter :require_student, :only =>  [:new]
+  before_filter :require_user   , :only =>  [:index, :new, :create, :show]
+  before_filter :require_admin,   :only =>  [:edit, :update, :assign_responsible]
   
   def index
     status  = params[:status]    
@@ -36,7 +35,9 @@ class TicketsController < ApplicationController
   end
 
   def new
-    @ticket = @current_user.tickets.build
+    @ticket = @current_user.student? ?
+      @current_user.tickets.build :
+      Ticket.new
   end
   
   ## May be removed
@@ -46,11 +47,12 @@ class TicketsController < ApplicationController
 
   def create    
     ## A student create a ticket
-    @ticket = @current_user.tickets.build(params[:ticket]) unless params[:ticket].has_key? :student
-    
-    ## An administrator creates a ticket for the user.
-    # Should receive the ID of the student.    
-    student = User.find(params[:ticket][:student])
+    @ticket = if params[:ticket].has_key? :student_id
+                student = User.find_by_id params[:ticket][:student_id]
+                student.tickets.build(params[:ticket])
+              else
+                @current_user.tickets.build(params[:ticket])
+              end
 
     respond_to do |format|
       if @ticket.save

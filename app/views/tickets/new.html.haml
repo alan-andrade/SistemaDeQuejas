@@ -1,5 +1,5 @@
+- include_script 'jq-scripts/charCount.js', 'student_recognition.js'
 - content_for  :script do
-  =javascript_include_tag  'jq-scripts/charCount.js'
   :javascript
     $(document).ready(function(){$("#ticket_description").charCount({allowed: 300, counterText: "Límite:"});});  
 
