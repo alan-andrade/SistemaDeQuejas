@@ -5,12 +5,12 @@ class TicketsController < ApplicationController
   def index
     status  = params[:status]    
     ticket  = @current_user.student? ? @current_user.tickets : Ticket
-    
+    ticket.includes([:student, :responsible])
     @tickets = case status
                 when 'pending'  then  ticket.order('created_at DESC').pending
                 when 'active'   then  ticket.order('created_at DESC').active
                 when 'finished' then  ticket.order('created_at DESC').finished
-              end    
+              end            
     
     respond_to do |format|
       if request.xhr?

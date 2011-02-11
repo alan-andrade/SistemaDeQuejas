@@ -11,10 +11,10 @@ module TicketsHelper
   end
   
   def corresponding_to_path(ticket)
-    path  =   Ticket::CORRESPONDING_MAP.each_pair do |key, values|
-                if values.include? ticket.corresponding_to.to_sym
-                  return "#{t key.to_s} >> #{t values.find{|v| v == ticket.corresponding_to.to_sym} }"                
-                end
-              end
+    Ticket::CORRESPONDING_MAP.each_pair do |key, arr|
+      index = arr.index(ticket.corresponding_to.to_sym)
+      return "#{key} >> #{arr[index]}" if index
+    end
+    ticket.corresponding_to
   end
 end

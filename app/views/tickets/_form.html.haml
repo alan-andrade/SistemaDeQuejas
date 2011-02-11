@@ -9,12 +9,17 @@
     - if @current_user.admin?
       .field
         = f.label :student, "Alumno"
-        = f.text_field :student_id
+        
+        //This 2 fields change according to which action is required.
+        // If we have a new Ticket, we want to assign a student.
+        // If we edit, we want just to print the students name.                
+        = f.text_field :student_id, :value=>'ID del estudiante' unless @ticket.student
+        = @ticket.student.name if @ticket.student
         %span= image_tag 'loading.gif', :id=>"spinner", :style=>"display:none"
         %span#field-message
         #student-info
     .field  
-      = f.label "Tipo de Queja"     
+      = f.label :corresponding_to, "Tema de queja"     
       = f.select :corresponding_to, grouped_options_for_select(Ticket::CORRESPONDING_MAP)
           
     .field

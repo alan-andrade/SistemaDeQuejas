@@ -1,5 +1,7 @@
 $(document).ready(function(){
     var cambiar = $("<a id='switch-field' href='#'>Cambiar</a>");
+    var inactiveCss = { 'font-style' :  'italic', 'color'  : '#222' }
+    var activeCss   = { 'font-style' :  'normal', 'color'  : 'black'}
     
     $("#switch-field").live('click', function(){
         $('#student-info').hide();
@@ -26,7 +28,9 @@ $(document).ready(function(){
                           $('#ticket_student_id').select();
                       }
                   }, 'json' )
-        }
+        } else { $(this).val('ID del estudiante').css(inactiveCss) }
     }).ajaxSend(    function(){ $("#spinner").show()  })
-    .ajaxComplete(  function(){ $("#spinner").hide()  })
+    .ajaxComplete(  function(){ $("#spinner").hide()  })    
+    .css(inactiveCss)    
+    .focus(function(){ $(this).css(activeCss).val('') })
 });

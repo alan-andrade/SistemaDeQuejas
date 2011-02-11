@@ -3,9 +3,10 @@ require 'prawn'   #PDF Files Generation
 class Ticket < ActiveRecord::Base
   # Arreglo de posibles estados de la queja
   STATUS              =   [:pending,  :active,  :finished].map(&:to_s).freeze
-  CORRESPONDING_MAP   =   {:course  =>  [:professor, :content],
-                           :admin   =>  [:employee],
-                           :other   =>  [:other]}
+  CORRESPONDING_MAP   =   {:curso           =>  [:profesor, :contenido, :calificacion],
+                           :administrativo  =>  [:empleado, :papeleo],
+                           :plataforma      =>  [:cuenta],
+                           :otro            =>  [:otro]}
                           .freeze
   CORRESPONDING_TO    =   CORRESPONDING_MAP.values.flatten.map(&:to_s).freeze
   # Relaciones con otras clases
@@ -24,9 +25,9 @@ class Ticket < ActiveRecord::Base
   
   ## Scopes
   
-  scope :pending, where(:status=>STATUS.first)
-  scope :active,  where(:status=>STATUS[1])
-  scope :finished,where(:status=>STATUS.last)
+  scope :pending, where(:status=>STATUS.first).includes(:student, :responsible)    
+  scope :active,  where(:status=>STATUS[1]).includes(:student, :responsible)
+  scope :finished,where(:status=>STATUS.last).includes(:student, :responsible)
   
   ## Callbacks before saving record
   
@@ -65,7 +66,7 @@ class Ticket < ActiveRecord::Base
   private
   def ticket_creation_change  
     if new_record?
-      changes.build   :extern_comments  =>  "Levantamiento",
+      changes.build   :extern_comments  =>  "Tu queja ha sido enviada",
                       :intern_comments  =>  "Levantamiento",
                       :change_type      =>  "advance",
                       :responsible_id   =>  student.id
@@ -74,7 +75,7 @@ class Ticket < ActiveRecord::Base
   
   def responsible_management
     if responsible_id_changed?
-      changes.build  :extern_comments  =>"'#{responsible.name}' ha tomado tu queja. Estamos trabajando en tu peticion",
+      changes.build  :extern_comments  =>"Tu queja esta en proceso",
                      :change_type      =>  "advance",
                      :responsible_id   =>     responsible.id
       self.status = STATUS[1]
@@ -95,7 +96,6 @@ class Ticket < ActiveRecord::Base
             end
     year  = Date.today.year.to_s
     mili  = Time.now.to_f.to_s[11..13]
-    id  = day+month+year+mili
-    p id
+    self.id  = year+month+day+mili
   end
 end

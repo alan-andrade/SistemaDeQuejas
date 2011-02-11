@@ -98,7 +98,7 @@ blockquote {
 .flash {
   position: absolute;
   right: 5%;
-  background-color: #c4ccd9;
+  background-color: #d94b2b;
   padding: 10px;
   margin: 0 auto;
   width: 106px;
@@ -113,7 +113,7 @@ blockquote {
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px; }
   .flash p > #notice {
-    color: #222f40; }
+    color: white; }
 
 p.tree {
   margin-left: 20px; }
