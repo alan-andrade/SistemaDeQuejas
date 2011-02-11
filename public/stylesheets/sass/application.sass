@@ -100,14 +100,13 @@ blockquote
   
 .flash
   position: absolute
-  display:block
-  right: 5%
-  background-color: #D94B2B
-  padding: 10px
+  width: 100%
+  background-color: #D8E6F2
+  padding: 5px
   margin: 0 auto
-  width: 106px
   z-index: 10
   text-align: center
+  font-size: 150%
   -moz-border-radius-topleft: 0px
   -moz-border-radius-topright: 0px
   -moz-border-radius-bottomright: 10px
@@ -116,8 +115,9 @@ blockquote
   border-top-right-radius: 0px
   border-bottom-right-radius: 10px
   border-bottom-left-radius: 10px 
-  p > #notice
-    color: white
-
-p.tree
-  margin-left: 20px
+  &:hover
+    cursor: pointer
+  #notice
+    color: green
+  #error
+    color: red

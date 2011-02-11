@@ -2,6 +2,9 @@ $(document).ready(function(){
   // Flash Message Animation
   if ($('.flash').length > 0){
     $('.flash').slideDown(1000).delay(2500).slideUp(1000)
+    $('.flash').click(function(){
+        $(this).hide()
+      })
   };
   
   // Little Icons rendering

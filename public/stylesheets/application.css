@@ -97,13 +97,13 @@ blockquote {
 
 .flash {
   position: absolute;
-  right: 5%;
-  background-color: #d94b2b;
-  padding: 10px;
+  width: 100%;
+  background-color: #d8e6f2;
+  padding: 5px;
   margin: 0 auto;
-  width: 106px;
   z-index: 10;
   text-align: center;
+  font-size: 150%;
   -moz-border-radius-topleft: 0px;
   -moz-border-radius-topright: 0px;
   -moz-border-radius-bottomright: 10px;
@@ -112,8 +112,9 @@ blockquote {
   border-top-right-radius: 0px;
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px; }
-  .flash p > #notice {
-    color: white; }
-
-p.tree {
-  margin-left: 20px; }
+  .flash:hover {
+    cursor: pointer; }
+  .flash #notice {
+    color: green; }
+  .flash #error {
+    color: red; }

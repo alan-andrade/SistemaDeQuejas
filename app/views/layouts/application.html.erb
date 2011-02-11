@@ -9,23 +9,23 @@
   <%= csrf_meta_tag %>
 </head>
 <body>
-<% unless flash.empty? %>
-<%= content_tag :div, :class=>:flash, :style=>"display:none" do -%>
-  <% flash.each_pair do |key, msg| %>
-    <p id="#{key}"><%= msg %></p>
-  <% end %>
-<% end %>
-<% end %>
-<div id="container">
-  <div id="user-nav">
-    <% if defined? @current_user %>
-      <%= @current_user.name %> ::
-      <%= link_to "Salir", logout_path %>
-    <% else %>
-      <%= link_to "Entrar", login_path %>
+  <% unless flash.empty? %>
+  <%= content_tag :div, :class=>:flash, :style=>"display:none" do -%>
+    <% flash.each_pair do |key, msg| %>
+      <p id="<%=key%>"><%= msg %></p>
     <% end %>
+  <% end %>
+  <% end %>
+  <div id="container">
+    <div id="user-nav">
+      <% if defined? @current_user %>
+        <%= @current_user.name %> ::
+        <%= link_to "Salir", logout_path %>
+      <% else %>
+        <%= link_to "Entrar", login_path %>
+      <% end %>
+    </div>
+    <%= yield %>  
   </div>
-  <%= yield %>  
-</div>
 </body>
 </html>
