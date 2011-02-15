@@ -24,19 +24,18 @@ class Ticket < ActiveRecord::Base
   validates :corresponding_to,  :inclusion  =>  {:in => CORRESPONDING_TO}
   
   ## Scopes
-  
-  scope :pending, where(:status=>STATUS.first).includes(:student, :responsible)    
+  scope :pending, where(:status=>STATUS.first).includes(:student, :responsible)    ## Would be great to keep DRY here.
   scope :active,  where(:status=>STATUS[1])   .includes(:student, :responsible)
   scope :finished,where(:status=>STATUS.last) .includes(:student, :responsible)
   
   ## Callbacks before saving record
   
   before_save {|t| t.status = STATUS[0] unless t.status? } # Could be fixed with the :deafult option in the migration.
+  before_save :designed_responsible_takeover #####  create a trigger for Itzel to take your ticket inmediately.
   before_save :ticket_creation_change
   before_save :responsible_management
   before_create :generate_id
   
-  after_save #####  Do a trigger for Itzel to take your ticket inmediately.
   
   
   #// TODO: get a good look for pdf rendering sheets.
@@ -83,6 +82,11 @@ class Ticket < ActiveRecord::Base
                      :responsible_id   =>     responsible.id
       self.status = STATUS[1]
     end
+  end
+  
+  def designed_responsible_takeover
+    user  = User.ticket_taker.first
+    self.responsible  = user
   end
   
   # A ticket has an id depending on which time was created.

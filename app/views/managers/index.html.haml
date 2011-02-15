@@ -1,0 +1,12 @@
+%h1 Managers
+// This is a quick implementation of the view. NEEDS to get optimized using heurisitcs or something else!
+
+- for manager in @managers
+  %p
+    = manager.name
+    = manager.ticket_taker? ? "(Responsable)" : nil
+    %br
+    = manager.id
+    %br
+    = link_to "Asignar como Responsable Principal", ticket_taker_path(manager.id), :method=>:post
+

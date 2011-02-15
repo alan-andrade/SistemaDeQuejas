@@ -19,7 +19,7 @@
   <div id="container">
     <div id="user-nav">
       <% if defined? @current_user %>
-        <%= @current_user.name %> ::
+        <%= @current_user.name %> <%= @current_user.id %>::
         <%= link_to "Salir", logout_path %>
       <% else %>
         <%= link_to "Entrar", login_path %>

@@ -1,9 +1,11 @@
+require 'authenticator'
+
 class Role < ActiveRecord::Base
   def student?
-    name == "Alumnos" ? true : false
+    UDLA::Blackboard::ROLES[:student].include?(name) ? true : false
   end
   
   def admin?
-    (name  ==  "Administrativos" || name  == "Cuentas Especiales") ? true  : false
+    UDLA::Blackboard::ROLES[:admin].include?(name) ? true  : false
   end
 end

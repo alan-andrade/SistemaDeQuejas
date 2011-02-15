@@ -7,10 +7,13 @@ SistemaDeQuejas::Application.routes.draw do
   
   root  :to=>"tickets#index"
   
-  match "login" =>  'access#new'
-  match "logout"  =>  'access#destroy'
+  match "login"         =>  'access#new'
+  match "logout"        =>  'access#destroy'
   match "authenticate"  =>  'access#create'
-  match "users/:id"  =>  "users#show"
+  match "users/:id"     =>  "users#show"
+  
+  get   "managers"      =>  "managers#index"  , :as =>  "managers"
+  post  "ticket_taker/:id"  =>  "managers#ticket_taker",  :as => "ticket_taker"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

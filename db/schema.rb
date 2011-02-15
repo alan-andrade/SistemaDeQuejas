@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110215014748) do
+ActiveRecord::Schema.define(:version => 20110215170816) do
 
   create_table "changes", :force => true do |t|
     t.text     "intern_comments"
@@ -50,11 +50,12 @@ ActiveRecord::Schema.define(:version => 20110215014748) do
   end
 
   create_table "users", :primary_key => "uid", :force => true do |t|
-    t.string   "mail",       :null => false
-    t.string   "name",       :null => false
-    t.integer  "role_id",    :null => false
+    t.string   "mail",         :null => false
+    t.string   "name",         :null => false
+    t.integer  "role_id",      :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "ticket_taker"
   end
 
 end

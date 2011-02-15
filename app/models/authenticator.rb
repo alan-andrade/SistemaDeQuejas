@@ -1,6 +1,10 @@
-module UDLA
+module UDLA ## Need to refactor WHERE to put this library. Checkout Docs. and change file name. is to specific and is not anymore!
   class Blackboard
     require 'net/ldap'
+    
+    ## This MAP is given the ActiveDirectory form the UDLAP.
+    ROLES = { :admin    =>  ["Cuentas Especiales", "Administrativos"],
+              :student  =>  ["Alumnos"]} 
     
     WANTED_ATTRS  = %w(mail sAMAccountName dn name) #direct relation with the monkeypatching at the bottom
     
@@ -38,6 +42,7 @@ module UDLA
   end
 end
 
+## Mokeypatching of the NET/LDAP library to get role and uid as we want. May be good idea to move to a proper file
 module Net
   class LDAP
     class Entry
