@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   belongs_to  :role
   has_many    :tickets, :foreign_key  =>  'student_id'
   
-  # Validation to ensure uniqueness of responsibles. Can refactor and make more pretty.
+  # Validation to ensure uniqueness of responsibles. Can refactor and make it more pretty.
   validates :ticket_taker, :uniqueness => true, :if => Proc.new {|user|
       if user.ticket_taker_changed? 
         old = User.where(:ticket_taker=>true).first
@@ -29,8 +29,9 @@ class User < ActiveRecord::Base
   end
 
    
-  ## Parameter ID could have an asterisk used as a wildcard. SECURITY RISK!
+  ## FIXED: Won't accept asterisk or any other character. A bit more secure ;)
   def self.find_by_id(id) ## TODO: Can do some refactoring. Looks ugly this finding method. Shouldnt be here.
+    raise "Only Accepts Argument of type Integer" if id.match(/[^\d]/) # detect characters.
     results = UDLA::Blackboard.find_users_by_id(id)
     users = []
     results.each do |user|

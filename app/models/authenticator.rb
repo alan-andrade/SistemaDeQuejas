@@ -16,6 +16,7 @@ module UDLA ## Need to refactor WHERE to put this library. Checkout Docs. and ch
     end
     
     def self.find_users_by_id(id)
+      raise "Only Accepts Argument of type Integer" if id.match(/[^\d]/) # detect characters.
       treebase  =   "dc=udla,dc=fundacion,dc=mx"
       filter    =   Net::LDAP::Filter.eq( "sAMAccountName", "#{id}" )      
       ldap      =   @@connection  ||= self.setup

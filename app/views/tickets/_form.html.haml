@@ -14,7 +14,7 @@
         // If we have a new Ticket, we want to assign a student.
         // If we edit, we want just to print the students name.                
         = f.text_field :student_id, :value=>'ID del estudiante' unless @ticket.student
-        = @ticket.student.name if @ticket.student
+        = @ticket.try(:student).try(:name)
         %span= image_tag 'loading.gif', :id=>"spinner", :style=>"display:none"
         %span#field-message
         #student-info
