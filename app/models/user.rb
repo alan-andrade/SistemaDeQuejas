@@ -1,5 +1,3 @@
-require 'authenticator'
-
 class User < ActiveRecord::Base
   set_primary_key :uid
   attr_accessible :uid, :name,  :role_id, :mail # Need to mention all of the mass-assignment possible attrs.
@@ -20,7 +18,7 @@ class User < ActiveRecord::Base
     }
   
   #scope :managers,  joins(:role).where(:roles=>{:name=> UDLA::Blackboard::ROLES[:admin] }) ## This return a readonly record. We must use find a find_by_sql
-  scope :managers, find_by_sql(["SELECT users.* FROM users INNER JOIN roles ON roles.id = users.role_id WHERE (roles.name IN (?))", UDLA::Blackboard::ROLES[:admin] ])
+  scope :managers, find_by_sql(["SELECT users.* FROM users INNER JOIN roles ON roles.id = users.role_id WHERE (roles.name IN (?))", UDLAP::ActiveDirectory::ROLES[:admin] ])
   scope :ticket_taker,  where(:ticket_taker =>  true)
   
   with_options :to=>:role do |r|
@@ -32,7 +30,7 @@ class User < ActiveRecord::Base
   ## FIXED: Won't accept asterisk or any other character. A bit more secure ;)
   def self.find_by_id(id) ## TODO: Can do some refactoring. Looks ugly this finding method. Shouldnt be here.
     raise "Only Accepts Argument of type Integer" if id.match(/[^\d]/) # detect characters.
-    results = UDLA::Blackboard.find_users_by_id(id)
+    results = UDLAP::ActiveDirectory.find_users_by_id(id)
     users = []
     results.each do |user|
       users << if User.exists?(user.samaccountname[0])
@@ -53,7 +51,7 @@ class User < ActiveRecord::Base
   ## CODE that needs revisions and some rethinking. Exceptions well hanlded and a clever way to code.
   ##  
       begin
-      result  = UDLA::Blackboard.authenticate(login,pass)    
+      result  = UDLAP::ActiveDirectory.authenticate(login,pass)    
         rescue #rescue bad arguments exception or connection.
           false
       end
