@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110130180332) do
+ActiveRecord::Schema.define(:version => 20110215014748) do
 
   create_table "changes", :force => true do |t|
     t.text     "intern_comments"
@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(:version => 20110130180332) do
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
   create_table "tickets", :force => true do |t|
-    t.integer  "student_id",       :null => false
+    t.integer  "student_id",                                     :null => false
     t.string   "teacher"
     t.string   "course"
     t.integer  "responsible_id"
@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(:version => 20110130180332) do
     t.string   "status"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "title",            :limit => 50, :default => "", :null => false
   end
 
   create_table "users", :primary_key => "uid", :force => true do |t|

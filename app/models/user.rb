@@ -8,13 +8,8 @@ class User < ActiveRecord::Base
   has_many  :tickets, :foreign_key  =>  'student_id'
 
   
-  def student?
-    role.name == "Alumnos" ? true : false
-  end
-  
-  def admin?
-    (role.name  ==  "Administrativos" || role.name  == "Cuentas Especiales") ? true  : false
-  end
+  def student?; role.student?; end  
+  def admin?;   role.admin?;   end
 
   ## Parameter ID could have an asterisk used as a wildcard
   

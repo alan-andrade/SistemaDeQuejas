@@ -21,7 +21,10 @@
     .field  
       = f.label :corresponding_to, "Tema de queja"     
       = f.select :corresponding_to, grouped_options_for_select(Ticket::CORRESPONDING_MAP)
-          
+    
+    .field
+      = f.label :title, "Titulo"
+      = f.text_field  :title
     .field
       = f.label "Descripción"
       = f.text_area :description

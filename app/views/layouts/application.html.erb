@@ -10,11 +10,11 @@
 </head>
 <body>
   <% unless flash.empty? %>
-  <%= content_tag :div, :class=>:flash, :style=>"display:none" do -%>
-    <% flash.each_pair do |key, msg| %>
-      <p id="<%=key%>"><%= msg %></p>
+    <%= content_tag :div, :class=>:flash, :style=>"display:none" do -%>
+      <% flash.each_pair do |key, msg| %>
+        <p id="<%=key%>"><%= msg %></p>
+      <% end %>
     <% end %>
-  <% end %>
   <% end %>
   <div id="container">
     <div id="user-nav">
