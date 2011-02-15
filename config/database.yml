@@ -1,10 +1,13 @@
 # SQLite version 3.x
 #   gem install sqlite3-ruby (not necessary on OS X Leopard)
 development:
-  adapter: sqlite3
-  database: db/development.sqlite3
+  adapter: mysql
+  host: 127.0.0.1
+  username: gallo
+  password: gallo
   pool: 5
-  timeout: 5000
+  encoding: utf8
+  database: udlap_a_distancia
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
