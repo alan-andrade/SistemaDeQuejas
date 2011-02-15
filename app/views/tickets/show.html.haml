@@ -21,9 +21,9 @@
     %td Responsable
     %td
       -if @current_user.admin?
-        =@ticket.responsible.name rescue nil || link_to("Tomar Queja", responsible_ticket_path)
+        =@ticket.try(:responsible).try(:name) || link_to("Tomar Queja", responsible_ticket_path)
       -else
-        = @ticket.responsible.name rescue nil ||  "Sin Responsable"
+        = @ticket.try(:responsible).try(:name) ||  "Sin Responsable"
   -if @ticket.course?
     %tr
       %td Curso

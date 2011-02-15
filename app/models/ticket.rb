@@ -26,8 +26,8 @@ class Ticket < ActiveRecord::Base
   ## Scopes
   
   scope :pending, where(:status=>STATUS.first).includes(:student, :responsible)    
-  scope :active,  where(:status=>STATUS[1]).includes(:student, :responsible)
-  scope :finished,where(:status=>STATUS.last).includes(:student, :responsible)
+  scope :active,  where(:status=>STATUS[1])   .includes(:student, :responsible)
+  scope :finished,where(:status=>STATUS.last) .includes(:student, :responsible)
   
   ## Callbacks before saving record
   
@@ -35,6 +35,9 @@ class Ticket < ActiveRecord::Base
   before_save :ticket_creation_change
   before_save :responsible_management
   before_create :generate_id
+  
+  after_save #####  Do a trigger for Itzel to take your ticket inmediately.
+  
   
   #// TODO: get a good look for pdf rendering sheets.
   def self.to_pdf(*tickets)

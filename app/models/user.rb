@@ -8,8 +8,10 @@ class User < ActiveRecord::Base
   has_many  :tickets, :foreign_key  =>  'student_id'
 
   
-  def student?; role.student?; end  
-  def admin?;   role.admin?;   end
+  with_options :to=>:role do |r|
+    r.delegate :student?
+    r.delegate :admin?
+  end
 
   ## Parameter ID could have an asterisk used as a wildcard
   
