@@ -16,10 +16,11 @@
       <% end %>
     <% end %>
   <% end %>
+  
   <div id="container">
     <div id="user-nav">
       <% if !!@current_user %>
-        <%= @current_user.uid %> - <%= @current_user.name %>::
+        <p>Bienvenido, <%= @current_user.name %></p>
         <%= link_to "Salir", logout_path %>
       <% else %>
         <%= link_to "Entrar", login_path %>

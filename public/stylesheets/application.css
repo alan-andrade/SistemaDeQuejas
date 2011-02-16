@@ -13,9 +13,8 @@ a {
     color: #d97904; }
 
 #user-nav {
-  background-color: white;
-  border-bottom: 1px solid #e9e600;
   text-align: right;
+  float: right;
   padding: 5px; }
 
 #container {
@@ -32,20 +31,7 @@ a {
 #container h1 {
   margin: 0px;
   padding: 10px;
-  background-color: #d8e6f2;
-  color: #d94b2b;
-  -webkit-border-top-left-radius: 0px;
-  -webkit-border-top-right-radius: 0px;
-  -webkit-border-bottom-right-radius: 10px;
-  -webkit-border-bottom-left-radius: 10px;
-  -moz-border-radius-topleft: 0px;
-  -moz-border-radius-topright: 0px;
-  -moz-border-radius-bottomright: 10px;
-  -moz-border-radius-bottomleft: 10px;
-  border-top-left-radius: 0px;
-  border-top-right-radius: 0px;
-  border-bottom-right-radius: 10px;
-  border-bottom-left-radius: 10px; }
+  color: #d94b2b; }
 #container h2 {
   color: #333333;
   border-bottom: 1px solid #d94b2b;
