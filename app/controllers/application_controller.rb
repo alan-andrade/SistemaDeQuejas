@@ -1,6 +1,5 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery
-  
+  protect_from_forgery  
   
   def require_user
     unless current_user
@@ -20,14 +19,14 @@ class ApplicationController < ActionController::Base
   
   def require_admin
     require_user unless @current_user
-    if @current_user.student?
+    unless @current_user.admin?
       redirect_to ticket_path,  :notice =>  "NO puede ejecutar esta operacion porque no tienes permiso."
     end
   end
   
   def require_student
     require_user unless @current_user
-    if @current_user.admin?
+    unless @current_user.student?
       redirect_to tickets_path,  :notice =>  "NO puede ejecutar esta operacion porque no tienes permiso."
     end
   end

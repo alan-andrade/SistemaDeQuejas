@@ -16,8 +16,7 @@ class User < ActiveRecord::Base
       end
     }
   
-  #scope :managers,  joins(:role).where(:roles=>{:name=> UDLA::Blackboard::ROLES[:admin] }) ## This return a readonly record. We must use find a find_by_sql
-  scope :managers, find_by_sql(["SELECT users.* FROM users INNER JOIN roles ON roles.id = users.role_id WHERE (roles.name IN (?))", UDLAP::ActiveDirectory::ROLES[:admin] ])
+  scope :managers,  joins(:role).where(:roles=>{:name=> UDLAP::ActiveDirectory::ROLES[:admin] }).readonly(false)
   scope :ticket_taker,  where(:ticket_taker =>  true)
   
   with_options :to=>:role do |r|
