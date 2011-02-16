@@ -5,7 +5,6 @@ class TicketsController < ApplicationController
   def index
     status  = params[:status]    
     ticket  = @current_user.student? ? @current_user.tickets : Ticket
-    ticket.includes([:student, :responsible])
     @tickets = case status
                 when 'pending'  then  ticket.order('created_at DESC').pending
                 when 'active'   then  ticket.order('created_at DESC').active
@@ -48,7 +47,7 @@ class TicketsController < ApplicationController
   def create    
     ## A student create a ticket
     @ticket = if params[:ticket].has_key? :student_id
-                student = User.find_by_id params[:ticket][:student_id]
+                student = User.find_by_uid params[:ticket][:student_id]
                 student.tickets.build(params[:ticket])
               else
                 @current_user.tickets.build(params[:ticket])

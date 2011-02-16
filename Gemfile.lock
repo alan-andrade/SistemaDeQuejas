@@ -37,7 +37,6 @@ GEM
     jquery-rails (0.2.6)
       rails (~> 3.0)
       thor (~> 0.14.4)
-    kgio (2.0.0)
     mail (2.2.14)
       activesupport (>= 2.3.6)
       i18n (>= 0.4.0)
@@ -77,9 +76,6 @@ GEM
     treetop (1.4.9)
       polyglot (>= 0.3.1)
     tzinfo (0.3.24)
-    unicorn (3.1.0)
-      kgio (~> 2.0.0)
-      rack
 
 PLATFORMS
   ruby
@@ -91,4 +87,3 @@ DEPENDENCIES
   net-ldap
   prawn
   rails (= 3.0.3)
-  unicorn

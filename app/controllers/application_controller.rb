@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
   end
   
   def current_user
-    session[:user].nil? ? false : @current_user = User.where("uid = #{session[:user]}").first
+    session[:user].nil? ? false : @current_user = User.where("uid = '#{session[:user]}'").first
   end
   
   def require_admin

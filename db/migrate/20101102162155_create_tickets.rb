@@ -1,7 +1,6 @@
 class CreateTickets < ActiveRecord::Migration
   def self.up
-    create_table :tickets,:id=>false do |t|
-      t.primary_key :id
+    create_table :tickets do |t|
       t.references :student,  :null =>  false
       #t.string  :student, :null =>  false
       #t.references :teacher
@@ -16,6 +15,7 @@ class CreateTickets < ActiveRecord::Migration
 
       t.timestamps
     end
+    add_index :tickets, :id
   end
 
   def self.down

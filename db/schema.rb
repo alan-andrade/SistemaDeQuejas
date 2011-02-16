@@ -49,13 +49,16 @@ ActiveRecord::Schema.define(:version => 20110215170816) do
     t.string   "title",            :limit => 50, :default => "", :null => false
   end
 
-  create_table "users", :primary_key => "uid", :force => true do |t|
-    t.string   "mail",         :null => false
-    t.string   "name",         :null => false
-    t.integer  "role_id",      :null => false
+  add_index "tickets", ["id"], :name => "index_tickets_on_id"
+
+  create_table "users", :force => true do |t|
+    t.string   "uid",                             :null => false
+    t.string   "mail",                            :null => false
+    t.string   "name",                            :null => false
+    t.integer  "role_id",                         :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "ticket_taker"
+    t.boolean  "ticket_taker", :default => false
   end
 
 end

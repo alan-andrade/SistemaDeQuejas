@@ -7,9 +7,10 @@ module Net
       end
       
       def uid
-        @myhash[:samaccountname] if @myhash.has_key? :samaccountname
+        return @myhash[:samaccountname][0] if @myhash.has_key? :samaccountname
         Base64.encode64 name
-      end
+      end    
+      
     end
   end
 end

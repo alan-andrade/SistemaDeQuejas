@@ -1,10 +1,9 @@
 class User < ActiveRecord::Base
-  set_primary_key :uid
-  attr_accessible :uid, :name,  :role_id, :mail # Need to mention all of the mass-assignment possible attrs.
+  #set_primary_key :uid
+  #attr_accessible :id, :name,  :role_id, :mail # Need to mention all of the mass-assignment possible attrs.
   
   belongs_to  :role
   has_many    :tickets, :foreign_key  =>  'student_id'
-  
   # Validation to ensure uniqueness of responsibles. Can refactor and make it more pretty.
   validates :ticket_taker, :uniqueness => true, :if => Proc.new {|user|
       if user.ticket_taker_changed? 
@@ -28,15 +27,16 @@ class User < ActiveRecord::Base
 
    
   ## FIXED: Won't accept asterisk or any other character. A bit more secure ;)
-  def self.find_by_id(id) ## TODO: Can do some refactoring. Looks ugly this finding method. Shouldnt be here.
-    raise "Only Accepts Argument of type Integer" if id.match(/[^\d]/) # detect characters.
+  def self.find_by_uid(id) ## TODO: Can do some refactoring. Looks ugly this finding method. Shouldnt be here.
+    raise "Wont accept asterisk" if id.match(/\*/)
+    return User.where(:uid => id).first if User.exists?(:uid => id)
     results = UDLAP::ActiveDirectory.find_users_by_id(id)
     users = []
     results.each do |user|
-      users << if User.exists?(user.samaccountname[0])
-                  User.find(user.samaccountname[0])
+      users << if User.exists?(:uid => user.uid)
+                  User.where(:uid => user.uid).first
                else
-                  nUser       = User.new(:uid=>user.samaccountname[0],:mail=>user.mail[0],:name=>user.name[0])
+                  nUser       = User.new(:uid=>user.uid, :mail=>user.mail[0],:name=>user.name[0])
                   nUser.role  = Role.find_or_create_by_name(user.role); nUser.save
                   nUser
                end
@@ -60,14 +60,14 @@ class User < ActiveRecord::Base
       p "No user"
       return false
     else
-      User.find_by_id login
+      User.find_by_uid login
     end   
   end    
   
   
   private
   
-    def ticket_taker_uniqueness   ## Keep always 1 person in charge. This could change depending on what Users want
+    def ticket_taker_uniqueness   ## Keep always 1 person in charge. This could change depending on what final Users want
       if self.ticket_taker_changed?
         oldUser = User.where(:ticket_taker => true).first
         unless oldUser.nil?

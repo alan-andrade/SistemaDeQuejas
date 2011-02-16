@@ -11,7 +11,7 @@ class AccessController < ApplicationController
       session[:user]  = @user.uid
       redirect_to tickets_path
     else  
-      flash[:now] = "Ingresa correctamente tus datos"
+      flash[:now] = "No coinciden tus datos. Intentalo nuevamente"
       render :new
     end
   end

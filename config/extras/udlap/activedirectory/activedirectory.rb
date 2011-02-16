@@ -2,8 +2,8 @@ module UDLAP
   module ActiveDirectory
     require 'net/ldap'
     
-    ROLES = { :admin    =>  ["Cuentas Especiales", "Administrativos"],
-               :student  =>  ["Alumnos"]} 
+    ROLES = {   :admin    =>  ["Cuentas Especiales", "Administrativos"],
+                :student  =>  ["Alumnos"]} 
       
     WANTED_ATTRS  = %w(mail sAMAccountName dn name)
     
@@ -14,8 +14,7 @@ module UDLAP
       return conn.bind_as(:filter => filter, :password => pass)
     end
     
-    def self.find_users_by_id(id)
-      raise "Only Accepts Argument of type Integer" if id.match(/[^\d]/) # detect characters.
+    def self.find_users_by_id(id)      
       filter    =   Net::LDAP::Filter.eq( "sAMAccountName", "#{id}" )      
       ldap      =   @@connection  ||= self.setup
       results   =   Array.new

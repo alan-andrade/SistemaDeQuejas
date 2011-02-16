@@ -24,7 +24,7 @@ class Ticket < ActiveRecord::Base
   validates :corresponding_to,  :inclusion  =>  {:in => CORRESPONDING_TO}
   
   ## Scopes
-  scope :pending, where(:status=>STATUS.first).includes(:student, :responsible)    ## Would be great to keep DRY here.
+  scope :pending, where(:status=>STATUS.first).includes(:student, :responsible)    ## Would be great to keep DRY here. how?
   scope :active,  where(:status=>STATUS[1])   .includes(:student, :responsible)
   scope :finished,where(:status=>STATUS.last) .includes(:student, :responsible)
   
@@ -34,7 +34,7 @@ class Ticket < ActiveRecord::Base
   before_save :designed_responsible_takeover #####  create a trigger for Itzel to take the ticket inmediately.
   before_save :ticket_creation_change
   before_save :responsible_management
-  before_create :generate_id
+  #before_create :generate_id
   
   
   
@@ -77,9 +77,9 @@ class Ticket < ActiveRecord::Base
   
   def responsible_management
     if responsible_id_changed?
-      changes.build  :extern_comments  =>"Tu queja esta en proceso",
+      changes.build  :extern_comments  => "Tu queja esta en proceso",
                      :change_type      =>  "advance",
-                     :responsible_id   =>     responsible.id
+                     :responsible_id   =>  responsible.id
       self.status = STATUS[1]
     end
   end
@@ -89,20 +89,4 @@ class Ticket < ActiveRecord::Base
     self.responsible  = user
   end
   
-  # A ticket has an id depending on which time was created.
-  def generate_id
-    day = if Date.today.day.to_s.length == 1
-            "0" + Date.today.day.to_s
-          else
-            Date.today.day.to_s
-          end
-   month  = if Date.today.month.to_s.length ==  1
-              "0" + Date.today.month.to_s
-            else
-              Date.today.month.to_s
-            end
-    year  = Date.today.year.to_s
-    mili  = Time.now.to_f.to_s[11..13]
-    self.id  = year+month+day+mili
-  end
 end
