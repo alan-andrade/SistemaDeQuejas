@@ -1,1 +1,1 @@
-require File.dirname(__FILE__) + "/../extras/udlap/udlap.rb"
+require File.dirname(__FILE__) + "/../../lib/udlap/udlap.rb"
