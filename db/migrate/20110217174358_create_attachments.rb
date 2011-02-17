@@ -1,10 +1,10 @@
 class CreateAttachments < ActiveRecord::Migration
   def self.up
     create_table :attachments do |t|
-      t.binary :file
+      t.binary :content
       t.references  :ticket, :change
       t.string :file_name
-      t.string :extension
+      t.string :content_type
 
       t.timestamps
     end

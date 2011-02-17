@@ -34,10 +34,7 @@ class TicketsController < ApplicationController
   end
 
   def new
-    @ticket = @current_user.student? ?
-      @current_user.tickets.build :
-      Ticket.new
-    @ticket.attachments.build
+    @ticket = Ticket.new
   end
   
   ## May be removed
@@ -47,17 +44,21 @@ class TicketsController < ApplicationController
 
   def create    
     ## A student create a ticket
-    @ticket = if @current_user.admin? and params[:ticket].has_key? :student_id
-                if params[:ticket][:student_id].empty?
-                  Ticket.new(params[:ticket])
-                else
-                  student = User.find_by_uid params[:ticket][:student_id]
-                  student.tickets.build(params[:ticket])
-                end
-              else
-                @current_user.tickets.build(params[:ticket])
-              end
-
+    #@ticket = if @current_user.admin? and params[:ticket].has_key? :student_id
+    #            if params[:ticket][:student_id].empty?
+    #              Ticket.new(params[:ticket])
+    #            else
+    #              student = User.find_by_uid params[:ticket][:student_id]
+    #              student.tickets.build(params[:ticket])
+    #            end
+    #          else
+    #            @current_user.tickets.build(params[:ticket])
+    #          end
+    ## Almost 10 lines cutted into 2. :D
+    
+    @ticket = Ticket.new(params[:ticket])
+    @ticket.student = User.find_by_uid(@ticket.student_id) or @current_user
+    @ticket.build_attachment(params[:attachment])
     @ticket.save ? 
       redirect_to(@ticket, :notice => 'Tu queja ha sido enviada') :
       render(:action => "new")

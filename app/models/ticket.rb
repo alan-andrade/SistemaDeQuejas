@@ -14,7 +14,6 @@ class Ticket < ActiveRecord::Base
   cattr_accessor  :current_user ## DO NOT REMOVE OR CHANGE. Used in :responsible_management
   
   has_many  :attachments
-  accepts_nested_attributes_for :attachments
   
   # Relaciones con otras clases
   #
@@ -44,7 +43,13 @@ class Ticket < ActiveRecord::Base
   before_save :responsible_management
   #before_create :generate_id
   
-  
+  def build_attachment(file)
+    attachment  =  attachments.build
+    file  = file[:file]
+    attachment.content  = file.read
+    attachment.file_name  = file.original_filename
+    attachment.content_type = file.content_type
+  end
   
   #// TODO: get a good look for pdf rendering sheets.
   def self.to_pdf(*tickets)

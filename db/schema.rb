@@ -13,11 +13,11 @@
 ActiveRecord::Schema.define(:version => 20110217174358) do
 
   create_table "attachments", :force => true do |t|
-    t.binary   "file"
+    t.binary   "content"
     t.integer  "ticket_id"
     t.integer  "change_id"
     t.string   "file_name"
-    t.string   "extension"
+    t.string   "content_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
