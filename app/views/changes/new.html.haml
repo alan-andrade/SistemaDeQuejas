@@ -14,7 +14,7 @@
           %li= msg
     .field
       =c.label  t('.change_types')    
-      =c.select :change_type, Change::CHANGE_TYPES.map{|ct| [t(ct),ct]}
+      =c.select :change_type, Change::CHANGE_TYPES.map{|ct| [t(ct),ct]}      
     .field
       =c.label t('.intern_comments')
       =c.text_area :intern_comments

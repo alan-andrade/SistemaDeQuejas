@@ -1,14 +1,14 @@
 - include_css 'tickets/form.css'
   
-%h1 Asignar Responsable
+%h1 Reasignar Responsable
 %p
   = link_to t('back'), tickets_path
   
-= form_for @ticket do |t|
+= form_for @ticket, :url=>ticket_path(@ticket), :method=>:put do |t|
   =field_set_tag do
     .field
-      =t.label :responsible, 'Asignar Responsable'
-      =t.text_field  :responsible
+      =t.label :responsible_id, 'Asignar Responsable'
+      =t.collection_select :responsible_id, @managers, :id, :name
       
     .actions
-      =t.submit 
+      =t.submit "Cambiar Responsable"

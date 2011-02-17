@@ -6,7 +6,7 @@
     = manager.name
     = manager.ticket_taker? ? "(Responsable)" : nil
     %br
-    = manager.id
+    = manager.uid
     %br
     = link_to "Asignar como Responsable Principal", ticket_taker_path(manager.uid), :method=>:post
 

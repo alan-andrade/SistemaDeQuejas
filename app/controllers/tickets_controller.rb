@@ -53,27 +53,21 @@ class TicketsController < ApplicationController
                 @current_user.tickets.build(params[:ticket])
               end
 
-    respond_to do |format|
-      if @ticket.save
-        format.html { redirect_to(@ticket, :notice => 'Tu queja ha sido enviada') }
-      else
-        format.html { render :action => "new" }
-      end
-    end
+    @ticket.save ? 
+      redirect_to(@ticket, :notice => 'Tu queja ha sido enviada') :
+      render(:action => "new")
+
   end
 
   # PUT /tickets/1
   # PUT /tickets/1.xml
   def update
-    @ticket = Ticket.find(params[:id])
-
-    respond_to do |format|
+    @ticket = Ticket.find(params[:id]); @ticket.current_user = @current_user
       if @ticket.update_attributes(params[:ticket])
-        format.html { redirect_to(@ticket, :notice => 'Ticket was successfully updated.') }
+        redirect_to(@ticket, :notice => 'Se ha actualizado la queja con exito.')
       else
-        format.html { render :action => "edit" }       
+        render :action => "edit"
       end
-    end
   end
 
   def destroy
@@ -87,13 +81,7 @@ class TicketsController < ApplicationController
 
   def assign_responsible
     @ticket = Ticket.find(params[:id])
-    @ticket.responsible = @current_user
-    
-    if @ticket.save
-      redirect_to ticket_path, :notice =>  "Has tomado la queja"
-    else
-      redirect_to ticket_path, :notice =>  "Ocurrio un Error. "
-    end
+    @managers = User.managers
   end
     
 end

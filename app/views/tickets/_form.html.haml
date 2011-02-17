@@ -19,8 +19,8 @@
         %span#field-message
         #student-info
     .field  
-      = f.label :corresponding_to, "Tema de queja"     
-      = f.select :corresponding_to, grouped_options_for_select(Ticket::CORRESPONDING_MAP)
+      = f.label :corresponding_to, "Categoria"     
+      = f.select :corresponding_to, grouped_options_for_select(Ticket::CORRESPONDING_MAP, @ticket.try(:corresponding_to) )
     
     .field
       = f.label :title, "Titulo"

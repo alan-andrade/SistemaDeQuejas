@@ -20,10 +20,18 @@
   %tr
     %td Responsable
     %td
-      -if @current_user.admin?
-        =@ticket.try(:responsible).try(:name) || link_to("Tomar Queja", responsible_ticket_path)
-      -else
-        = @ticket.try(:responsible).try(:name) ||  "Sin Responsable"
+      - if @ticket.responsible
+        = @ticket.responsible.name
+        -if @current_user.admin?
+          = link_to "Reasignar", responsible_ticket_path(@ticket)     
+      - else
+        -if @current_user.admin?
+          = button_to("Tomar Queja", {:action=>:update, :responsible_id=>@current_user.id}, :method=>:put)
+        -else
+          = "Sin Responsable"
+        
+      
+               
   -if @ticket.course?
     %tr
       %td Curso
@@ -78,5 +86,4 @@
 %p
   -if @current_user.admin?
     = link_to t('new_change'), new_ticket_change_path(@ticket) if !!@ticket.responsible
-    = link_to "Tomar queja y hacer cambios", responsible_ticket_path(@ticket) unless !!@ticket.responsible
 

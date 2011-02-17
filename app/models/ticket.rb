@@ -1,7 +1,7 @@
 require 'prawn'   #PDF Files Generation
 
 class Ticket < ActiveRecord::Base
-  # Arreglo de posibles estados de la queja
+  # Arreglo de posibles estados de la queja 
   STATUS              =   [:pending,  :active,  :finished].map(&:to_s).freeze
   CORRESPONDING_MAP   =   {:curso           =>  [:profesor, :contenido, :calificacion],
                            :administrativo  =>  [:empleado, :papeleo],
@@ -9,9 +9,14 @@ class Ticket < ActiveRecord::Base
                            :otro            =>  [:otro]}
                           .freeze
   CORRESPONDING_TO    =   CORRESPONDING_MAP.values.flatten.map(&:to_s).freeze
+  
+  ## Atributo para controlar el usuario actual.
+  cattr_accessor  :current_user ## DO NOT REMOVE OR CHANGE. Used in :responsible_management
+   
+  
   # Relaciones con otras clases
   #
-  belongs_to  :student, :class_name =>  'User', :foreign_key  =>  'student_id'
+  belongs_to  :student  ,     :class_name =>  'User', :foreign_key  =>  'student_id'
   #   belongs_to  :teacher
   #   belongs_to  :course
   belongs_to  :responsible  , :class_name =>  'User', :foreign_key  =>  'responsible_id'
@@ -30,8 +35,8 @@ class Ticket < ActiveRecord::Base
   
   ## Callbacks before saving record
   
-  before_save {|t| t.status = STATUS[0] unless t.status? } # Could be fixed with the :deafult option in the migration.
-  before_save :designed_responsible_takeover #####  create a trigger for Itzel to take the ticket inmediately.
+  before_create {|t| t.status = STATUS[0] unless t.status? } # Could be fixed with the :deafult option in the migration.
+  before_create :designed_responsible_takeover #####  create a trigger for Itzel to take the ticket inmediately.
   before_save :ticket_creation_change
   before_save :responsible_management
   #before_create :generate_id
@@ -68,18 +73,19 @@ class Ticket < ActiveRecord::Base
   private
   def ticket_creation_change  
     if new_record?
-      changes.build   :extern_comments  =>  "Tu queja ha sido enviada",
-                      :intern_comments  =>  "Levantamiento",
-                      :change_type      =>  "advance",
+      changes.build   :extern_comments  =>  "Tu queja ha sido enviada. Estamos resolviendo tu peticion.",
+                      :intern_comments  =>  "Se levanto la queja",
+                      :change_type      =>  Change::CHANGE_TYPES[0],  #Advance Change.
                       :responsible_id   =>  student.id
     end
   end
   
   def responsible_management
     if responsible_id_changed?
-      changes.build  :extern_comments  => "Tu queja esta en proceso",
-                     :change_type      =>  "advance",
-                     :responsible_id   =>  responsible.id
+      changes.build  :extern_comments  => "Ha cambiado el responsable que lleva la resolucion de tu queja.",
+                     :intern_comments  => "Se asigno a #{User.find(responsible_id).name} como responsable",
+                     :change_type      =>  Change::CHANGE_TYPES[0], #Advance Change.
+                     :responsible_id   =>  current_user.nil? ? responsible_id : current_user.id
       self.status = STATUS[1]
     end
   end
