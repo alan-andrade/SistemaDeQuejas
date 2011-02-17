@@ -37,6 +37,7 @@ class TicketsController < ApplicationController
     @ticket = @current_user.student? ?
       @current_user.tickets.build :
       Ticket.new
+    @ticket.attachments.build
   end
   
   ## May be removed
@@ -46,9 +47,13 @@ class TicketsController < ApplicationController
 
   def create    
     ## A student create a ticket
-    @ticket = if params[:ticket].has_key? :student_id
-                student = User.find_by_uid params[:ticket][:student_id]
-                student.tickets.build(params[:ticket])
+    @ticket = if @current_user.admin? and params[:ticket].has_key? :student_id
+                if params[:ticket][:student_id].empty?
+                  Ticket.new(params[:ticket])
+                else
+                  student = User.find_by_uid params[:ticket][:student_id]
+                  student.tickets.build(params[:ticket])
+                end
               else
                 @current_user.tickets.build(params[:ticket])
               end

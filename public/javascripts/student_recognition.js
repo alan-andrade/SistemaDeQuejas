@@ -28,7 +28,7 @@ $(document).ready(function(){
                           $('#ticket_student_id').select();
                       }
                   }, 'json' )
-        } else { $(this).val('ID del estudiante').css(inactiveCss) }
+        } else { $(this).val('').css(inactiveCss) }
     }).ajaxSend(    function(){ $("#spinner").show()  })
     .ajaxComplete(  function(){ $("#spinner").hide()  })    
     .css(inactiveCss)    

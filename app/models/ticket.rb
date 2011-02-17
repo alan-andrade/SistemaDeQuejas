@@ -12,7 +12,9 @@ class Ticket < ActiveRecord::Base
   
   ## Atributo para controlar el usuario actual.
   cattr_accessor  :current_user ## DO NOT REMOVE OR CHANGE. Used in :responsible_management
-   
+  
+  has_many  :attachments
+  accepts_nested_attributes_for :attachments
   
   # Relaciones con otras clases
   #
@@ -27,6 +29,7 @@ class Ticket < ActiveRecord::Base
   ## Validators
   #validates :student,           :presence   =>  true :: not longer needed because of sessions.
   validates :corresponding_to,  :inclusion  =>  {:in => CORRESPONDING_TO}
+  validates :student_id,  :presence =>  true
   
   ## Scopes
   scope :pending, where(:status=>STATUS.first).includes(:student, :responsible)    ## Would be great to keep DRY here. how?

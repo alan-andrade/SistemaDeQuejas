@@ -10,7 +10,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110215170816) do
+ActiveRecord::Schema.define(:version => 20110217174358) do
+
+  create_table "attachments", :force => true do |t|
+    t.binary   "file"
+    t.integer  "ticket_id"
+    t.integer  "change_id"
+    t.string   "file_name"
+    t.string   "extension"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "changes", :force => true do |t|
     t.text     "intern_comments"

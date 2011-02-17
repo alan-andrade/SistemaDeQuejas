@@ -49,6 +49,9 @@
   %br
   = @ticket.description
 
+%h2 Archivos de Evidencia
+- for attachment in @ticket.attachments
+  %p= attachment.file_name
 
 
 - for change in @ticket.changes

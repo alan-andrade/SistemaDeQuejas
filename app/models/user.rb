@@ -17,6 +17,7 @@ class User < ActiveRecord::Base
     }
   
   scope :managers,  joins(:role).where(:roles=>{:name=> UDLAP::ActiveDirectory::ROLES[:admin] }).readonly(false)
+  scope :students,  joins(:role).where(:roles=>{:name=> UDLAP::ActiveDirectory::ROLES[:student] }).readonly(false)
   scope :ticket_taker,  where(:ticket_taker =>  true)
   
   with_options :to=>:role do |r|

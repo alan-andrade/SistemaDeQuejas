@@ -8,6 +8,9 @@ class Change < ActiveRecord::Base
   validates :change_type, :inclusion=>{:in=>CHANGE_TYPES}  
   after_save :finished_ticket?
   
+  ## Evidence of change
+  has_many  :attachments
+  
   ## TODO: Assure just a manager can make changes
   private 
   def finished_ticket?
