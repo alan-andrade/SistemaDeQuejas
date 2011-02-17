@@ -1,6 +1,8 @@
 %h1 Managers
 // This is a quick implementation of the view. NEEDS to get optimized using heurisitcs or something else!
 
+%p
+  =link_to "<< Regresar", tickets_path
 - for manager in @managers
   %p
     = manager.name

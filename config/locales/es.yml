@@ -17,6 +17,7 @@ es:
   waiting:  "En Espera"
   advance:  "Avance"
   finished: "Terminado"
+  manager:  "Cambio de Responsable"
   new_change: "Nuevo Cambio"
   professor: "Profesor"
   course: "Curso"

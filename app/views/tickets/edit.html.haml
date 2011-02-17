@@ -8,6 +8,5 @@
 
 %h1= t '.title'
 %p
-  = link_to t('back'), tickets_path
-  = link_to t('show'), @ticket
+  = link_to t('back'), ticket_path(@ticket)
 = render 'form'

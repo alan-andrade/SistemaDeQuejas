@@ -84,7 +84,7 @@ class Ticket < ActiveRecord::Base
     if responsible_id_changed?
       changes.build  :extern_comments  => "Ha cambiado el responsable que lleva la resolucion de tu queja.",
                      :intern_comments  => "Se asigno a #{User.find(responsible_id).name} como responsable",
-                     :change_type      =>  Change::CHANGE_TYPES[0], #Advance Change.
+                     :change_type      =>  Change::CHANGE_TYPES[2], #Manager Change
                      :responsible_id   =>  current_user.nil? ? responsible_id : current_user.id
       self.status = STATUS[1]
     end

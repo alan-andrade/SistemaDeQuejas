@@ -26,7 +26,7 @@
           = link_to "Reasignar", responsible_ticket_path(@ticket)     
       - else
         -if @current_user.admin?
-          = button_to("Tomar Queja", {:action=>:update, :responsible_id=>@current_user.id}, :method=>:put)
+          = button_to("Tomar Queja", {:action=>:update, :ticket=>{:responsible_id=>@current_user.id}}, :method=>:put)
         -else
           = "Sin Responsable"
         

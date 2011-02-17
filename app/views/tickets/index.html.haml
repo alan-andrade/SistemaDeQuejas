@@ -8,9 +8,10 @@
 %p 
   =link_to t('.new_ticket'), new_ticket_path
   - if @current_user.admin?
+    = link_to "Managers", managers_path
     = link_to 'Reporte',  tickets_path(:format=>:pdf)
 
-
+%h2 Panel de Quejas
 #tabs
   %ul 
     %li

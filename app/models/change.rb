@@ -1,6 +1,6 @@
 class Change < ActiveRecord::Base
   
-  CHANGE_TYPES  = [:advance, :waiting, :finished].map(&:to_s).freeze
+  CHANGE_TYPES  = [:advance, :waiting, :manager, :finished].map(&:to_s).freeze  ## Watch out for i18n tables for rendering this values.
 
   belongs_to :ticket, :inverse_of=>:changes
   belongs_to :responsible,  :class_name =>  'User', :foreign_key  =>  'responsible_id'

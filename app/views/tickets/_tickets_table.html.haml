@@ -1,7 +1,7 @@
 %table.tickets-table
   %tr
     %th
-      Estudiante
+      Titulo
     %th
       Asunto
     %th
@@ -16,7 +16,7 @@
   -for ticket in tickets
     %tr 
       %td                 
-        =ticket.student.name
+        =ticket.title
       %td
         =ticket.corresponding_to
       %td       
