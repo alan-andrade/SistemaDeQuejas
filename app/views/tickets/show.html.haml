@@ -10,9 +10,9 @@
 %hr
 
 %p
-  = flag_image(@ticket)
-  = t(@ticket.status)
-  
+  //= flag_image(@ticket)
+  //= t(@ticket.status)
+    
 %table.details
   %tr
     %td Alumno
@@ -23,7 +23,7 @@
       - if @ticket.responsible
         = @ticket.responsible.name
         -if @current_user.admin?
-          = link_to "Reasignar", responsible_ticket_path(@ticket)     
+          = link_to "Cambiar", responsible_ticket_path(@ticket)     
       - else
         -if @current_user.admin?
           = button_to("Tomar Queja", {:action=>:update, :ticket=>{:responsible_id=>@current_user.id}}, :method=>:put)
@@ -45,44 +45,22 @@
     %td=corresponding_to_path(@ticket)
 
 %blockquote  
+  = @ticket.title + ": "
+  %br
   = @ticket.description
 
-%h2
-  Rastreo     
-%table
-  %thead
-    %tr
-      %th
-        Fecha
-      %th
-        Accion
-      %th
-        Responsable
-      - if @current_user.student?
-        %th
-          Comentarios
-      - elsif @current_user.admin?
-        %th
-          Comentarios (Alumno)
-        %th
-          Comentarios (Administrativo)
-  %tbody
-    -for change in @ticket.changes
-      %tr
-        %td
-          = l change.created_at, :format=>:short
-        %td
-          =t change.change_type
-        %td
-          = change.responsible.name rescue nil
-        - if @current_user.student?
-          %td
-            =change.extern_comments
-        - elsif @current_user.admin?
-          %td
-            =change.extern_comments
-          %td
-            =change.intern_comments
+
+
+- for change in @ticket.changes
+  %h2= change.created_at.to_formatted_s(:short)  + ' > ' +  t(change.change_type)
+  %div{:style=>"padding-left: 15px; padding-bottom: 10px;"}
+    %i
+      Autor: 
+      = change.responsible.name
+    %p
+      = change.intern_comments if @current_user.admin?
+      = change.extern_comments if @current_user.student?
+
 %p
   -if @current_user.admin?
     = link_to t('new_change'), new_ticket_change_path(@ticket) if !!@ticket.responsible
