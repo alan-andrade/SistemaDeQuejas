@@ -1,6 +1,7 @@
 class TicketsController < ApplicationController
+
   before_filter :require_user   , :only =>  [:index, :new, :create, :show]
-  before_filter :require_admin,   :only =>  [:edit, :update, :assign_responsible]
+#  before_filter :require_admin,   :only =>  [:edit, :update, :assign_responsible]
   
   def index
     status  = params[:status]    
