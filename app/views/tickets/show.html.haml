@@ -8,10 +8,9 @@
     |
     = link_to t('destroy'), ticket_path(@ticket), :method=>'delete', :confirm => t('are_you_sure')
 %hr
-
-%p
-  //= flag_image(@ticket)
-  //= t(@ticket.status)
+  
+-if @current_user.admin?
+  = button_to t('new_change'), new_ticket_change_path(@ticket), :method=>:get if !!@ticket.responsible
     
 %table.details
   %tr
@@ -28,9 +27,7 @@
         -if @current_user.admin?
           = button_to("Tomar Queja", {:action=>:update, :ticket=>{:responsible_id=>@current_user.id}}, :method=>:put)
         -else
-          = "Sin Responsable"
-        
-      
+          = "Sin Responsable"     
                
   -if @ticket.course?
     %tr
@@ -48,11 +45,13 @@
   = @ticket.title + ": "
   %br
   = @ticket.description
+  
 
 %h2 Archivos de Evidencia
 - for attachment in @ticket.attachments
   %p
     = link_to attachment.file_name, show_attachment_path(attachment.to_param, :format=>attachment.extension)
+    
 %p= button_to "Agregar Archivo", edit_ticket_path(@ticket), :method=>:get
 
 
@@ -64,9 +63,4 @@
       = change.responsible.name
     %p
       = change.intern_comments if @current_user.admin?
-      = change.extern_comments if @current_user.student?
-
-%p
-  -if @current_user.admin?
-    = link_to t('new_change'), new_ticket_change_path(@ticket) if !!@ticket.responsible
-
+      = change.extern_comments unless @current_user.admin?
