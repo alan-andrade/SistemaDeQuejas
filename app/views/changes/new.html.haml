@@ -4,7 +4,7 @@
 %p
   =link_to t('back'), tickets_path
   
-=form_for [@ticket,@change] do |c|  
+=form_for [@ticket,@change], :html=>{:multipart=>true} do |c|  
   =field_set_tag do    
     - if @change.errors.any?
       #errorExplanation
@@ -14,13 +14,16 @@
           %li= msg
     .field
       =c.label  t('.change_types')    
-      =c.select :change_type, Change::CHANGE_TYPES.map{|ct| [t(ct),ct]}      
+      =c.select :change_type, Change::CHANGE_TYPES_FOR_VIEWS.map{|ct| [t(ct),ct]}
     .field
       =c.label t('.intern_comments')
       =c.text_area :intern_comments
     .field
       =c.label  t('.extern_comments')
       =c.text_area  :extern_comments
+    .field
+      = c.label :file, "Archivo de Evidencia"
+      = c.file_field :file
     .actions
-      =c.submit
+      =c.submit "Hacer Cambio"
 

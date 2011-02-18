@@ -64,3 +64,6 @@
     %p
       = change.intern_comments if @current_user.admin?
       = change.extern_comments unless @current_user.admin?
+    %ul
+    - for file in change.attachments
+      = link_to file.file_name, show_attachment_path(file)

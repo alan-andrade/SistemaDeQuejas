@@ -43,16 +43,7 @@ class Ticket < ActiveRecord::Base
   before_save :ticket_creation_change
   before_save :responsible_management
   #before_create :generate_id
-  
-  def build_attachment(file)
-    return false unless file
-    attachment  =  attachments.build
-    file  = file[:file]
-    attachment.content  = file.read
-    attachment.file_name  = file.original_filename
-    attachment.content_type = file.content_type
-  end
-  
+
   def file=(file)
     attachment  = attachments.build(:content  => file.read)
     attachment.file_name  = file.original_filename

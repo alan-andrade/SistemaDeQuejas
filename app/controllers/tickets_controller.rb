@@ -26,7 +26,7 @@ class TicketsController < ApplicationController
   end
 
   def show
-    @ticket = Ticket.find(params[:id])
+    @ticket = Ticket.includes(:responsible, :student, {:changes=>[:responsible, :attachments]}, :attachments).find(params[:id])
     respond_to do |format|
       format.html     
       format.pdf  { send_data  Ticket.to_pdf(@ticket) }
