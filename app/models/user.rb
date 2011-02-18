@@ -29,6 +29,7 @@ class User < ActiveRecord::Base
   ## FIXED: Won't accept asterisk or any other character. A bit more secure ;)
   def self.find_by_uid(id) ## TODO: Can do some refactoring. Looks ugly this finding method. Shouldnt be here.
     raise "Wont accept asterisk" if id.to_s.match(/\*/)
+    return  nil if id.nil?
     return User.where(:uid => id).first if User.exists?(:uid => id)
     results = UDLAP::ActiveDirectory.find_users_by_id(id)
     users = []
@@ -41,8 +42,8 @@ class User < ActiveRecord::Base
                   nUser
                end
     end
-    return users[0] if users.size == 1
     return nil      if users.empty?
+    return users[0] if users.size == 1
     users
   end
 

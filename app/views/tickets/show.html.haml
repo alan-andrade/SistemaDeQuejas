@@ -51,7 +51,9 @@
 
 %h2 Archivos de Evidencia
 - for attachment in @ticket.attachments
-  %p= attachment.file_name
+  %p
+    = link_to attachment.file_name, show_attachment_path(attachment.to_param, :format=>attachment.extension)
+%p= button_to "Agregar Archivo", edit_ticket_path(@ticket), :method=>:get
 
 
 - for change in @ticket.changes

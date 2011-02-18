@@ -34,7 +34,7 @@ class TicketsController < ApplicationController
   end
 
   def new
-    @ticket = Ticket.new
+    @ticket = @current_user.admin? ? Ticket.new : @current_user.tickets.build
   end
   
   ## May be removed
@@ -57,16 +57,13 @@ class TicketsController < ApplicationController
     ## Almost 10 lines cutted into 2. :D
     
     @ticket = Ticket.new(params[:ticket])
-    @ticket.student = User.find_by_uid(@ticket.student_id) or @current_user
-    @ticket.build_attachment(params[:attachment])
+    @ticket.student = (User.find_by_uid(@ticket.student_id) or @current_user)
     @ticket.save ? 
       redirect_to(@ticket, :notice => 'Tu queja ha sido enviada') :
       render(:action => "new")
 
   end
 
-  # PUT /tickets/1
-  # PUT /tickets/1.xml
   def update
     @ticket = Ticket.find(params[:id]); @ticket.current_user = @current_user
       if @ticket.update_attributes(params[:ticket])

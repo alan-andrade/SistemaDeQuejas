@@ -13,11 +13,12 @@ class Ticket < ActiveRecord::Base
   ## Atributo para controlar el usuario actual.
   cattr_accessor  :current_user ## DO NOT REMOVE OR CHANGE. Used in :responsible_management
   
-  has_many  :attachments
+  has_many  :attachments, :dependent  =>  :destroy
   
   # Relaciones con otras clases
   #
   belongs_to  :student  ,     :class_name =>  'User', :foreign_key  =>  'student_id'
+  validates_associated  :student
   #   belongs_to  :teacher
   #   belongs_to  :course
   belongs_to  :responsible  , :class_name =>  'User', :foreign_key  =>  'responsible_id'
@@ -28,7 +29,7 @@ class Ticket < ActiveRecord::Base
   ## Validators
   #validates :student,           :presence   =>  true :: not longer needed because of sessions.
   validates :corresponding_to,  :inclusion  =>  {:in => CORRESPONDING_TO}
-  validates :student_id,  :presence =>  true
+  validates :title,       :presence =>  true
   
   ## Scopes
   scope :pending, where(:status=>STATUS.first).includes(:student, :responsible)    ## Would be great to keep DRY here. how?
@@ -44,9 +45,16 @@ class Ticket < ActiveRecord::Base
   #before_create :generate_id
   
   def build_attachment(file)
+    return false unless file
     attachment  =  attachments.build
     file  = file[:file]
     attachment.content  = file.read
+    attachment.file_name  = file.original_filename
+    attachment.content_type = file.content_type
+  end
+  
+  def file=(file)
+    attachment  = attachments.build(:content  => file.read)
     attachment.file_name  = file.original_filename
     attachment.content_type = file.content_type
   end

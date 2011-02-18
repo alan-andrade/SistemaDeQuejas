@@ -1,5 +1,5 @@
 = form_for @ticket, :html=>{:multipart => true} do |f|
-  = field_set_tag do 
+  = field_set_tag do
     - if @ticket.errors.any?
       #errorExplanation
         %h2= "#{pluralize(@ticket.errors.count, 'error')} prohibited this user from being saved:"
@@ -14,6 +14,7 @@
         // If we have a new Ticket, we want to assign a student.
         // If we edit, we want just to print the students name.                
         = f.text_field :student_id unless @ticket.student
+        = f.hidden_field  :student_id,  :value=>@ticket.student.id if @ticket.student
         = @ticket.try(:student).try(:name)
         %span= image_tag 'loading.gif', :id=>"spinner", :style=>"display:none"
         %span#field-message
@@ -28,10 +29,11 @@
     .field
       = f.label "Descripción"
       = f.text_area :description
-    
-    = fields_for :attachment do |a|
-      .field
-        =a.label :file, "Archivo de Evidencia"
-        =a.file_field :file
+    .field
+      = f.label :file, "Archivo de Evidencia"
+      %ul
+        - for file in @ticket.attachments
+          %li= file.file_name
+      = f.file_field :file
     .actions
       = f.submit t('.send')

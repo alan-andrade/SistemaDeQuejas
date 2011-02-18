@@ -14,6 +14,7 @@ SistemaDeQuejas::Application.routes.draw do
   
   get   "managers"      =>  "managers#index"  , :as =>  "managers"
   post  "ticket_taker/:id"  =>  "managers#ticket_taker",  :as => "ticket_taker"
+  get   "attachment/:id"  =>  "attachments#show"  , :as=>"show_attachment"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -1,7 +1,7 @@
 class CreateAttachments < ActiveRecord::Migration
   def self.up
     create_table :attachments do |t|
-      t.binary :content
+      t.binary :content,  :limit=>10.megabyte
       t.references  :ticket, :change
       t.string :file_name
       t.string :content_type
