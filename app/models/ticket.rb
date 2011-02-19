@@ -22,7 +22,10 @@ class Ticket < Post #ActiveRecord::Base
   belongs_to  :responsible  , :class_name =>  'User', :foreign_key  =>  'responsible_id'
   # 
   #   Se descomentara mas adelante cuando se tenga mas idea sobre la implementacion.
-  has_many  :changes, :dependent  =>  :destroy, :inverse_of=>:ticket
+  with_options :dependent =>  :destroy  do |ticket|
+    ticket.has_many  :changes, :inverse_of=>:ticket
+    ticket.has_many  :comments
+  end
   
   ## Validators
   #validates :student,           :presence   =>  true :: not longer needed because of sessions.

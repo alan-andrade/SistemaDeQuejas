@@ -36,8 +36,15 @@
   = @ticket.title + ": "
   %br
   = @ticket.description
-  
 
+%h2 Comentarios
+#comments
+-for comment in @ticket.comments
+  %p= comment.body
+%h3 Comentar
+=render "/comments/comment_form"
+  
+  
 %h2 Archivos de Evidencia
 - for attachment in @ticket.attachments
   %p

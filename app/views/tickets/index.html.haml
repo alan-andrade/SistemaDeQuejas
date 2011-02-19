@@ -6,10 +6,10 @@
   
 %h1 Sistema de Quejas
 %p 
-  =link_to t('.new_ticket'), new_ticket_path
-  - if @current_user.admin?
-    = link_to "Managers", managers_path
-    = link_to 'Reporte',  tickets_path(:format=>:pdf)
+  =button_to t('.new_ticket'), new_ticket_path, :method=>:get
+- if @current_user.admin?
+  = link_to "Managers", managers_path
+  = link_to 'Reporte',  tickets_path(:format=>:pdf)
 
 %h2 Panel de Quejas
 #tabs

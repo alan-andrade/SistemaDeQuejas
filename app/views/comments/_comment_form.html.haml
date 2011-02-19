@@ -1,0 +1,6 @@
+-form_for [@ticket, @ticket.comments.build], :url=>post_comments_path(@ticket.id), :remote  =>  :true  do |t|
+  .field
+    =t.text_area :body
+  .field
+    =t.submit "Comnentar"
+
