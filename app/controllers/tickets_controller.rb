@@ -1,6 +1,6 @@
 class TicketsController < ApplicationController
 
-  before_filter :require_user   , :only =>  [:index, :new, :create, :show]
+  before_filter :require_user#   , :only =>  [:index, :new, :create, :show]
 #  before_filter :require_admin,   :only =>  [:edit, :update, :assign_responsible]
   
   def index
@@ -27,7 +27,14 @@ class TicketsController < ApplicationController
   end
 
   def show
-    @ticket = Ticket.includes(:responsible, :student, {:changes=>[:responsible, :attachments]}, :attachments).find(params[:id])
+    @ticket = Ticket.includes(:responsible, 
+                              :student, 
+                              :attachments, 
+                              {:changes=>[:responsible, 
+                                          :attachments, 
+                                          :admin_comment, 
+                                          :student_comment]})
+                              .find(params[:id])
     respond_to do |format|
       format.html     
       format.pdf  { send_data  Ticket.to_pdf(@ticket) }

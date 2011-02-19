@@ -10,30 +10,38 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110217174358) do
+ActiveRecord::Schema.define(:version => 20110218235152) do
 
   create_table "attachments", :force => true do |t|
-    t.binary   "content"
+    t.integer  "post_id",                          :null => false
+    t.binary   "content",      :limit => 16777215
+    t.string   "file_name",    :limit => 100
+    t.string   "content_type", :limit => 20
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "posts", :force => true do |t|
+    t.integer  "responsible_id"
+    t.integer  "student_id"
+    t.string   "corresponding_to", :limit => 20
+    t.string   "title",            :limit => 100
+    t.text     "description"
+    t.string   "status",           :limit => 20
+    t.string   "change_type",      :limit => 20
     t.integer  "ticket_id"
     t.integer  "change_id"
-    t.string   "file_name"
-    t.string   "content_type"
+    t.text     "body"
+    t.string   "type",             :limit => 15
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "changes", :force => true do |t|
-    t.text     "intern_comments"
-    t.text     "extern_comments"
-    t.string   "change_type"
-    t.integer  "responsible_id"
-    t.integer  "ticket_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
+  add_index "posts", ["id"], :name => "index_posts_on_id"
+  add_index "posts", ["type"], :name => "index_posts_on_type"
 
   create_table "roles", :force => true do |t|
-    t.string "name", :null => false
+    t.string "name", :limit => 25, :null => false
   end
 
   create_table "sessions", :force => true do |t|
@@ -46,29 +54,14 @@ ActiveRecord::Schema.define(:version => 20110217174358) do
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
-  create_table "tickets", :force => true do |t|
-    t.integer  "student_id",                                     :null => false
-    t.string   "teacher"
-    t.string   "course"
-    t.integer  "responsible_id"
-    t.string   "corresponding_to"
-    t.text     "description"
-    t.string   "status"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "title",            :limit => 50, :default => "", :null => false
-  end
-
-  add_index "tickets", ["id"], :name => "index_tickets_on_id"
-
   create_table "users", :force => true do |t|
-    t.string   "uid",                             :null => false
-    t.string   "mail",                            :null => false
-    t.string   "name",                            :null => false
-    t.integer  "role_id",                         :null => false
+    t.string   "uid",                                            :null => false
+    t.string   "mail",         :limit => 50,                     :null => false
+    t.string   "name",         :limit => 100,                    :null => false
+    t.integer  "role_id",                                        :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "ticket_taker", :default => false
+    t.boolean  "ticket_taker",                :default => false
   end
 
 end

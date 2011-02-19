@@ -1,6 +1,6 @@
 require 'prawn'   #PDF Files Generation
 
-class Ticket < ActiveRecord::Base
+class Ticket < Post #ActiveRecord::Base
   # Arreglo de posibles estados de la queja 
   STATUS              =   [:pending,  :active,  :finished].map(&:to_s).freeze
   CORRESPONDING_MAP   =   {:curso           =>  [:profesor, :contenido, :calificacion],
@@ -12,8 +12,6 @@ class Ticket < ActiveRecord::Base
   
   ## Atributo para controlar el usuario actual.
   cattr_accessor  :current_user ## DO NOT REMOVE OR CHANGE. Used in :responsible_management
-  
-  has_many  :attachments, :dependent  =>  :destroy
   
   # Relaciones con otras clases
   #
@@ -42,13 +40,6 @@ class Ticket < ActiveRecord::Base
   before_create :designed_responsible_takeover #####  create a trigger for Itzel to take the ticket inmediately.
   before_save :ticket_creation_change
   before_save :responsible_management
-  #before_create :generate_id
-
-  def file=(file)
-    attachment  = attachments.build(:content  => file.read)
-    attachment.file_name  = file.original_filename
-    attachment.content_type = file.content_type
-  end
   
   #// TODO: get a good look for pdf rendering sheets.
   def self.to_pdf(*tickets)
@@ -80,8 +71,8 @@ class Ticket < ActiveRecord::Base
   private
   def ticket_creation_change  
     if new_record?
-      changes.build   :extern_comments  =>  "Tu queja ha sido enviada. Estamos resolviendo tu peticion.",
-                      :intern_comments  =>  "Se levanto la queja",
+      changes.build   :student_comment_attributes  =>  { :body  =>  "Tu queja ha sido enviada. Estamos resolviendo tu peticion."},
+                      :admin_comment_attributes    =>  { :body  =>  "Se levanto la queja"},
                       :change_type      =>  Change::CHANGE_TYPES[0],  #Advance Change.
                       :responsible_id   =>  student.id
     end
@@ -89,8 +80,8 @@ class Ticket < ActiveRecord::Base
   
   def responsible_management
     if responsible_id_changed?
-      changes.build  :extern_comments  => "Ha cambiado el responsable que lleva la resolucion de tu queja.",
-                     :intern_comments  => "Se asigno a #{User.find(responsible_id).name} como responsable",
+      changes.build  :student_comment_attributes  =>  { :body  => "Ha cambiado el responsable que lleva la resolucion de tu queja."},
+                     :admin_comment_attributes    =>  { :body  => "Se asigno a #{User.find(responsible_id).name} como responsable"},
                      :change_type      =>  Change::CHANGE_TYPES[2], #Manager Change
                      :responsible_id   =>  current_user.nil? ? responsible_id : current_user.id
       self.status = STATUS[1]

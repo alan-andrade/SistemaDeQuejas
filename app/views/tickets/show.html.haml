@@ -28,15 +28,6 @@
           = button_to("Tomar Queja", {:action=>:update, :ticket=>{:responsible_id=>@current_user.id}}, :method=>:put)
         -else
           = "Sin Responsable"     
-               
-  -if @ticket.course?
-    %tr
-      %td Curso
-      %td=  @ticket.course
-  -if @ticket.teacher?
-    %tr
-      %td Profesor
-      %td=  @ticket.teacher
   %tr
     %td Tema  
     %td=corresponding_to_path(@ticket)
@@ -62,8 +53,8 @@
       Autor: 
       = change.responsible.name
     %p
-      = change.intern_comments if @current_user.admin?
-      = change.extern_comments unless @current_user.admin?
+      = change.try(:admin_comment).try(:body)   if @current_user.admin?
+      = change.try(:student_comment).try(:body) unless @current_user.admin?
     %ul
     - for file in change.attachments
       = link_to file.file_name, show_attachment_path(file)

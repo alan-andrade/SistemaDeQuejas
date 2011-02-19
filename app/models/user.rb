@@ -38,7 +38,8 @@ class User < ActiveRecord::Base
                   User.where(:uid => user.uid).first
                else
                   nUser       = User.new(:uid=>user.uid, :mail=>user.mail[0],:name=>user.name[0])
-                  nUser.role  = Role.find_or_create_by_name(user.role); nUser.save
+                  nUser.role  = (Role.find_by_name(user.role) or nUser.build_role(:name  =>  user.role) ) ## Use 1 Transaction cause of build_role.
+                  nUser.save
                   nUser
                end
     end
