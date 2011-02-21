@@ -32,6 +32,7 @@ class User < ActiveRecord::Base
     return  nil if id.nil?
     return User.where(:uid => id).first if User.exists?(:uid => id)
     results = UDLAP::ActiveDirectory.find_users_by_id(id)
+    p results
     users = []
     results.each do |user|
       users << if User.exists?(:uid => user.uid)
