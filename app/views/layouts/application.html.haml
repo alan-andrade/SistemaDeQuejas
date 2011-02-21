@@ -1,0 +1,31 @@
+!!! 5
+
+%hml
+  %head
+    %title Sistem de Quejas - UDLAP
+
+  = stylesheet_link_tag :all
+  = yield :css
+  = javascript_include_tag :defaults
+  = yield :script
+  = csrf_meta_tag
+
+  %body
+    .container_12#header
+      .grid_8#logo
+        %h1 UDLAP (logo)
+      .grid_4#user-info
+        - if @current_user.nil?
+          %i Ingresa al Sistema
+          = link_to "Entrar", login_path
+        - else
+          %div
+            =@current_user.name
+            %span
+              %i
+                =@current_user.uid
+          %div
+            =link_to "Salir", logout_path
+      .clear    
+    .container_12#container
+      =yield

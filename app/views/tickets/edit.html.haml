@@ -6,7 +6,7 @@
 - content_for :css  do  
   =stylesheet_link_tag 'tickets/form.css'
 
-%h1= t '.title'
-%p
-  = link_to t('back'), ticket_path(@ticket)
-= render 'form'
+.grid_12
+  %h1= t '.title'
+  %p= link_to t('back'), ticket_path(@ticket)
+  = render 'form'

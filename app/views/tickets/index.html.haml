@@ -3,22 +3,22 @@
   -include_script 'jquery.cookie.js', 'jquery-ui.js', 'jq-scripts/report_generation.js', 'jq-scripts/tabs.js'
 - if @current_user.student?  
   -include_script 'jquery.cookie.js', 'jquery-ui.js', 'jq-scripts/tabs.js'
-  
-%h1 Sistema de Quejas
-%p 
-  =button_to t('.new_ticket'), new_ticket_path, :method=>:get
-- if @current_user.admin?
-  = link_to "Managers", managers_path
-  = link_to 'Reporte',  tickets_path(:format=>:pdf)
 
-%h2 Panel de Quejas
-#tabs
-  %ul 
-    %li
-      =link_to  "Sin Revisar", tickets_by_status_path(:status=>:pending)
-    %li
-      =link_to "En Proceso", tickets_by_status_path(:status=>:active)
-    %li
-      =link_to  "Terminadas", tickets_by_status_path(:status=>:finished)
-    %li
-      <img id="spinner" src="images/loading.gif" style="display:none" />
+.grid_12
+  %p 
+    =button_to t('.new_ticket'), new_ticket_path, :method=>:get
+  - if @current_user.admin?
+    = link_to "Managers", managers_path
+    = link_to 'Reporte',  tickets_path(:format=>:pdf)
+
+  %h2 Panel de Quejas
+  #tabs
+    %ul 
+      %li
+        =link_to  "Sin Revisar", tickets_by_status_path(:status=>:pending)
+      %li
+        =link_to "En Proceso", tickets_by_status_path(:status=>:active)
+      %li
+        =link_to  "Terminadas", tickets_by_status_path(:status=>:finished)
+      %li
+        <img id="spinner" src="images/loading.gif" style="display:none" />
