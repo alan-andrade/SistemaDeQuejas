@@ -3,6 +3,8 @@ class User < ActiveRecord::Base
   #attr_accessible :id, :name,  :role_id, :mail # Need to mention all of the mass-assignment possible attrs.
   
   belongs_to  :role
+  accepts_nested_attributes_for :role
+    
   has_many    :tickets, :foreign_key  =>  'student_id'
   # Validation to ensure uniqueness of responsibles. Can refactor and make it more pretty.
   validates :ticket_taker, :uniqueness => true, :if => Proc.new {|user|
@@ -32,14 +34,16 @@ class User < ActiveRecord::Base
     return  nil if id.nil?
     return User.where(:uid => id).first if User.exists?(:uid => id)
     results = UDLAP::ActiveDirectory.find_users_by_id(id)
-    p results
     users = []
     results.each do |user|
-      users << if User.exists?(:uid => user.uid)
+      users << if User.exists?(:uid => user.uid)  # TODO: Refactor !!
                   User.where(:uid => user.uid).first
                else
-                  nUser       = User.new(:uid=>user.uid, :mail=>user.mail[0],:name=>user.name[0])
-                  nUser.role  = (Role.find_by_name(user.role) or nUser.build_role(:name  =>  user.role) ) ## Use 1 Transaction cause of build_role.
+                  nUser       = User.new( :uid=>user.uid,
+                                          :mail=>user.mail[0],
+                                          :name=>user.name[0],
+                                          :role_attributes  =>  {:name  =>  user.role})
+                  #nUser.role  = (Role.find_by_name(user.role) or nUser.build_role(:name  =>  user.role) ) ## Use 1 Transaction cause of build_role.
                   nUser.save
                   nUser
                end
@@ -54,16 +58,15 @@ class User < ActiveRecord::Base
   ## CODE that needs revisions and some rethinking. Exceptions well hanlded and a clever way to code.
   ##  
       begin
-      result  = UDLAP::ActiveDirectory.authenticate(login,pass)    
+      result  = UDLAP::ActiveDirectory.authenticate(login,pass)    # Authenticat against UDLAP AD.
         rescue #rescue bad arguments exception or connection.
-          false
+          false #Failed atuhentication.
       end
     
     if result.nil? || !result
-      p "No user"
-      return false
+      return false  # No user matches the credentials given.
     else
-      User.find_by_uid login
+      User.find_by_uid login  # Authentication successful, seach agains local DB (will store the user if it doesn't exists.)
     end   
   end    
   
