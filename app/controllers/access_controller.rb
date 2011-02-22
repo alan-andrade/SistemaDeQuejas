@@ -6,13 +6,12 @@ class AccessController < ApplicationController
   
   def create  #Authenticate User.
     @user = User.authenticate(params[:user],params[:password]);
-    
     if @user
       session[:user]  = @user.uid
       redirect_to tickets_path
     else  
-      flash[:now] = "No coinciden tus datos. Intentalo nuevamente"
-      render :new
+      flash[:notice] = "No coinciden tus datos. Intentalo nuevamente"
+      redirect_to login_path
     end
   end
   

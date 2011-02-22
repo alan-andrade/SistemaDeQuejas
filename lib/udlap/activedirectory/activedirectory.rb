@@ -10,7 +10,7 @@ module UDLAP
     def self.authenticate(user,pass)
       raise "No user Given" if user.empty?
       connection    = @@connection ||= self.setup
-      filter        = build_filter(user)
+      filter        = Net::LDAP::Filter.eq('sAMAccountName', user)
       return connection.bind_as(:filter => filter, :password => pass)
     end
     
@@ -18,18 +18,16 @@ module UDLAP
       begin
         p "Connecting to UDLAP..."
         connection      =   @@connection  ||= self.setup
-        filter          =   build_filter("#{id}")
+        filter          =   Net::LDAP::Filter.eq('sAMAccountName', "#{id}")
         results         =   Array.new
         connection.search(:filter=>filter, :attributes=>WANTED_ATTRS) do |entry|
           results << entry
         end
         
-        rescue Net::LDAP::LdapError, Errno::ETIMEDOUT
+        rescue Net::LDAP::LdapError
           p "No connection."
           return "Error en conexion."
       end
-      
-      p "Done."
       return results
     end
     
@@ -47,11 +45,5 @@ module UDLAP
               :password => "bl4ckb.ard"
             })
     end
-    
-    def build_filter(params)
-      Net::LDAP::Filter.eq('sAMAccountName', params)
-    end
-    
-    
   end
 end

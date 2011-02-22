@@ -32,8 +32,11 @@ class User < ActiveRecord::Base
   def self.find_by_uid(id) ## TODO: Can do some refactoring. Looks ugly this finding method. Shouldnt be here.
     raise "Wont accept asterisk" if id.to_s.match(/\*/)
     return  nil if id.nil?
+    p "PASSED return nil"
     return User.where(:uid => id).first if User.exists?(:uid => id)
+    p "PASSED users.where"
     results = UDLAP::ActiveDirectory.find_users_by_id(id)
+    p results
     users = []
     results.each do |user|
       users << if User.exists?(:uid => user.uid)  # TODO: Refactor !!
