@@ -5,14 +5,8 @@ class Change < Post
   
   belongs_to :ticket      , :inverse_of=>:changes
   belongs_to :responsible ,  :class_name =>  'User', :foreign_key  =>  'responsible_id'
-  
-  with_options :class_name =>  "Comment" do |change|
-    change.has_one :admin_comment
-    change.has_one :student_comment
-  end
-  accepts_nested_attributes_for :admin_comment
-  accepts_nested_attributes_for :student_comment
-  
+  has_many  :comments
+   
   validates :change_type, :inclusion=>{:in=>CHANGE_TYPES}
   validate  :student_close_ticket 
   after_save :finished_ticket?  

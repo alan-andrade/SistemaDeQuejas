@@ -1,14 +1,13 @@
+- content_for :nav do
+  = back_button tickets_path
+
 %h1 Managers
 // This is a quick implementation of the view. NEEDS to get optimized using heurisitcs or something else!
 
-%p
-  =link_to "<< Regresar", tickets_path
 - for manager in @managers
+  %h2= manager.name
+  = manager.ticket_taker? ? "(Responsable)" : nil
   %p
-    = manager.name
-    = manager.ticket_taker? ? "(Responsable)" : nil
-    %br
-    = manager.uid
-    %br
-    = link_to "Asignar como Responsable Principal", ticket_taker_path(manager.uid), :method=>:post
-
+    %i= manager.uid
+  = button_to "Asignar como Responsable Principal", ticket_taker_path(manager.uid), :method=>:post
+  %hr

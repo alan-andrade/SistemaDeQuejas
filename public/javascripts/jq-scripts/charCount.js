@@ -22,7 +22,7 @@
 			allowed: 140,		
 			warning: 25,
 			css: 'counter',
-			counterElement: 'span',
+			counterElement: 'div',
 			cssWarning: 'warning',
 			cssExceeded: 'exceeded',
 			counterText: ''

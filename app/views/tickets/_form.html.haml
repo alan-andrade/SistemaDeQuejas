@@ -19,6 +19,7 @@
         %span= image_tag 'loading.gif', :id=>"spinner", :style=>"display:none"
         %span#field-message
         #student-info
+
     .field  
       = f.label :corresponding_to, "Categoria"     
       = f.select :corresponding_to, grouped_options_for_select(Ticket::CORRESPONDING_MAP, @ticket.try(:corresponding_to) )
@@ -26,14 +27,17 @@
     .field
       = f.label :title, "Titulo"
       = f.text_field  :title
+      
     .field
       = f.label "Descripción"
       = f.text_area :description
+
     .field
       = f.label :file, "Archivo de Evidencia"
+      = f.file_field :file
       %ul
         - for file in @ticket.attachments
           %li= file.file_name
-      = f.file_field :file
+          
     .actions
       = f.submit t('.send')

@@ -1,32 +1,30 @@
-- include_css 'tickets/form.css'
+- content_for :nav do
+  = back_button(ticket_path(@ticket))
 
-%h1= t('.title')
-%p
-  =link_to t('back'), tickets_path
-  
-=form_for [@ticket,@change], :html=>{:multipart=>true} do |c|  
-  =field_set_tag do    
-    - if @change.errors.any?
-      #errorExplanation
-        %h2= "#{pluralize(@change.errors.count, 'error')} prohibited this user from being saved:"
-        %ul
-        - @change.errors.full_messages.each do |msg|
-          %li= msg
-    .field
-      =c.label  t('.change_types')    
-      =c.select :change_type, Change::CHANGE_TYPES_FOR_VIEWS.map{|ct| [t(ct),ct]}
+.grid_12
+  %h1= t('.title')
+    
+  =form_for [@ticket,@change], :html=>{:multipart=>true} do |c|  
+    =field_set_tag do    
+      - if @change.errors.any?
+        #errorExplanation
+          %h2= "#{pluralize(@change.errors.count, 'error')} prohibited this user from being saved:"
+          %ul
+          - @change.errors.full_messages.each do |msg|
+            %li= msg
+      .field
+        =c.label  t('.change_types')    
+        =c.select :change_type, Change::CHANGE_TYPES_FOR_VIEWS.map{|ct| [t(ct),ct]}
       
-      =c.fields_for :admin_comment, @change.build_admin_comment do |comment|
-        .field
-          =comment.label t('.intern_comments')
-          =comment.text_area :body
-      =c.fields_for :student_comment, @change.build_student_comment do |comment|
-        .field
-          =comment.label  t('.extern_comments')
-          =comment.text_area  :body
-    .field
-      = c.label :file, "Archivo de Evidencia"
-      = c.file_field :file
-    .actions
-      =c.submit "Hacer Cambio"
+      .field  
+        =c.label t('.intern_comments')
+        =c.text_area :admin_comments
+      .field
+        =c.label  t('.extern_comments')
+        =c.text_area  :student_comments
+      .field
+        = c.label :file, "Archivo de Evidencia"
+        = c.file_field :file
+      .actions
+        =c.submit "Hacer Cambio"
 

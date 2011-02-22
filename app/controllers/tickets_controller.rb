@@ -37,9 +37,7 @@ class TicketsController < ApplicationController
                               :student, 
                               :attachments, 
                               {:changes=>[:responsible, 
-                                          :attachments, 
-                                          :admin_comment, 
-                                          :student_comment]})
+                                          :attachments]})
                               .find(params[:id])
     respond_to do |format|
       format.html     

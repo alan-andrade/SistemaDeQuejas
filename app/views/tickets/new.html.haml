@@ -1,10 +1,10 @@
 - include_script 'jq-scripts/charCount.js', 'student_recognition.js'
 - content_for  :script do
   :javascript
-    $(document).ready(function(){$("#ticket_description").charCount({allowed: 300, counterText: "Límite:"});});  
+    $(document).ready(function(){$("#ticket_description").charCount({allowed: 300, counterText: "Límite: "});});  
 
 - content_for :nav do
-  = link_to t('back'), tickets_path
+  = back_button
   
 .grid_12    
   %h1 Nueva Queja

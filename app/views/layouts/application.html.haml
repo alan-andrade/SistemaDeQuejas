@@ -1,6 +1,6 @@
 !!! 5
 
-%hml
+%html
   %head
     %title Sistem de Quejas - UDLAP
 
@@ -35,9 +35,10 @@
       .clear
       
     -if content_for? :nav  
-      .container_12
+      .container_12#nav
         .grid_12#nav-bar
           =yield  :nav
         .clear
-    .container_12#container
+    .container_12#content
       =yield
+      .clear

@@ -2,7 +2,7 @@ class CommentsController < ApplicationController
   before_filter :require_user
   
   def create
-    post      = Ticket.find(params[:post_id])
+    post      = Post.find(params[:post_id])
     @comment  = post.comments.build(params[:comment])
     @comment.responsible  = @current_user
     if @comment.save

@@ -1,0 +1,8 @@
+=div_for comment do
+  %p
+    %author=comment.responsible.name rescue nil
+    el
+    %date=comment.created_at.to_formatted_s(:short)
+    dijo:
+  %quote=comment.body
+  %hr

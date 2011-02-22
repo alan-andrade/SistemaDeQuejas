@@ -10,4 +10,8 @@ module ApplicationHelper
       javascript_include_tag files.map{|file| file.to_s}
     end    
   end
+  
+  def back_button(url=nil)
+    link_to "Regresar", (url || :back), :id=>"back-button"
+  end
 end

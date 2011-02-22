@@ -9,12 +9,13 @@ $(document).ready(function(){
   
   $('.flash #notice').addClass('ui-state-highlight');
   $('.flash #error').addClass('ui-state-error');
-  
-  $("#nav-bar").addClass("ui-widget-header");
-  $('#nav-bar > a').each(function(i){$(this).addClass('jq-button')})
-  
+  $('#nav-bar > a').each(function(i){$(this).addClass('jq-button')})  
+  $('#delete-button').button({icons: {primary: 'ui-icon-trash'}});
+  $('#edit-button').button({icons: {primary: 'ui-icon-pencil'}});
+  $('#back-button').button({icons: {primary: 'ui-icon-arrowreturnthick-1-w'}})
   $('.jq-button').each(function(i){ $(this).button() })
   
+  $('.field').append("<div style='clear:both'></div>"); //some stylin for forms
   
   // Little Icons rendering
     // PDF links
@@ -23,13 +24,20 @@ $(document).ready(function(){
         if (!$(this).hasClass('jq-button')){
             $(this).css({ 'padding-left'        : '20px',
                           'padding-bottom'      : '5px',
-                          'background-image'    : 'url("../images/icons/page_white_acrobat.png")',
+                          'background-image'    : 'url("/images/icons/page_white_acrobat.png")',
                           'background-position' : 'top-left',
                           'background-repeat'   : 'no-repeat' });}
         else{
             $(this).button({ icons:{primary: 'ui-icon-document'} })
         }
     });
+    
+    // Ticket#show commenting on a change actions
+    $('a.comment').toggle(function(){
+        $(this).siblings('.change_comments > .comment_form').show();
+    },function(){
+        $(this).siblings('.change_comments > .comment_form').hide();
+    })
 });
 
 function createButtons(){

@@ -33,6 +33,8 @@ ActiveRecord::Schema.define(:version => 20110218235152) do
     t.integer  "change_id"
     t.text     "body"
     t.string   "type",             :limit => 15
+    t.text     "admin_comments"
+    t.text     "student_comments"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

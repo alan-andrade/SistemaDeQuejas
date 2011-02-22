@@ -1,0 +1,22 @@
+=div_for change do  
+  %p
+    %author 
+      %change-number #{change_counter+1}.
+      #{change.responsible.name} -
+    %date #{t change.change_type}
+    %br
+    %date #{change.created_at.to_formatted_s(:short)}
+  %quote
+    = change.try(:admin_comments)  if @current_user.admin?
+    = change.try(:student_comments) unless @current_user.admin?
+  //Directo Relation with application.js and the action the link of comment does. #WARNING: do no change.
+  .change_comments   
+    %h2 Comentarios
+    %p= render change.comments
+    =link_to_function "Comentar", :class=>'comment'
+    %span{:style=>"display:none", :class=>'comment_form'}
+      =render :partial=>"/comments/comment_form", :locals=>{:post=>change}
+  .change_files
+    %h2 Archivos de evidencia
+    =render  change.attachments
+

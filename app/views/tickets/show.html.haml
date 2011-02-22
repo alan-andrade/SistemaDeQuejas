@@ -1,71 +1,47 @@
-%h1= t '.title'
-%p
-  = link_to t('back'), tickets_path
+- content_for :nav do
+  = back_button(tickets_path)
   - if @current_user.admin?
-    = link_to t('edit'), edit_ticket_path(@ticket)
-    |
+    = link_to t('edit'), edit_ticket_path(@ticket), :id=>'edit-button'
     = link_to 'PDF',  ticket_path(@ticket, :format => :pdf)
-    |
-    = link_to t('destroy'), ticket_path(@ticket), :method=>'delete', :confirm => t('are_you_sure')
-%hr
-  
--if @current_user.admin?
-  = button_to t('new_change'), new_ticket_change_path(@ticket), :method=>:get if !!@ticket.responsible
+    = link_to t('destroy'), ticket_path(@ticket), :method=>'delete', :confirm => t('are_you_sure'), :id=>"delete-button"
 
-%div{:style=>"width: 640px; float:left;"}    
-  %table.details
-    %tr
-      %td Alumno
-      %td= @ticket.student.name
-    %tr
-      %td Responsable
-      %td
-        - if @ticket.responsible
-          = @ticket.responsible.name
-          -if @current_user.admin?
-            = link_to "Cambiar", responsible_ticket_path(@ticket)     
-        - else
-          -if @current_user.admin?
-            = button_to("Tomar Queja", {:action=>:update, :ticket=>{:responsible_id=>@current_user.id}}, :method=>:put)
-          -else
-            = "Sin Responsable"     
-    %tr
-      %td Tema  
-      %td=corresponding_to_path(@ticket)
+.grid_12
+  %h1 
+    Detalles de Queja
+  %hr
+.grid_7
+  %h2 Titulo: #{@ticket.title}
+  %h3 
+    Estudiante
+  %p= @ticket.student.name + " - " + @ticket.student.uid
+  %h3 Responsable
+  %p
+    - if @ticket.responsible
+      = @ticket.responsible.name
+      -if @current_user.admin?
+        = link_to "Cambiar", responsible_ticket_path(@ticket)     
+    - else
+      -if @current_user.admin?
+        = button_to("Tomar Queja", {:action=>:update, :ticket=>{:responsible_id=>@current_user.id}}, :method=>:put)
+      -else
+        = "Sin Responsable"     
+  %h3 Tema
+  %p=corresponding_to_path(@ticket)
 
-  %blockquote  
-    = @ticket.title + ": "
-    %br
-    = @ticket.description
-
+  %h3 Descripcion
+  %quote= @ticket.description
+  %hr
   %h2 Comentarios
-  #comments
-  -for comment in @ticket.comments
-    %p= comment.body
-  %h3 Comentar
-  =render "/comments/comment_form"
-%div{:style=>"width: 320px; float: left"}
+  .ticket-comments
+    =render @ticket.comments
+    =render :partial=>"/comments/comment_form", :locals=>{:post=>@ticket}  
+  
   %h2 Archivos de Evidencia
-  - for attachment in @ticket.attachments
-    %p
-      = link_to attachment.file_name, show_attachment_path(attachment.to_param, :format=>attachment.extension)
+  =render @ticket.attachments
       
   %p= button_to "Agregar Archivo", edit_ticket_path(@ticket), :method=>:get
+.grid_5
+  = button_to "Registrar Cambio", new_ticket_change_path(@ticket), :method=>:get, :class=>'jq-button' if !!@ticket.responsible and @current_user.admin?
 
-
-  - for change in @ticket.changes
-    %h2= change.created_at.to_formatted_s(:short)  + ' > ' +  t(change.change_type)
-    %div{:style=>"padding-left: 15px; padding-bottom: 10px;"}
-      %i
-        Autor: 
-        = change.responsible.name
-      %p
-        = change.try(:admin_comment).try(:body)   if @current_user.admin?
-        = change.try(:student_comment).try(:body) unless @current_user.admin?
-      %ul
-      - for file in change.attachments
-        = link_to file.file_name, show_attachment_path(file)
-.cleaner{:style=>"clear: both"}
-  
-  
-
+  %h2 Evolucion de la queja
+  =render @ticket.changes

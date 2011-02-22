@@ -12,6 +12,8 @@ class CreatePosts < ActiveRecord::Migration
       t.integer :change_id
       t.text    :body,              :limit  =>  500
       t.string  :type,              :limit  =>  15  # Needed by class inheritance
+      t.text    :admin_comments,    :limit  =>  500
+      t.text    :student_comments,  :limit  =>  500
       
       t.timestamps
     end

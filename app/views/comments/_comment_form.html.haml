@@ -1,6 +1,7 @@
--form_for [@ticket, @ticket.comments.build], :url=>post_comments_path(@ticket.id), :remote  =>  :true  do |t|
+%h3 Nuevo comentario
+%i #{@current_user.name} dice:
+=form_for [post, post.comments.build], :url=>post_comments_path(post.id), :remote  =>  :true  do |t|
   .field
-    =t.text_area :body
-  .field
+    %p=t.text_area :body
     =t.submit "Comentar"
 

@@ -74,8 +74,8 @@ class Ticket < Post #ActiveRecord::Base
   private
   def ticket_creation_change  
     if new_record?
-      changes.build   :student_comment_attributes  =>  { :body  =>  "Tu queja ha sido enviada. Estamos resolviendo tu peticion."},
-                      :admin_comment_attributes    =>  { :body  =>  "Se levanto la queja"},
+      changes.build   :student_comments  =>  "Tu queja ha sido enviada. Estamos resolviendo tu peticion.",
+                      :admin_comments    =>  "Se levanto la queja",
                       :change_type      =>  Change::CHANGE_TYPES[0],  #Advance Change.
                       :responsible_id   =>  student.id
     end
@@ -83,17 +83,17 @@ class Ticket < Post #ActiveRecord::Base
   
   def responsible_management
     if responsible_id_changed?
-      changes.build  :student_comment_attributes  =>  { :body  => "Ha cambiado el responsable que lleva la resolucion de tu queja."},
-                     :admin_comment_attributes    =>  { :body  => "Se asigno a #{User.find(responsible_id).name} como responsable"},
+      actual_responsible = current_user.nil? ? responsible_id : current_user.id
+      changes.build  :student_comments  => "Ha cambiado el responsable que lleva la resolucion de tu queja.",
+                     :admin_comments    => "Se asigno a #{User.find(responsible_id).name} como responsable",
                      :change_type      =>  Change::CHANGE_TYPES[2], #Manager Change
-                     :responsible_id   =>  current_user.nil? ? responsible_id : current_user.id
+                     :responsible_id   =>  actual_responsible
       self.status = STATUS[1]
     end
   end
   
-  def designed_responsible_takeover
-    user  = User.ticket_taker.first
-    self.responsible  = user
+  def designed_responsible_takeover    
+    self.responsible  = User.ticket_taker.first
   end
   
 end
