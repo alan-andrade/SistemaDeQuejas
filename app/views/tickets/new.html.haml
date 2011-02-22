@@ -3,10 +3,10 @@
   :javascript
     $(document).ready(function(){$("#ticket_description").charCount({allowed: 300, counterText: "Límite:"});});  
 
-- include_css 'tickets/form.css'
-
-.gird_12    
+- content_for :nav do
+  = link_to t('back'), tickets_path
+  
+.grid_12    
   %h1 Nueva Queja
-  %p= link_to t('back'), tickets_path
   
   = render 'form'

@@ -1,2 +1,14 @@
+#header {
+  margin-bottom: 10px; }
+
 .clear {
   clear: both; }
+
+.flash {
+  position: absolute;
+  text-align: center;
+  width: 100%;
+  font-size: 110%; }
+
+#nav-bar {
+  padding: 4px 4px; }

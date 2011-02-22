@@ -13,10 +13,12 @@ class TicketsController < ApplicationController
               end            
     
     respond_to do |format|
-      if request.xhr?
-        format.js { @tickets.empty? ? render(:text=>'No hay Quejas') : render(:partial=>"tickets_table", :locals=>{:tickets=>@tickets.all}) }
-      else
-        format.html
+      format.html do
+        if request.xhr?
+              @tickets.empty? ? 
+              render(:text=>"No hay Quejas") :
+              render(:partial=>"tickets_table", :locals=>{:tickets=>@tickets.all})
+        end
       end
       
       format.pdf  do

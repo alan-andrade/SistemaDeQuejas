@@ -1,15 +1,14 @@
--include_css 'ticket.css', 'flick/jquery-ui.css'
 - if @current_user.admin?
-  -include_script 'jquery.cookie.js', 'jquery-ui.js', 'jq-scripts/report_generation.js', 'jq-scripts/tabs.js'
+  -include_script 'jquery.cookie.js', 'jq-scripts/report_generation.js', 'jq-scripts/tabs.js'
 - if @current_user.student?  
-  -include_script 'jquery.cookie.js', 'jquery-ui.js', 'jq-scripts/tabs.js'
+  -include_script 'jquery.cookie.js', 'jq-scripts/tabs.js'
 
 .grid_12
-  %p 
-    =button_to t('.new_ticket'), new_ticket_path, :method=>:get
-  - if @current_user.admin?
-    = link_to "Managers", managers_path
-    = link_to 'Reporte',  tickets_path(:format=>:pdf)
+  = content_for :nav do 
+    =link_to t('.new_ticket'), new_ticket_path
+    - if @current_user.admin?
+      = link_to "Managers", managers_path
+      = link_to 'Reporte',  tickets_path(:format=>:pdf)
 
   %h2 Panel de Quejas
   #tabs
@@ -21,4 +20,4 @@
       %li
         =link_to  "Terminadas", tickets_by_status_path(:status=>:finished)
       %li
-        <img id="spinner" src="images/loading.gif" style="display:none" />
+        <img id="spinner" src="/images/loading.gif" style="display:none" />
