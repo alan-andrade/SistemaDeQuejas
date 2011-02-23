@@ -40,7 +40,7 @@ class Ticket < Post #ActiveRecord::Base
   ## Callbacks before saving record
   
   before_create {|t| t.status = STATUS[0] unless t.status? } # Could be fixed with the :deafult option in the migration.
-  before_create :designed_responsible_takeover #####  create a trigger for Itzel to take the ticket inmediately.
+  before_save :designed_responsible_takeover #####  create a trigger for Itzel to take the ticket inmediately.
   before_save :ticket_creation_change
   before_save :responsible_management
   
