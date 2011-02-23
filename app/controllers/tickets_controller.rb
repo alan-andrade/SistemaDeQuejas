@@ -33,12 +33,7 @@ class TicketsController < ApplicationController
   end
 
   def show
-    @ticket = Ticket.includes(:responsible, 
-                              :student, 
-                              :attachments, 
-                              {:changes=>[:responsible, 
-                                          :attachments]})
-                              .find(params[:id])
+    @ticket = Ticket.complete.find(params[:id])
     respond_to do |format|
       format.html     
       format.pdf  { render :text  =>  Ticket.to_pdf(@ticket),  :disposition  =>  "inline"}

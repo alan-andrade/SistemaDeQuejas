@@ -36,6 +36,12 @@ class Ticket < Post #ActiveRecord::Base
   scope :pending, where(:status=>STATUS.first).includes(:student, :responsible)    ## Would be great to keep DRY here. how?
   scope :active,  where(:status=>STATUS[1])   .includes(:student, :responsible)
   scope :finished,where(:status=>STATUS.last) .includes(:student, :responsible)
+  scope :complete,  includes(:responsible, 
+                              :student, 
+                              :attachments,
+                              :comments,
+                              {:changes=>[:responsible, 
+                                          :attachments, :comments]})
   
   ## Callbacks before saving record
   
