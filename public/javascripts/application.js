@@ -17,6 +17,7 @@ $(document).ready(function(){
   
   $('.field').append("<div style='clear:both'></div>"); //some stylin for forms
   
+    
   // Little Icons rendering
     // PDF links
     var links  = $('a[href$=.pdf]');
@@ -31,13 +32,7 @@ $(document).ready(function(){
             $(this).button({ icons:{primary: 'ui-icon-document'} })
         }
     });
-    
-    // Ticket#show commenting on a change actions
-    $('a.comment').toggle(function(){
-        $(this).siblings('.change_comments > .comment_form').show();
-    },function(){
-        $(this).siblings('.change_comments > .comment_form').hide();
-    })
+
 });
 
 function createButtons(){

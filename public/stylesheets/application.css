@@ -71,8 +71,17 @@ textarea {
   font-family: Arial;
   height: 70px; }
 
-.change_comments, .change_files {
-  margin-left: 30px; }
-
-change-number {
-  font-size: 150%; }
+.ticket-body h2 {
+  background: #eeeeee;
+  font-size: 120%;
+  padding: 3px; }
+.ticket-body h3 {
+  font-size: 110%; }
+.ticket-body h4 {
+  font-size: 105%; }
+.ticket-body table {
+  width: 100%; }
+.ticket-body .change_type {
+  color: black;
+  font-size: 105%;
+  font-weight: bold; }

@@ -1,2 +1,1 @@
-@comment
-page["#comments"].append @comment.body
+page['.ticket_comments'].append render @comment

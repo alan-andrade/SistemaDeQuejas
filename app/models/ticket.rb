@@ -3,6 +3,9 @@ require 'prawn'   #PDF Files Generation
 class Ticket < Post #ActiveRecord::Base
   # Arreglo de posibles estados de la queja 
   STATUS              =   [:pending,  :active,  :finished].map(&:to_s).freeze
+  STATUS_MSGS         =   { :pending  =>  "Tu queja esta en espera de que un administrativo lea y se haga cargo de tu queja",
+                            :active   =>  "La queja esta siendo procesada en espera de una respuesta.",
+                            :finished =>  "Se ha cerrado el ciclo de tu queja."  }
   CORRESPONDING_MAP   =   {:curso           =>  [:profesor, :contenido, :calificacion],
                            :administrativo  =>  [:empleado, :papeleo],
                            :plataforma      =>  [:cuenta],

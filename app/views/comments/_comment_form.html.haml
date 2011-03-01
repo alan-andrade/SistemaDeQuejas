@@ -1,7 +1,9 @@
-%h3 Nuevo comentario
-%i #{@current_user.name} dice:
-=form_for [post, post.comments.build], :url=>post_comments_path(post.id), :remote  =>  :true  do |t|
-  .field
+.new_comment
+  %h3 Nuevo comentario
+  %i #{@current_user.name} dice:
+  =form_for [post, post.comments.build], :url=>post_comments_path(post.id), :remote  =>  :true  do |t|
     %p=t.text_area :body
-    =t.submit "Comentar"
+    .actions
+      =t.submit "Comentar"
+      %span= link_to_function(image_tag('icons/cancel.png') + "Cancelar" , "$(this).parents('.new_comment').slideUp()")
 
