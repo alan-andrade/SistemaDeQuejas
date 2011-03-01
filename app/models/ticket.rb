@@ -102,7 +102,7 @@ class Ticket < Post #ActiveRecord::Base
   end
   
   def designed_responsible_takeover    
-    self.responsible  = User.ticket_taker.first
+    self.responsible  = User.ticket_taker.first if self.new_record?
   end
   
 end

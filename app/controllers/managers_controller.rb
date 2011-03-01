@@ -3,6 +3,13 @@ class ManagersController < ApplicationController
   
   def index
     @managers = User.managers
+    respond_to do |format|
+      format.js do 
+        options = {}
+        @managers.each{|man| options[man.id] = man.name }
+        render :json  => options.to_json        
+      end
+    end
   end
   
   def ticket_taker

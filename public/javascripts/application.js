@@ -15,9 +15,8 @@ $(document).ready(function(){
   $('#back-button').button({icons: {primary: 'ui-icon-arrowreturnthick-1-w'}})
   $('.jq-button').each(function(i){ $(this).button() })
   
-  $('.field').append("<div style='clear:both'></div>"); //some stylin for forms
-  
-    
+  $('.field').append("<div style='clear:both'></div>"); //some stylin for forms  
+      
   // Little Icons rendering
     // PDF links
     var links  = $('a[href$=.pdf]');
@@ -34,7 +33,3 @@ $(document).ready(function(){
     });
 
 });
-
-function createButtons(){
-  
-}

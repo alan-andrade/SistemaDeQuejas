@@ -94,3 +94,10 @@ textarea {
   color: black;
   font-size: 105%;
   font-weight: bold; }
+
+.editable {
+  background-color: #fff6bf;
+  background-image: url("/images/icons/pencil.png");
+  background-repeat: no-repeat;
+  background-position: top right;
+  cursor: pointer; }

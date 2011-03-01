@@ -1,8 +1,7 @@
 class TicketsController < ApplicationController
 
-  before_filter :require_user#   , :only =>  [:index, :new, :create, :show]
-#  before_filter :require_admin,   :only =>  [:edit, :update, :assign_responsible]
-  
+  before_filter :require_user
+    
   def index
     status  = params[:status]    
     ticket  = @current_user.student? ? @current_user.tickets : Ticket
@@ -60,9 +59,16 @@ class TicketsController < ApplicationController
   def update
     @ticket = Ticket.find(params[:id])
     @ticket.current_user = @current_user
-    @ticket.update_attributes(params[:ticket]) ?
-      redirect_to(@ticket, :notice => 'Se ha actualizado la queja con exito.') :
-      render(:action => "edit")      
+    p params[:ticket]
+    
+    if @ticket.update_attributes(params[:ticket])
+      if request.xhr?
+        render(:text=>@ticket.responsible.name) and return
+      end
+      redirect_to(@ticket, :notice => 'Se ha actualizado la queja con exito.')
+    else
+      render(:action => "edit")
+    end    
   end
 
   def destroy

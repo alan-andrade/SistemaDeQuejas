@@ -4,6 +4,23 @@
     = link_to t('edit'), edit_ticket_path(@ticket), :id=>'edit-button'
     = link_to 'PDF',  ticket_path(@ticket, :format => :pdf)
     = link_to t('destroy'), ticket_path(@ticket), :method=>'delete', :confirm => t('are_you_sure'), :id=>"delete-button"
+- if @current_user.admin?
+  -content_for :script do
+    =javascript_include_tag "http://www.appelsiini.net/download/jquery.jeditable.mini.js"
+    //=javascript_include_tag "edit_in_place.js"
+    :javascript
+      $(document).ready(function(){
+        $('#ticket_responsible').editable(window.location.pathname0 ,{
+            name        : "ticket[responsible_id]",
+            submitdata  : {"_method": 'put', "authenticity_token" : #{form_authenticity_token.to_json} },
+            loadurl     : '/managers' ,
+            type        : 'select'    ,
+            submit      : "OK"        ,
+            cancel      : "Cancelar"  ,
+            tooltip     :  'Click para cambiar'})
+            
+            .hover(function(){$(this).addClass('editable')},function(){$(this).removeClass('editable')})
+      })
 
 =div_for @ticket do 
   .grid_12
@@ -34,11 +51,9 @@
         %td
           %h3 Administrativo Responsable
         %td
-          %p
+          %p#ticket_responsible
             - if @ticket.responsible
               = @ticket.responsible.name
-              -if @current_user.admin?
-                = link_to "Cambiar", responsible_ticket_path(@ticket)     
             - else
               -if @current_user.admin?
                 = button_to("Tomar Queja", {:action=>:update, :ticket=>{:responsible_id=>@current_user.id}}, :method=>:put)
@@ -59,7 +74,8 @@
     %h2 #{image_tag('icons/arrow_right.png')} Evolucion de la queja
     =render @ticket.changes
   .grid_5
-    = button_to "Registrar Cambio", new_ticket_change_path(@ticket), :method=>:get, :class=>'jq-button' if !!@ticket.responsible and @current_user.admin?
+  
+    %p= button_to "Registrar Cambio", new_ticket_change_path(@ticket), :method=>:get, :class=>'jq-button' if !!@ticket.responsible and @current_user.admin?
     
     %h2 #{image_tag('icons/disk_multiple.png')} Archivos de Evidencia
     =render @ticket.attachments
