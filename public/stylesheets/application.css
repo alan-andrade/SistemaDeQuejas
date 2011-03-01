@@ -16,14 +16,6 @@ author {
 date {
   font-style: italic; }
 
-quote {
-  background-image: url("/images/quote.png");
-  background-position: top left;
-  background-repeat: no-repeat;
-  padding-left: 30px;
-  display: block;
-  min-height: 35px; }
-
 #header, #nav {
   margin-bottom: 10px; }
 
@@ -71,17 +63,27 @@ textarea {
   font-family: Arial;
   height: 70px; }
 
-.ticket-body h2 {
+.change > .content {
+  margin-left: 20px; }
+
+.comment {
+  background: #d6e5ee;
+  border: 1px solid #6a96b1;
+  padding: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px; }
+
+.ticket h2 {
   background: #eeeeee;
-  font-size: 120%;
+  font-size: 140%;
   padding: 3px; }
-.ticket-body h3 {
+.ticket h3 {
   font-size: 110%; }
-.ticket-body h4 {
+.ticket h4 {
   font-size: 105%; }
-.ticket-body table {
+.ticket table {
   width: 100%; }
-.ticket-body .change_type {
+.ticket .change_type {
   color: black;
   font-size: 105%;
   font-weight: bold; }

@@ -19,13 +19,6 @@ author
 date
   font-style: italic
   
-quote
-  background-image: url('/images/quote.png')
-  background-position: top left
-  background-repeat: no-repeat
-  padding-left: 30px
-  display: block
-  min-height: 35px
 
 #header, #nav
   margin-bottom: 10px
@@ -72,11 +65,22 @@ textarea
   font-family: Arial
   height: 70px
  
-  
-.ticket-body
+.change>.content
+  margin-left: 20px
+
+.comment
+  background: #D6E5EE
+  border: 1px solid #6A96B1
+  padding: 5px
+  margin:
+    top: 5px
+    bottom: 5px
+
+// Specific style for ticket#show  
+.ticket
   h2
     background: $gray
-    font-size: 120%
+    font-size: 140%
     padding: 3px
   h3
     font-size: 110%

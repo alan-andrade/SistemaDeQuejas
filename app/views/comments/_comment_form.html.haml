@@ -1,9 +1,10 @@
-.new_comment
-  %h3 Nuevo comentario
-  %i #{@current_user.name} dice:
-  =form_for [post, post.comments.build], :url=>post_comments_path(post.id), :remote  =>  :true  do |t|
-    %p=t.text_area :body
-    .actions
-      =t.submit "Comentar"
-      %span= link_to_function(image_tag('icons/cancel.png') + "Cancelar" , "$(this).parents('.new_comment').slideUp()")
-
+.comment
+  = image_tag('icons/comment_add.png')
+  =link_to_function "Comentar" do |page|
+    - page << "$(this).parents('.comment').children('#new_comment').slideToggle()"
+  #new_comment{:style=>"display:none"}
+    %i #{@current_user.name} dice:
+    =form_for [post, post.comments.build], :url=>post_comments_path(post.id), :remote  =>  :true  do |t|
+      %p=t.text_area :body
+      .actions
+        =t.submit "Comentar"
