@@ -26,7 +26,14 @@ date {
   position: absolute;
   text-align: center;
   width: 100%;
-  font-size: 110%; }
+  background: #fff6bf;
+  border-right: 2px solid #ffd324;
+  border-left: 2px solid #ffd324;
+  border-bottom: 2px solid #ffd324; }
+  .flash p {
+    font-size: 150%;
+    font-weight: bold;
+    padding: 10px; }
 
 #nav {
   padding-top: 5px;
