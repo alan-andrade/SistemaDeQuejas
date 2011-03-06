@@ -9,6 +9,7 @@ class ManagersController < ApplicationController
         @managers.each{|man| options[man.id] = man.name }
         render :json  => options.to_json        
       end
+      format.html
     end
   end
   

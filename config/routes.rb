@@ -12,10 +12,11 @@ SistemaDeQuejas::Application.routes.draw do
   match "authenticate"  =>  'access#create'
   match "users/:id"     =>  "users#show"
   
-  get   "managers"      =>  "managers#index"  , :as =>  "managers"
-  post  "ticket_taker/:id"  =>  "managers#ticket_taker",  :as => "ticket_taker"
-  get   "attachment/:id"  =>  "attachments#show"  , :as=>"show_attachment"
-  post  "/post/:post_id/comments" => "comments#create", :as => :post_comments
+  get   "managers"                =>  "managers#index"  ,       :as =>  "managers"
+  post  "ticket_taker/:id"        =>  "managers#ticket_taker",  :as => "ticket_taker"
+  get   "attachment/:id"          =>  "attachments#show"  ,     :as=>"show_attachment"
+  post  "/post/:post_id/comments" =>  "comments#create",        :as => :post_comments
+  get   "ticket/info"             =>  "tickets#info"
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

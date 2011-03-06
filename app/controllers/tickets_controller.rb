@@ -59,15 +59,19 @@ class TicketsController < ApplicationController
   def update
     @ticket = Ticket.find(params[:id])
     @ticket.current_user = @current_user
-    p params[:ticket]
     
     if @ticket.update_attributes(params[:ticket])
-      if request.xhr?
-        render(:text=>@ticket.responsible.name) and return
+      returnable = params[:ticket].has_key?(:responsible_id) ? @ticket.responsible.name : params[:ticket].values.first
+    
+      respond_to do |format|
+        format.js   { render :text  =>  (returnable) and return }
+        #format.html { redirect_to @ticket, :notice  =>  "Cambio Exitoso" }
       end
-      redirect_to(@ticket, :notice => 'Se ha actualizado la queja con exito.')
     else
-      render(:action => "edit")
+      respond_to do |format|
+        format.js   {render :text  => "ERROR"}
+        format.html {redirect_to @ticket, :error=>"Error" }
+      end
     end    
   end
 
@@ -77,6 +81,17 @@ class TicketsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to(tickets_url) }
+    end
+  end
+  
+  #GET
+  def info        
+    respond_to do |format|
+      format.js do
+        options={}
+        Ticket::CORRESPONDING_TO.each{|option| options[option.to_sym]=option }
+        render :json => options.to_json
+      end
     end
   end
 
