@@ -1,6 +1,6 @@
 - if @current_user.admin?
   -include_script 'jquery.cookie.js', 'jq-scripts/report_generation.js', 'jq-scripts/tabs.js'
-- if @current_user.student?  
+- else
   -include_script 'jquery.cookie.js', 'jq-scripts/tabs.js'
 
 = content_for :nav do 
@@ -10,7 +10,7 @@
     = link_to 'Reporte',  tickets_path(:format=>:pdf)
 
 .grid_8
-  %h1 Panel de Quejas
+  %h1= @current_user.admin? ? "Panel de Quejas" : "Mis Quejas"
   #tabs
     %ul 
       %li

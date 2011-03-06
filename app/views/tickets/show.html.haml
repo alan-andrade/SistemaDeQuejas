@@ -12,16 +12,15 @@
     //=javascript_include_tag "edit_in_place.js"
     :javascript
       $(document).ready(function(){
-        $('#ticket_responsible').editable(window.location.pathname ,{
+        $('#ticket_responsible').editable(window.location.pathname,{
             name        : "ticket[responsible_id]",
             submitdata  : {"_method": 'put', "authenticity_token" : #{form_authenticity_token.to_json} },
             loadurl     : '/managers' ,
             type        : 'select'    ,
             submit      : "OK"        ,
             cancel      : "Cancelar"  ,
-            tooltip     :  'Click para cambiar'})
-            
-            .hover(function(){$(this).addClass('editable')},function(){$(this).removeClass('editable')})
+            tooltip     :  'Click para cambiar'
+        }).hover(function(){$(this).addClass('editable')},function(){$(this).removeClass('editable')})
         $('#ticket_corresponding_to').editable(window.location.pathname,{
             name        : "ticket[corresponding_to]",
             loadurl     : "/ticket/info/",
@@ -60,8 +59,8 @@
       %tr
         %td
           %h3 Administrativo Responsable
-        %td
-          %p#ticket_responsible
+        %td#ticket_responsible
+          %p
             - if @ticket.responsible
               = @ticket.responsible.name
             - else
@@ -84,8 +83,8 @@
     %h2 #{image_tag('icons/arrow_right.png')} Evolucion de la queja
     =render @ticket.changes
   .grid_5
-  
-    %p= button_to "Registrar Cambio", new_ticket_change_path(@ticket), :method=>:get, :class=>'jq-button' if !!@ticket.responsible and @current_user.admin?
+    -if !!@ticket.responsible and @current_user.admin?
+      %p= button_to "Registrar Cambio", new_ticket_change_path(@ticket), :method=>:get, :class=>'jq-button' 
     
     %h2 #{image_tag('icons/disk_multiple.png')} Archivos de Evidencia
     =render @ticket.attachments

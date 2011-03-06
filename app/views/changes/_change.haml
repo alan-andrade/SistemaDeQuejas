@@ -1,18 +1,16 @@
-=div_for change do  
+=div_for change do 
+  .ui-state-default.ui-corner-all.plus#content-toggle
+    %b= change.created_at.to_formatted_s(:short)
+    %span.ui-icon.ui-icon-plusthick
   %p
-    %span.change_type= t change.change_type
-    el 
-    %i= change.created_at.to_formatted_s(:short) 
+    %span= t change.change_type    
     por
-    %b= change.responsible.name
-    %span{:style=>"float:right", :id=>"toggle"}
-      =image_tag('icons/bullet_toggle_plus.png')
-      =link_to_function "Ver" do |page|
-        - page << "$('#change_#{change.id} .content').slideToggle()"
+    %b
+      %i= change.responsible.name
   //Directo Relation with application.js and the action the link of comment does. #WARNING: do no change.
   .content{:style=>"display:none"}
     .change_comments.prefix_0     
-      %p
+      %p#msg
         = change.try(:admin_comments)  if @current_user.admin?
         = change.try(:student_comments) unless @current_user.admin?
       

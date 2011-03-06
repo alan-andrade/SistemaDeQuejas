@@ -73,6 +73,12 @@ textarea {
 .change > .content {
   margin-left: 20px; }
 
+.change .change_comments p#msg {
+  color: #363636;
+  background: #fbf9ee;
+  padding: 5px;
+  border: 1px solid #fcefa1; }
+
 .comment {
   background: #d6e5ee;
   border: 1px solid #6a96b1;
@@ -104,7 +110,7 @@ textarea {
     color: green; }
   .ticket_for_tabs .name, .ticket_for_tabs .title {
     font-weight: bold; }
-  .ticket_for_tabs .name {
+  .ticket_for_tabs .name a {
     color: #e86427; }
   .ticket_for_tabs .description {
     font-size: 90%;
@@ -118,3 +124,12 @@ textarea {
   background-repeat: no-repeat;
   background-position: top right;
   cursor: pointer; }
+
+#content-toggle {
+  padding: 3px; }
+  #content-toggle:hover {
+    cursor: pointer; }
+
+.icon {
+  width: 50px;
+  display: inline; }

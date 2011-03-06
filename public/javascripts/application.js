@@ -16,6 +16,12 @@ $(document).ready(function(){
   $('.jq-button').each(function(i){ $(this).button() })
   
   $('.field').append("<div style='clear:both'></div>"); //some stylin for forms  
+  
+  $('.change #content-toggle').click(
+      function(){
+          $(this).siblings('.content').slideToggle();
+          $(this).children('.ui-icon').toggleClass('ui-icon-minusthick')
+      });
       
   // Little Icons rendering
     // PDF links

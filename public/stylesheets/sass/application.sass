@@ -75,6 +75,14 @@ textarea
  
 .change>.content
   margin-left: 20px
+  
+.change .change_comments
+  p#msg
+    color: #363636
+    background: #fbf9ee
+    padding: 5px
+    border: 1px solid #fcefa1
+    
 
 .comment
   background: #D6E5EE
@@ -112,8 +120,9 @@ textarea
   padding: 5px
   .name, .title
     font-weight: bold
-  .name    
-    color: $orange
+  .name
+    a 
+      color: $orange
   .description
     font-size: 90%
     font-style: italic
@@ -127,3 +136,11 @@ textarea
   background-repeat: no-repeat
   background-position: top right
   cursor: pointer
+  
+#content-toggle
+  padding: 3px
+  &:hover
+    cursor: pointer
+.icon
+  width: 50px
+  display:  inline

@@ -1,7 +1,7 @@
 =div_for ticket, :class=>"ticket_for_tabs" do 
   %p    
     %span.name
-      #{ticket.student.name}
+      #{link_to ticket.student.name, ticket_path(ticket)}
     %span.arrows &raquo; 
     #{ticket.corresponding_to}
     %span{:style=>"float:right"}
