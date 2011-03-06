@@ -94,10 +94,21 @@ class TicketsController < ApplicationController
       end
     end
   end
+  
+#  DEPRECATED
+#  def assign_responsible
+#    @ticket = Ticket.find(params[:id])
+#    @managers = User.managers
+#  end
 
-  def assign_responsible
+  # PUT
+  def close
     @ticket = Ticket.find(params[:id])
-    @managers = User.managers
+    @ticket.status  = Ticket::STATUS.last
+    @ticket.current_user  = @current_user
+    if @ticket.save
+      redirect_to @ticket
+    end
   end
     
 end

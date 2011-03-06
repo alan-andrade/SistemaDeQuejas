@@ -4,12 +4,13 @@
     = link_to t('edit'), edit_ticket_path(@ticket), :id=>'edit-button'
     = link_to 'PDF',  ticket_path(@ticket, :format => :pdf)
     = link_to t('destroy'), ticket_path(@ticket), :method=>'delete', :confirm => t('are_you_sure'), :id=>"delete-button"
-  - else
-    = link_to "Cerrar Queja", ticket_path(@ticket)
+  - elsif @ticket.finished?
+    = link_to "ReAbrir Queja", close_ticket_path(@ticket), :id=>'close-ticket-button', :method=>"post"
+  -else
+    = link_to "Cerrar Queja", close_ticket_path(@ticket), :id=>'close-ticket-button', :method=>"post"
 - if @current_user.admin?
   -content_for :script do
     =javascript_include_tag "http://www.appelsiini.net/download/jquery.jeditable.mini.js"
-    //=javascript_include_tag "edit_in_place.js"
     :javascript
       $(document).ready(function(){
         $('#ticket_responsible').editable(window.location.pathname,{

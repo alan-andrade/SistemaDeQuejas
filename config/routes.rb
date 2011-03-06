@@ -17,7 +17,7 @@ SistemaDeQuejas::Application.routes.draw do
   get   "attachment/:id"          =>  "attachments#show"  ,     :as=>"show_attachment"
   post  "/post/:post_id/comments" =>  "comments#create",        :as => :post_comments
   get   "ticket/info"             =>  "tickets#info"
-  
+  post  "tickets/:id"             =>  "tickets#close",          :as   =>  :close_ticket
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

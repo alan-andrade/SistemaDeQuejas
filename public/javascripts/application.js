@@ -13,6 +13,7 @@ $(document).ready(function(){
   $('#delete-button').button({icons: {primary: 'ui-icon-trash'}});
   $('#edit-button').button({icons: {primary: 'ui-icon-pencil'}});
   $('#back-button').button({icons: {primary: 'ui-icon-arrowreturnthick-1-w'}})
+  $('#close-ticket-button').button({icons: {primary: 'ui-icon-check'}})
   $('.jq-button').each(function(i){ $(this).button() })
   
   $('.field').append("<div style='clear:both'></div>"); //some stylin for forms  

@@ -52,6 +52,7 @@ class Ticket < Post #ActiveRecord::Base
   before_save :designed_responsible_takeover #####  create a trigger for Itzel to take the ticket inmediately.
   before_save :ticket_creation_change
   before_save :responsible_management
+  before_save :ticket_closing
   
   #// TODO: get a good look for pdf rendering sheets.
   def self.to_pdf(*tickets)
@@ -80,6 +81,10 @@ class Ticket < Post #ActiveRecord::Base
    
   end
   
+  def finished?
+    status == STATUS.last
+  end
+  
   private
   def ticket_creation_change  
     if new_record?
@@ -103,6 +108,15 @@ class Ticket < Post #ActiveRecord::Base
   
   def designed_responsible_takeover    
     self.responsible  = User.ticket_taker.first if self.new_record?
+  end
+  
+  def ticket_closing
+    if !self.new_record? and self.status_changed? and self.status == STATUS.last
+      changes.build   :student_comments =>  "El estudiante ha cerrado la queja",
+                      :admin_comments   =>  "El estudiante ha cerrado la queja",
+                      :change_type      =>  Change::CHANGE_TYPES.last,
+                      :responsible      =>  current_user
+    end
   end
   
 end
