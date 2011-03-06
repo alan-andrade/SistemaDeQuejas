@@ -21,7 +21,7 @@
         #student-info
 
     .field  
-      = f.label :corresponding_to, "Categoria"     
+      = f.label :corresponding_to, "Tipo de Queja"     
       = f.select :corresponding_to, grouped_options_for_select(Ticket::CORRESPONDING_MAP, @ticket.try(:corresponding_to) )
     
     .field

@@ -3,13 +3,13 @@
 - if @current_user.student?  
   -include_script 'jquery.cookie.js', 'jq-scripts/tabs.js'
 
-.grid_12
-  = content_for :nav do 
-    =link_to t('.new_ticket'), new_ticket_path
-    - if @current_user.admin?
-      = link_to "Managers", managers_path
-      = link_to 'Reporte',  tickets_path(:format=>:pdf)
+= content_for :nav do 
+  =link_to t('.new_ticket'), new_ticket_path
+  - if @current_user.admin?
+    = link_to "Managers", managers_path
+    = link_to 'Reporte',  tickets_path(:format=>:pdf)
 
+.grid_8
   %h1 Panel de Quejas
   #tabs
     %ul 
@@ -21,3 +21,6 @@
         =link_to  "Terminadas", tickets_by_status_path(:status=>:finished)
       %li
         <img id="spinner" src="/images/loading.gif" style="display:none" />
+.grid_4
+  %h1 Wow
+  %p Bueno si, aqui viene el panel de quejas ugentes!

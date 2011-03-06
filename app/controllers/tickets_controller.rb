@@ -16,7 +16,7 @@ class TicketsController < ApplicationController
         if request.xhr?
               @tickets.empty? ? 
               render(:text=>"No hay Quejas") :
-              render(:partial=>"tickets_table", :locals=>{:tickets=>@tickets.all})
+              render(:partial=>@tickets)
         end
       end
       

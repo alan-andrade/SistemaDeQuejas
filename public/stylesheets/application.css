@@ -95,6 +95,21 @@ textarea {
   font-size: 105%;
   font-weight: bold; }
 
+.ticket_for_tabs {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  padding: 3px;
+  border-bottom: 1px solid #333333; }
+  .ticket_for_tabs .name, .ticket_for_tabs .title {
+    font-weight: bold; }
+  .ticket_for_tabs .name {
+    color: #e86427; }
+  .ticket_for_tabs .description {
+    font-size: 90%;
+    font-style: italic; }
+  .ticket_for_tabs:hover {
+    background: #eeeeee; }
+
 .editable {
   background-color: #fff6bf;
   background-image: url("/images/icons/pencil.png");

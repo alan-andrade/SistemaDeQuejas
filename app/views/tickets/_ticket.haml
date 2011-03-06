@@ -1,4 +1,16 @@
-=div_for ticket do 
-  = check_box_tag('ticket_to_report', ticket.id, false)
-  = ticket.responsible || 'Sin Responsable'  
-  = link_to 'Ver Detalles', ticket_path(ticket)
+=div_for ticket, :class=>"ticket_for_tabs" do 
+  %p    
+    %span.name
+      #{ticket.student.name} &raquo; 
+    #{ticket.corresponding_to}
+    %span{:style=>"float:right"}
+      = link_to 'Detalles', ticket_path(ticket)
+      = check_box_tag('ticket_to_report', ticket.id, false)
+  %p
+    %span.title
+      = ticket.title 
+      &raquo; 
+    %span.description
+      = truncate ticket.description, :length=>100
+    
+
