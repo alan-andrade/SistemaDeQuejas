@@ -1,12 +1,13 @@
 =div_for change do 
   .ui-state-default.ui-corner-all.plus#content-toggle
-    %b= change.created_at.to_formatted_s(:short)
     %span.ui-icon.ui-icon-plusthick
+    %b= change.created_at.to_formatted_s(:short)
   %p
     %span= t change.change_type    
     por
     %b
       %i= change.responsible.name
+      
   //Directo Relation with application.js and the action the link of comment does. #WARNING: do no change.
   .content{:style=>"display:none"}
     .change_comments.prefix_0     
