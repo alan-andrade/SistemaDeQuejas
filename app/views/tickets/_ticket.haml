@@ -1,7 +1,8 @@
 =div_for ticket, :class=>"ticket_for_tabs" do 
   %p    
     %span.name
-      #{ticket.student.name} &raquo; 
+      #{ticket.student.name}
+    %span.arrows &raquo; 
     #{ticket.corresponding_to}
     %span{:style=>"float:right"}
       = link_to 'Detalles', ticket_path(ticket)
@@ -9,6 +10,7 @@
   %p
     %span.title
       = ticket.title 
+    %span.arrows
       &raquo; 
     %span.description
       = truncate ticket.description, :length=>100

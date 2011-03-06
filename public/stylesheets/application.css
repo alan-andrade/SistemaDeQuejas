@@ -98,8 +98,10 @@ textarea {
 .ticket_for_tabs {
   margin-top: 5px;
   margin-bottom: 5px;
-  padding: 3px;
-  border-bottom: 1px solid #333333; }
+  padding: 5px;
+  background: #eeeeee; }
+  .ticket_for_tabs .arrows {
+    color: green; }
   .ticket_for_tabs .name, .ticket_for_tabs .title {
     font-weight: bold; }
   .ticket_for_tabs .name {
@@ -108,7 +110,7 @@ textarea {
     font-size: 90%;
     font-style: italic; }
   .ticket_for_tabs:hover {
-    background: #eeeeee; }
+    background: white; }
 
 .editable {
   background-color: #fff6bf;
