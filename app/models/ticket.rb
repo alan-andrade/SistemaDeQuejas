@@ -45,6 +45,8 @@ class Ticket < Post #ActiveRecord::Base
                               :comments,
                               {:changes=>[:responsible, 
                                           :attachments, :comments]})
+  scope  :urgent , where(:updated_at => (Date.today-5.days..Date.today))
+  scope   :recent,  order('created_at ASC')
   
   ## Callbacks before saving record
   

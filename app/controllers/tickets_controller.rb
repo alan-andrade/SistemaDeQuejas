@@ -6,11 +6,12 @@ class TicketsController < ApplicationController
     status  = params[:status]    
     ticket  = @current_user.student? ? @current_user.tickets : Ticket
     @tickets = case status
-                when 'pending'  then  ticket.order('created_at DESC').pending
-                when 'active'   then  ticket.order('created_at DESC').active
-                when 'finished' then  ticket.order('created_at DESC').finished
+                when 'pending'  then  ticket.recent.pending
+                when 'active'   then  ticket.recent.active
+                when 'finished' then  ticket.recent.finished
               end            
     
+    @urgent_tickets = Ticket.urgent if @current_user.admin?
     respond_to do |format|
       format.html do
         if request.xhr?

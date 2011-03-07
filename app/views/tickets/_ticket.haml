@@ -8,11 +8,12 @@
       = link_to 'Detalles', ticket_path(ticket)
       = check_box_tag('ticket_to_report', ticket.id, false) if @current_user.admin?
   %p
+    hace #{time_ago_in_words ticket.updated_at}
+  %p
     %span.title
       = ticket.title 
     %span.arrows
       &raquo; 
     %span.description
       = truncate ticket.description, :length=>100
-    
 
