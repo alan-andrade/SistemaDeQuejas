@@ -15,11 +15,11 @@ $(document).ready(function(){
   $('.flash #notice').addClass('ui-state-highlight');
   $('.flash #error').addClass('ui-state-error');
   $('#nav-bar > a').each(function(i){$(this).addClass('jq-button')})  
+  $('.jq-button').each(function(i){ $(this).button() })
   $('#delete-button').button({icons: {primary: 'ui-icon-trash'}});
   $('#edit-button').button({icons: {primary: 'ui-icon-pencil'}});
   $('#back-button').button({icons: {primary: 'ui-icon-arrowreturnthick-1-w'}})
   $('#close-ticket-button').button({icons: {primary: 'ui-icon-check'}})
-  $('.jq-button').each(function(i){ $(this).button() })
   
   $('.field').append("<div style='clear:both'></div>"); //some stylin for forms  
   

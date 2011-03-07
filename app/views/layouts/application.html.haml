@@ -14,12 +14,12 @@
   %body
     -flash.each_pair do |key, msg|
       .flash
-        %div{ :id =>  key}          
+        %div{ :id =>  key}
           %p=msg
       
     .container_12#header
       .grid_8#logo
-        =image_tag "http://www.udlap.mx/images/logoUDLA.jpg"
+        =image_tag "http://ser.udlap.mx/imagenes/logoUDLA.jpg"
       .grid_4#nav-user
         - if @current_user.nil?
           %i Ingresa al Sistema
