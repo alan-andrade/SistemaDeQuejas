@@ -4,11 +4,11 @@ class TicketsController < ApplicationController
     
   def index
     status  = params[:status]    
-    ticket  = @current_user.student? ? @current_user.tickets : Ticket
+    ticket  = @current_user.student? ? @current_user.tickets.recent : Ticket.recent
     @tickets = case status
-                when 'pending'  then  ticket.recent.pending
-                when 'active'   then  ticket.recent.active
-                when 'finished' then  ticket.recent.finished
+                when 'pending'  then  ticket.pending
+                when 'active'   then  ticket.active
+                when 'finished' then  ticket.finished
               end            
     
     @urgent_tickets = Ticket.urgent if @current_user.admin?
