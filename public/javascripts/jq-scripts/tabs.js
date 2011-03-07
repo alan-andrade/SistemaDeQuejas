@@ -1,9 +1,5 @@
 $(document).ready(function(){
-  $("#spinner").bind('ajax:loading', function(){
-          $(this).show();
-      }).bind('ajax:complete',function(){
-          $(this).hide();});
-          
+           
   $("#tabs").tabs({
 			ajaxOptions: {
 				  error: function( xhr, status, index, anchor ) {
@@ -13,7 +9,6 @@ $(document).ready(function(){
 			},
 		 cache: false,
 		 idPrefix:  'tickets-tabs-',
-		 cookie: {expires:1},
-		 spinner:  'Loading...'				  		
+		 cookie: {expires:1}
 		});
 })

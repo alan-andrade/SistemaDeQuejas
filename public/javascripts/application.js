@@ -7,6 +7,11 @@ $(document).ready(function(){
       })
   };
   
+  $("#spinner").bind('ajax:loading', function(){
+          $(this).show();
+      }).bind('ajax:complete',function(){
+          $(this).hide();});
+          
   $('.flash #notice').addClass('ui-state-highlight');
   $('.flash #error').addClass('ui-state-error');
   $('#nav-bar > a').each(function(i){$(this).addClass('jq-button')})  

@@ -6,7 +6,7 @@
     #{ticket.corresponding_to}
     %span{:style=>"float:right"}
       = link_to 'Detalles', ticket_path(ticket)
-      = check_box_tag('ticket_to_report', ticket.id, false)
+      = check_box_tag('ticket_to_report', ticket.id, false) if @current_user.admin?
   %p
     %span.title
       = ticket.title 

@@ -9,7 +9,7 @@
     = link_to "Managers", managers_path
     = link_to 'Reporte',  tickets_path(:format=>:pdf)
 
-.grid_8
+%div{:class=> @current_user.admin? ? "grid_8" : "grid_12" }
   %h1= @current_user.admin? ? "Panel de Quejas" : "Mis Quejas"
   #tabs
     %ul 
@@ -21,6 +21,8 @@
         =link_to  "Terminadas", tickets_by_status_path(:status=>:finished)
       %li
         <img id="spinner" src="/images/loading.gif" style="display:none" />
-.grid_4
-  %h1 Wow
-  %p Bueno si, aqui viene el panel de quejas ugentes!
+
+- if @current_user.admin?        
+  .grid_4
+    %h1 Urgentes
+    %p Bueno si, aqui viene el panel de quejas ugentes!
