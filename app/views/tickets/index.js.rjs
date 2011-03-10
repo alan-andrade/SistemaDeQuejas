@@ -1,0 +1,2 @@
+a = render :partial=>'tickets_table', :collection=>@tickets
+

@@ -2,6 +2,10 @@
   -include_script 'jquery.cookie.js', 'jq-scripts/report_generation.js', 'jq-scripts/tabs.js'
 - else
   -include_script 'jquery.cookie.js', 'jq-scripts/tabs.js'
+=content_for :css do 
+  =stylesheet_link_tag 'tablesorter/green/style.css'
+=content_for :script do
+  =javascript_include_tag 'http://tablesorter.com/jquery.tablesorter.min.js'    
 
 = content_for :nav do 
   =link_to t('.new_ticket'), new_ticket_path

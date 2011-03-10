@@ -17,9 +17,11 @@ class TicketsController < ApplicationController
         if request.xhr?
               @tickets.empty? ? 
               render(:text=>"No hay Quejas") :
-              render(:partial=>@tickets)
+              render(:partial=>'tickets_table', :locals=>{:tickets=>@tickets})
         end
       end
+      
+      format.js{}
       
       format.pdf  do
           if cookies['tickets_to_report'].nil?

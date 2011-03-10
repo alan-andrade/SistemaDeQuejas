@@ -1,0 +1,12 @@
+:javascript
+  $('#general-tickets-table').tablesorter();
+
+%table#general-tickets-table
+  %thead
+    %tr
+      %th
+        Nombre
+  %tbody
+    - for ticket in tickets
+      %tr
+        %td= ticket.student.name
