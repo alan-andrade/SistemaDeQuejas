@@ -1,12 +1,18 @@
 :javascript
-  $('#general-tickets-table').tablesorter();
+  $('#general-tickets-table').tablesorter({widgets:['zebra']});
 
-%table#general-tickets-table
+%table#general-tickets-table.tablesorter
   %thead
     %tr
       %th
+        Reportar
+      %th
         Nombre
+      %th
+        Fecha
   %tbody
     - for ticket in tickets
       %tr
-        %td= ticket.student.name
+        %td= check_box_tag "id_to_report", :value=>ticket.id
+        %td= ticket.student.name      
+        %td= ticket.created_at.to_formatted_s(:short)
