@@ -1,10 +1,10 @@
 .comment
   = image_tag('icons/comment_add.png')
-  =link_to_function "Comentar" do |page|
-    - page << "$(this).parents('.comment').children('#new_comment').slideToggle()"
+  =link_to_function "Comentar", :id=>"toggleComment"
+
   #new_comment{:style=>"display:none"}
     %i #{@current_user.name} dice:
-    =form_for [post, post.comments.build], :url=>post_comments_path(post.id), :remote  =>  :true  do |t|
-      %p=t.text_area :body
+    =form_for [post, post.comments.build], :url=>post_comments_path(post.id), :remote  =>  :true, :html=>{:id=>post.id}  do |t|
+      =t.text_area :body
       .actions
         =t.submit "Comentar"

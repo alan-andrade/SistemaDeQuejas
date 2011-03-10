@@ -30,6 +30,10 @@
             submit      : "Ok",
             cancel      : "Cancelar"
         }).hover(function(){$(this).addClass('editable')},function(){$(this).removeClass('editable')})
+        
+        $('.ticket #toggleComment').click(function(){
+          $(this).next('#new_comment').slideToggle()
+        })
       })
 
 =div_for @ticket do 
@@ -91,9 +95,9 @@
     =render @ticket.attachments
 
     %h2 #{image_tag('icons/comments.png')} Comentarios sobre la queja
-    .ticket-comments
+    .ticket_comments
       =render @ticket.comments
-      =render :partial=>"/comments/comment_form", :locals=>{:post=>@ticket}  
+    =render :partial=>"/comments/comment_form", :locals=>{:post=>@ticket}  
     
         
     %p= button_to "Agregar Archivo", edit_ticket_path(@ticket), :method=>:get

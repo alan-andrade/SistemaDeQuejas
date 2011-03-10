@@ -12,19 +12,20 @@
       
   //Directo Relation with application.js and the action the link of comment does. #WARNING: do no change.
   .content{:style=>"display:none"}
-    .change_comments.prefix_0     
+    .prefix_0     
       %p#msg
         = change.try(:admin_comments)  if @current_user.admin?
         = change.try(:student_comments) unless @current_user.admin?
       
-      .prefix_1
-        %h3 Comentarios        
-        %p= render change.comments 
-          
-        =render :partial=>"/comments/comment_form", :locals=>{:post=>change}
-        .change_files
-          %h3 Archivos de evidencia
-          -if change.attachments.empty?
-            %p SIN ARCHIVOS
-          =render  change.attachments
+    .prefix_1
+      %h3 Comentarios        
+      .change_comments
+        = render change.comments 
+        
+      =render :partial=>"/comments/comment_form", :locals=>{:post=>change}
+      .change_files
+        %h3 Archivos de evidencia
+        -if change.attachments.empty?
+          %p SIN ARCHIVOS
+        =render  change.attachments
 

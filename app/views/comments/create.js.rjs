@@ -1,1 +1,4 @@
-page['.ticket_comments'].append render @comment
+post_selector   = "##{@post.type.downcase}_#{@post.id} .#{@post.type.downcase}_comments"
+post_form_selector   = "##{@post.id}"
+page << "$(\"#{post_form_selector}\")[0].reset()"
+page["#{post_selector}"].append render @comment
