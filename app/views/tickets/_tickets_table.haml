@@ -5,14 +5,20 @@
   %thead
     %tr
       %th
-        Reportar
+        PDF
       %th
         Nombre
       %th
+        Titulo
+      %th
         Fecha
+      %th
+        Ver
   %tbody
     - for ticket in tickets
       %tr
         %td= check_box_tag "id_to_report", :value=>ticket.id
         %td= ticket.student.name      
+        %td= ticket.title
         %td= ticket.created_at.to_formatted_s(:short)
+        %td= link_to "Detalles", ticket
