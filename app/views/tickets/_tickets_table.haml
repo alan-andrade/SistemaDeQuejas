@@ -4,8 +4,8 @@
 %table#general-tickets-table.tablesorter
   %thead
     %tr
-      %th
-        PDF
+      %th.export
+        Reportar
       %th
         Nombre
       %th
@@ -17,9 +17,11 @@
   %tbody
     - for ticket in tickets
       %tr
-        %td= check_box_tag "ticket_to_report", ticket.id
+        %td.checkbox= check_box_tag "ticket_to_report", ticket.id
         %td= ticket.student.name      
         %td= ticket.title
-        %td= ticket.created_at.to_formatted_s(:short)
-        %td= link_to "Detalles", ticket
+        %td{:class => ticket.old? ? "urgent" : ""}
+          = ticket.created_at.to_formatted_s(:short)
+          ( #{time_ago_in_words(ticket.created_at)} )
+        %td= link_to image_tag('icons/zoom.png'), ticket
 

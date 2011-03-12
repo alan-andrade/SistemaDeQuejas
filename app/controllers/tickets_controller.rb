@@ -5,7 +5,6 @@ class TicketsController < ApplicationController
   def index
     status  = params[:status]    
     ticket  = @current_user.admin? ? Ticket : @current_user.tickets
-    @urgent_tickets = Ticket.urgent if @current_user.admin?
     @tickets = case status
                 when 'pending'  then  ticket.pending
                 when 'active'   then  ticket.active

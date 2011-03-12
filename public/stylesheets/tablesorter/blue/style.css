@@ -37,3 +37,20 @@ table.tablesorter thead tr .headerSortDown {
 table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSortUp {
 background-color: #8dbdd8;
 }
+/* Custom Rules */
+table.tablesorter tbody td.urgent {
+  padding-left: 20px;
+  background-image: url('/images/icons/exclamation.png');
+  background-repeat: no-repeat;
+  background-position: center left;
+}
+table.tablesorter tbody td.checkbox {
+  text-align:center
+}
+table.tablesorter thead tr th.export{
+  // background-image: url('/images/icons/report_disk.png');
+  background-image: none;
+  // background-position: center center;
+  width: 20px;
+  cursor: default;
+}

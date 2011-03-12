@@ -47,8 +47,9 @@ class Ticket < Post #ActiveRecord::Base
                               :comments,
                               {:changes=>[:responsible, 
                                           :attachments, :comments]})
-  scope	:urgent , where(:updated_at => (Date.today-5.months..Date.today))
-  
+#  This Scope is now deprecated. We better use the method old? to know if its an old ticket
+#  scope	:urgent , where(:updated_at => (Date.today-5.months..Date.today))
+
   ## Callbacks before saving record
   
   before_create {|t| t.status = STATUS[0] unless t.status? } # Could be fixed with the :deafult option in the migration.
@@ -56,6 +57,10 @@ class Ticket < Post #ActiveRecord::Base
   before_save :ticket_creation_change
   before_save :responsible_management
   before_save :ticket_closing
+  
+  def old?
+  	updated_at < Date.today - 4.days
+  end
   
   #// TODO: get a good look for pdf rendering sheets.
   def self.to_pdf(*tickets)

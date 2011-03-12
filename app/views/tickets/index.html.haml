@@ -4,7 +4,7 @@
   -include_script 'jquery.cookie.js', 'jq-scripts/tabs.js'
   
 -include_css 'tablesorter/blue/style.css'
--include_script 'http://tablesorter.com/jquery.tablesorter.min.js'    
+-include_script 'tablesorter.min.js'    
 
 = content_for :nav do 
   =link_to t('.new_ticket'), new_ticket_path
@@ -12,7 +12,8 @@
     = link_to "Managers", managers_path
     = link_to 'Reporte',  report_tickets_path(:format=>:pdf)
 
-%div{:class=> @current_user.admin? ? "grid_8" : "grid_12" }
+// %div{:class=> @current_user.admin? ? "grid_8" : "grid_12" }
+.grid_12
   %h1= @current_user.admin? ? "Panel de Quejas" : "Mis Quejas"
   #tabs
     %ul 
@@ -24,10 +25,3 @@
         =link_to  "Terminadas", tickets_by_status_path(:status=>:finished)
       %li
         <img id="spinner" src="/images/loading.gif" style="display:none" />
-
-- if @current_user.admin?        
-  .grid_4
-    %h1 
-      %span= @urgent_tickets.count
-      Quejas Viejas
-    =render @urgent_tickets
