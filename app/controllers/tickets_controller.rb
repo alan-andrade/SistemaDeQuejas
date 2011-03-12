@@ -24,7 +24,7 @@ class TicketsController < ApplicationController
             redirect_to(tickets_path, :notice =>  "Debes seleccionar las quejas que quieres exportar") 
           else
             @tickets_to_report = Ticket.find(cookies['tickets_to_report'].split(","))
-            render :text  => Ticket.to_pdf(@tickets_to_report), :disposition => 'inline'
+            render :pdf  => Ticket.first, :disposition => 'inline'
           end
       end      
     end

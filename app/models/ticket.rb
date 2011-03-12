@@ -1,5 +1,3 @@
-require 'prawn'   #PDF Files Generation
-
 class Ticket < Post #ActiveRecord::Base
   # Arreglo de posibles estados de la queja 
   STATUS              =   [:pending,  :active,  :finished].map(&:to_s).freeze
@@ -61,39 +59,13 @@ class Ticket < Post #ActiveRecord::Base
   def old?
   	updated_at < Date.today - 4.days
   end
-  
-  #// TODO: get a good look for pdf rendering sheets.
-  def self.to_pdf(*tickets)
-    tickets.flatten!
-    Prawn::Document.new do |pdf|
-      if tickets.size == 1
-        ticket  = tickets.first
-        pdf.text ticket.created_at.to_formatted_s(:long)
-        pdf.text ticket.description,  :align  =>  :center, :size => 20
-        pdf.text "Evolucion", :size => 17
-        for change in ticket.changes
-          pdf.text change.created_at.to_formatted_s(:short)
-        end
-      else
-        for ticket in tickets
-          pdf.text ticket.created_at.to_formatted_s(:long)
-          pdf.text ticket.description,  :align  =>  :center, :size => 20
-          pdf.text "Evolucion", :size => 17
-          for change in ticket.changes
-            pdf.text change.created_at.to_formatted_s(:short)
-          end
-          pdf.text '-------------------------------'
-        end        
-      end     
-    end.render
-   
-  end
-  
+ 
   def finished?
     status == STATUS.last
   end
   
   private
+  
   def ticket_creation_change  
     if new_record?
       changes.build   :student_comments  =>  "Tu queja ha sido enviada. Estamos resolviendo tu peticion.",

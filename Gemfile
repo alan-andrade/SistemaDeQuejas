@@ -8,6 +8,7 @@ gem 'rails', '3.0.3'
 gem 'haml'
 gem 'jquery-rails'
 gem 'prawn'
+gem 'prawnto'
 gem 'net-ldap'
 gem 'mysql'
 
