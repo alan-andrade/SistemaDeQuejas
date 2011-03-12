@@ -4,14 +4,13 @@ class TicketsController < ApplicationController
     
   def index
     status  = params[:status]    
-    ticket  = @current_user.student? ? @current_user.tickets.recent : Ticket.recent
+    ticket  = @current_user.admin? ? Ticket : @current_user.tickets
+    @urgent_tickets = Ticket.urgent if @current_user.admin?
     @tickets = case status
                 when 'pending'  then  ticket.pending
                 when 'active'   then  ticket.active
                 when 'finished' then  ticket.finished
-              end            
-    
-    @urgent_tickets = Ticket.urgent if @current_user.admin?
+              end
     respond_to do |format|
       format.html do
         if request.xhr?

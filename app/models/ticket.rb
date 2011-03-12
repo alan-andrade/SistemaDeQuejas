@@ -16,6 +16,8 @@ class Ticket < Post #ActiveRecord::Base
   ## Atributo para controlar el usuario actual.
   cattr_accessor  :current_user ## DO NOT REMOVE OR CHANGE. Used in :responsible_management
   
+  default_scope order('created_at ASC')
+  
   # Relaciones con otras clases
   #
   belongs_to  :student  ,     :class_name =>  'User', :foreign_key  =>  'student_id'
@@ -45,8 +47,7 @@ class Ticket < Post #ActiveRecord::Base
                               :comments,
                               {:changes=>[:responsible, 
                                           :attachments, :comments]})
-  scope  :urgent , where(:updated_at => (Date.today-5.days..Date.today))
-  scope   :recent,  order('created_at ASC')
+  scope	:urgent , where(:updated_at => (Date.today-5.months..Date.today))
   
   ## Callbacks before saving record
   

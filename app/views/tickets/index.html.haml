@@ -27,5 +27,7 @@
 
 - if @current_user.admin?        
   .grid_4
-    %h1 Quejas Viejas
+    %h1 
+      %span= @urgent_tickets.count
+      Quejas Viejas
     =render @urgent_tickets
