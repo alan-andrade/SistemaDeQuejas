@@ -7,8 +7,8 @@ class Ticket < Post #ActiveRecord::Base
                             :active   =>  "La queja esta siendo procesada en espera de una respuesta.",
                             :finished =>  "Se ha cerrado el ciclo de tu queja."  }
   CORRESPONDING_MAP   =   {:curso           =>  [:profesor, :contenido, :calificacion],
-                           :administrativo  =>  [:empleado, :papeleo],
-                           :plataforma      =>  [:cuenta],
+                           :administrativo  =>  [:empleado, :general],
+                           :plataforma      =>  [:cuenta, :portal],
                            :otro            =>  [:otro]}
                           .freeze
   CORRESPONDING_TO    =   CORRESPONDING_MAP.values.flatten.map(&:to_s).freeze
