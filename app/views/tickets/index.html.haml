@@ -10,7 +10,7 @@
   =link_to t('.new_ticket'), new_ticket_path
   - if @current_user.admin?
     = link_to "Managers", managers_path
-    = link_to 'Reporte',  tickets_path(:format=>:pdf)
+    = link_to 'Reporte',  report_tickets_path(:format=>:pdf)
 
 %div{:class=> @current_user.admin? ? "grid_8" : "grid_12" }
   %h1= @current_user.admin? ? "Panel de Quejas" : "Mis Quejas"
@@ -19,7 +19,7 @@
       %li
         =link_to  "Sin Revisar", tickets_by_status_path(:status=>:pending)
       %li
-        =link_to "En Proceso", tickets_by_status_path(:status=>:active)
+        =link_to "En Proceso", tickets_by_status_path(:status=>:active), :id=>"proceso"
       %li
         =link_to  "Terminadas", tickets_by_status_path(:status=>:finished)
       %li

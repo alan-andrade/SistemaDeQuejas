@@ -33,32 +33,49 @@ $(document).ready(function(){                            // Functionality of the
     })
 });
 
+$(document).ready(function(){
+	Cookie.newCookie();		// Initialize Cookie for reports.
+	
+	$('input:checkbox[id]=ticket_to_report').live('click',			
+				function(){
+						if (this.checked){
+							Cookie.push(this.value)
+						}else{
+							Cookie.pop(this.value)
+						}
+				})
+});
 
-$('input:checkbox[id]=ticket_to_report').live('click', function(){  // Use cookies when click the checkbox to make a report.
-      // Add memeber to the array.      
-      if (this.checked == true){
-        add_value_to_cookie(this)
-      } else{
-        remove_value_from_cookie(this)  
-      }      
-  });
-  
-  function add_value_to_cookie(object){
-    cookie_name = 'tickets_to_report'
-    if (cookie_defined(cookie_name) == true){     // Cookie Exists?
-        values  = $.cookie(cookie_name).split(' ');  // values to_array
-        values.push(object.value);                  // push value
-        values  = $.unique(values);                 // remove repetition
-        $.cookie(cookie_name, values.join(' '));
-    } else{                                     // Initialize Cookie
-      $.cookie(cookie_name, object.value);      
-    }
-  };
-
-  function remove_value_from_cookie(object){
-    cookie_name = 'tickets_to_report'
-    value   = object.value
-    values  = $.cookie(cookie_name).split(' ');
-    values  = $.grep(values,  function(unmatched_value){return unmatched_value != value;});
-    $.cookie(cookie_name, values.join(' '));
-  }; 
+var	Cookie = {
+		cookieName	:	"tickets_to_report",
+		
+		push	:	function(value){
+				cookieValues	=	Cookie.getValues()
+				cookieValues.push(value)
+				Cookie.setValues(cookieValues)
+		},
+		
+		pop	:	function(value){
+				cookieValues	=	Cookie.getValues()
+				position	=	$.inArray(value, cookieValues)
+				cookieValues.splice(position)
+				Cookie.setValues(cookieValues)
+		},
+		
+		getValues	:	function(){
+				values	=	$.cookie(this.cookieName)
+				if ($.cookie(this.cookieName) == "" )
+					return values.split(',').splice()
+				else
+					return values.split(',')
+		},
+		
+		setValues	:	function(newValues){				
+				$.cookie(this.cookieName,
+						newValues.join(',') )
+		},
+		
+		newCookie	:	function(){
+			$.cookie(this.cookieName, '')
+		}
+}
